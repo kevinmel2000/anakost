@@ -1,73 +1,28 @@
+
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableHighlight} from 'react-native';
+import {View, Text, TextInput, TouchableHighlight, StyleSheet} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-import RegisterScreen from '../RegisterScreen';
-
-class LoginSreen extends Component {
+export default class LoginSreen extends Component {
     render() {
         return (
-            <View style={{
-                backgroundColor: '#fff',
-                height: 200,
-                justifyContent: 'center',
-                alignItems: 'center',
-                flex: 1,
-            }}>
-                <TouchableHighlight style={{
-                    width: 100,
-                    height:100,
-                    borderRadius: 150/2,
-                    backgroundColor: '#cf0e04',
-                    borderColor: '#bfbfbf',
-                    borderWidth: 2,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
+            <View style={styles.container}>
+                <TouchableHighlight style={styles.bgIcon}>
                     <Icon name='user-lock' size={50} color='#ededed' />
                 </TouchableHighlight>
                 
-                <View style={{
-                    marginVertical: 10,
-                    marginHorizontal: 20,
-                    width: '80%',
-                }}>
-                    <TextInput placeholder="Username" style={{
-                        paddingHorizontal: 15,
-                        paddingVertical: 6,
-                        backgroundColor: '#ddd',
-                        borderRadius: 100/15,
-                        marginVertical: 15,
-                    }} />
+                <View style={styles.LoginForm}>
+                    <TextInput placeholder="Username" style={styles.TextInput} />
 
-                    <TextInput placeholder="Password" secureTextEntry style={{
-                        paddingHorizontal: 15,
-                        paddingVertical: 6,
-                        backgroundColor: '#ddd',
-                        borderRadius: 100/15,
-                    }} />
+                    <TextInput placeholder="Password" secureTextEntry style={styles.TextInput} />
 
-                    <TouchableHighlight onPress={() => this.props.navigation.navigate('Account', { status : 1})} style={{
-                        paddingHorizontal: 15,
-                        paddingVertical: 6,
-                        backgroundColor: '#cf0e04',
-                        marginVertical: 15,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderRadius: 100/15,
-                    }}>
-                        <Text style={{fontSize: 18, color: '#fff', fontWeight: 'bold', textTransform: 'uppercase'}}>Login</Text>
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate('Account', { status : 1})} style={styles.btnLogin}>
+                        <Text style={styles.textButton}>Login</Text>
                     </TouchableHighlight>
                 </View>
 
-                <View style={{
-                    marginHorizontal: 20,
-                    width: '80%',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                }}>
+                <View style={styles.link}>
                     <TouchableHighlight onPress={() => this.props.navigation.navigate('Register')}>
                         <Text style={{color: '#00d'}}>Create Account</Text>
                     </TouchableHighlight>
@@ -81,17 +36,154 @@ class LoginSreen extends Component {
     }
 }
 
-const AppNavigator = createStackNavigator({
-    Login: {
-        screen : LoginSreen,
+const styles = StyleSheet.create({
+    container : {
+        backgroundColor: '#fff',
+        height: 200,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
     },
-    Register: {
-        screen: RegisterScreen
+    bgIcon : {
+        width: 100,
+        height:100,
+        borderRadius: 150/2,
+        backgroundColor: '#cf0e04',
+        borderColor: '#bfbfbf',
+        borderWidth: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    LoginForm : {
+        marginVertical: 10,
+        marginHorizontal: 20,
+        width: '80%',
+    },
+    TextInput : {
+        paddingHorizontal: 15,
+        paddingVertical: 6,
+        backgroundColor: '#ddd',
+        borderRadius: 100/15,
+        marginVertical: 8
+    },
+    btnLogin : {
+        paddingHorizontal: 15,
+        paddingVertical: 6,
+        backgroundColor: '#cf0e04',
+        marginVertical: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 100/15,
+    },
+    textButton : {
+        fontSize: 18, 
+        color: '#fff', 
+        fontWeight: 'bold', 
+        textTransform: 'uppercase'
+    },
+    link : {
+        marginHorizontal: 20,
+        width: '80%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     }
-}, 
-{
-    initialRouteName: 'Login',
-    headerMode: 'none',
 })
 
-export default createAppContainer(AppNavigator);
+
+// import React, {Component} from 'react';
+// import {View, Text, TextInput, TouchableHighlight} from 'react-native';
+
+// import Icon from 'react-native-vector-icons/FontAwesome5'
+// import { createStackNavigator, createAppContainer } from 'react-navigation';
+
+// import RegisterScreen from '../RegisterScreen';
+
+// class LoginSreen extends Component {
+//     render() {
+//         return (
+//             <View style={{
+//                 backgroundColor: '#fff',
+//                 height: 200,
+//                 justifyContent: 'center',
+//                 alignItems: 'center',
+//                 flex: 1,
+//             }}>
+//                 <TouchableHighlight style={{
+//                     width: 100,
+//                     height:100,
+//                     borderRadius: 150/2,
+//                     backgroundColor: '#cf0e04',
+//                     borderColor: '#bfbfbf',
+//                     borderWidth: 2,
+//                     justifyContent: 'center',
+//                     alignItems: 'center',
+//                 }}>
+//                     <Icon name='user-lock' size={50} color='#ededed' />
+//                 </TouchableHighlight>
+                
+//                 <View style={{
+//                     marginVertical: 10,
+//                     marginHorizontal: 20,
+//                     width: '80%',
+//                 }}>
+//                     <TextInput placeholder="Username" style={{
+//                         paddingHorizontal: 15,
+//                         paddingVertical: 6,
+//                         backgroundColor: '#ddd',
+//                         borderRadius: 100/15,
+//                         marginVertical: 15,
+//                     }} />
+
+//                     <TextInput placeholder="Password" secureTextEntry style={{
+//                         paddingHorizontal: 15,
+//                         paddingVertical: 6,
+//                         backgroundColor: '#ddd',
+//                         borderRadius: 100/15,
+//                     }} />
+
+//                     <TouchableHighlight onPress={() => this.props.navigation.navigate('Account', { status : 1})} style={{
+//                         paddingHorizontal: 15,
+//                         paddingVertical: 6,
+//                         backgroundColor: '#cf0e04',
+//                         marginVertical: 15,
+//                         justifyContent: 'center',
+//                         alignItems: 'center',
+//                         borderRadius: 100/15,
+//                     }}>
+//                         <Text style={{fontSize: 18, color: '#fff', fontWeight: 'bold', textTransform: 'uppercase'}}>Login</Text>
+//                     </TouchableHighlight>
+//                 </View>
+
+//                 <View style={{
+//                     marginHorizontal: 20,
+//                     width: '80%',
+//                     flexDirection: 'row',
+//                     justifyContent: 'space-between',
+//                 }}>
+//                     <TouchableHighlight onPress={() => this.props.navigation.navigate('Register')}>
+//                         <Text style={{color: '#00d'}}>Create Account</Text>
+//                     </TouchableHighlight>
+
+//                     <TouchableHighlight>
+//                         <Text>Forgot Password?</Text>
+//                     </TouchableHighlight>
+//                 </View>
+//             </View>
+//         )
+//     }
+// }
+
+// const AppNavigator = createStackNavigator({
+//     Login: {
+//         screen : LoginSreen,
+//     },
+//     Register: {
+//         screen: RegisterScreen
+//     }
+// }, 
+// {
+//     initialRouteName: 'Login',
+//     headerMode: 'none',
+// })
+
+// export default createAppContainer(AppNavigator);
