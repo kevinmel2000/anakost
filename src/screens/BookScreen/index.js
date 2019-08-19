@@ -55,20 +55,18 @@ export default class BookScreen extends Component {
                     animationType="slide"
                     transparent={false}
                     visible={this.state.modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert('Modal has been closed.');
-                }}>
-                    <View style={{marginTop: 22}}>
+                    onRequestClose={() => alert('Please click Button')}>
+                    <View style={{marginTop: 22, marginHorizontal: 20}}>
                         <View>
                             <CalendarPicker
                                 onDateChange={this.onDateChange}
                             />
 
-                            <TouchableHighlight
+                            <TouchableHighlight style={{alignItems: 'center',backgroundColor: '#02ba17', padding: 8}}
                                 onPress={() => {
                                 this.setModalVisible(!this.state.modalVisible);
                                 }}>
-                                <Text>Close</Text>
+                                <Text>Selanjutnya</Text>
                             </TouchableHighlight>
                         </View>
                     </View>
@@ -82,7 +80,7 @@ export default class BookScreen extends Component {
                 <View style={styles.main}>
                     <View style={styles.SelectDateTime}>
                         {/* Tanggal Masuk */}
-                        <TouchableHighlight onPress={this.setModalVisible('true')}>
+                        <TouchableHighlight onPress={() => this.setModalVisible(true)}>
                             <View style={styles.Date}>
                                 <Text style={styles.DateTitle}>Tanggal Masuk</Text>
                                 <View style={styles.DateInput}>
