@@ -1,9 +1,40 @@
 
 import React, {Component} from 'react';
-import {View, Text, TouchableHighlight, TextInput, Image, ScrollView, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, TouchableHighlight, TextInput, Image, ScrollView, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MapView from 'react-native-maps';
+
+
+const Kost = [
+    {
+        id : 1,
+        name : 'Kost Surga Kaum Pria',
+        address : 'Jalan Selamat dunia akhirat lewat sholat',
+        stock : 'Tersedia 1 Kamar',
+        longitude: 120,
+        latitude: 120,
+        cover : 'https://cdn2.tstatic.net/makassar/foto/bank/images/dekat-unm-parangtambung-d.jpg'
+    },
+    {
+        id : 2,
+        name : 'Kost Murah Anak Sekolah',
+        address : 'Ingat Akhirat Dunia Sesaat',
+        stock : 'Tersedia 19 Kamar',
+        longitude: 120,
+        latitude: 120,
+        cover : 'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'
+    },
+    {
+        id : 3,
+        name : 'Kost Mahal Pejabat Korup',
+        address : 'Jalan Sesat akhirat melarat tanpa sholat',
+        stock : 'Tersedia 8 Kamar',
+        longitude: 120,
+        latitude: 120,
+        cover : 'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'
+    }
+]
 
 export default class ListScreen extends Component {
 
@@ -17,6 +48,7 @@ export default class ListScreen extends Component {
             colorTabs1 : '#000',
             colorTabs2 : '#fff',
             kota : 'Masukan Nama Kota',
+            DataKost : Kost,
             region:{
                 latitude: -6.301281,
                 longitude: 106.735149,
@@ -107,7 +139,7 @@ export default class ListScreen extends Component {
             )
         } else {
             return (
-                <View style={{flex: 1, paddingBottom: '16%'}}>
+                <View style={{flex: 1,}}>
                     {/* Search Bar */}
                     <View style={styles.searchBar}>
                         <TextInput autoFocus placeholder={kota} style={styles.searchBarInput} />
@@ -139,28 +171,24 @@ export default class ListScreen extends Component {
 
                     {/* tab list kos */}
                     <View style={styles.container}>
-                        <ScrollView>
-                            <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')} >
-                                <Image style={styles.cardImage} source={{uri:'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'}}/>
-                                <Text style={styles.cardTextPay}>$900 / Month</Text>
-                                <Text style={styles.cardTextAddress}> Kos Blok 10, Jl. Lingkar Ngembal Kulo Kudus</Text>
-                                    <Text style={styles.cardTextBook}>Bisa Booking</Text>
-                                <Text style={styles.cardTextNote}> Semua Masih Kosong </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')} >
-                                <Image style={styles.cardImage} source={{uri:'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'}}/>
-                                <Text style={styles.cardTextPay}>$900 / Month</Text>
-                                <Text style={styles.cardTextAddress}> Kos Blok 10, Jl. Lingkar Ngembal Kulo Kudus</Text>
-                                    <Text style={styles.cardTextBook}>Bisa Booking</Text>
-                                <Text style={styles.cardTextNote}> Semua Masih Kosong </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')} >
-                                <Image style={styles.cardImage} source={{uri:'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'}}/>
-                                <Text style={styles.cardTextPay}>$900 / Month</Text>
-                                <Text style={styles.cardTextAddress}> Kos Blok 10, Jl. Lingkar Ngembal Kulo Kudus</Text>
-                                    <Text style={styles.cardTextBook}>Bisa Booking</Text>
-                                <Text style={styles.cardTextNote}> Semua Masih Kosong </Text>
-                            </TouchableOpacity>
+                        <ScrollView style={{ paddingBottom: '30%' }}>
+
+                            <FlatList
+                                keyExtractor= {(item) => item.id.toString()}
+                                data = {this.state.DataKost}
+                                renderItem = {({item}) => {
+                                    return (
+                                        <TouchableOpacity key={item.id} style={styles.card} onPress={() => this.props.navigation.navigate('Detail')} >
+                                            <Image style={styles.cardImage} source={{uri:item.cover}}/>
+                                            <Text style={styles.cardTextPay}>{item.name}</Text>
+                                            <Text style={styles.cardTextAddress}>{item.address}</Text>
+                                                <Text style={styles.cardTextBook}>Bisa Booking</Text>
+                                            <Text style={styles.cardTextNote}>{item.stock}</Text>
+                                        </TouchableOpacity>
+                                    )
+                                }}
+                            />
+
                         </ScrollView>
                     </View>
                 </View>

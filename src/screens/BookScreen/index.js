@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, TouchableHighlight, Image} from 'react-native';
+import {View, StyleSheet, Text, TouchableHighlight, Image, Modal} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import CalendarPicker from 'react-native-calendar-picker';
@@ -12,6 +12,7 @@ export default class BookScreen extends Component {
         this.state = {
           selectedStartDate: null,
           isChecked: false,
+          modalVisible: false,
         };
         this.onDateChange = this.onDateChange.bind(this);
     }
@@ -27,17 +28,21 @@ export default class BookScreen extends Component {
         });
     }
 
+    setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+    }
+
     onDateChange(date) {
         this.setState({
             selectedStartDate: date,
         });
     }
 
-    _handleDateButton = () => {
-        return <CalendarPicker
-                    onDateChange={this.onDateChange}
-                />
-    }
+    // _handleDateButton = () => {
+    //     return <CalendarPicker
+    //                 onDateChange={this.onDateChange}
+    //             />
+    // }
 
     render() {
 
@@ -46,6 +51,28 @@ export default class BookScreen extends Component {
 
         return (
             <View style={styles.container}>
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert('Modal has been closed.');
+                }}>
+                    <View style={{marginTop: 22}}>
+                        <View>
+                            <CalendarPicker
+                                onDateChange={this.onDateChange}
+                            />
+
+                            <TouchableHighlight
+                                onPress={() => {
+                                this.setModalVisible(!this.state.modalVisible);
+                                }}>
+                                <Text>Close</Text>
+                            </TouchableHighlight>
+                        </View>
+                    </View>
+                </Modal>
                 <View style={styles.header}>
                     <TouchableHighlight style={styles.btnBack} onPress={() => this.props.navigation.goBack()}>
                         <Icon name='arrow-alt-circle-left' color='#ddd' size={25} />
@@ -55,16 +82,18 @@ export default class BookScreen extends Component {
                 <View style={styles.main}>
                     <View style={styles.SelectDateTime}>
                         {/* Tanggal Masuk */}
-                        <View style={styles.Date}>
-                            <Text style={styles.DateTitle}>Tanggal Masuk</Text>
-                            <View style={styles.DateInput}>
-                                <Text style={styles.textDate}>
-                                    { startDate } 
-                                </Text>
-                                <Icon name='calendar-alt' size={15} color='#cf0e04' onPress={this._handleDateButton} />
+                        <TouchableHighlight onPress={this.setModalVisible('true')}>
+                            <View style={styles.Date}>
+                                <Text style={styles.DateTitle}>Tanggal Masuk</Text>
+                                <View style={styles.DateInput}>
+                                    <Text style={styles.textDate}>
+                                        { startDate } 
+                                    </Text>
+                                    <Icon name='calendar-alt' size={15} color='#cf0e04' />
+                                </View>
+                                {/*  */}
                             </View>
-                            {/*  */}
-                        </View>
+                        </TouchableHighlight>
                         {/* Durasi Sewa */}
                         <View style={styles.Date}>
                             <Text style={styles.DateTitle}>Durasi Sewa</Text>
