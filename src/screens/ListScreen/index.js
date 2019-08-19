@@ -16,6 +16,7 @@ export default class ListScreen extends Component {
             bgTabs2 : '#fff',
             colorTabs1 : '#000',
             colorTabs2 : '#fff',
+            kota : 'Masukan Nama Kota',
             region:{
                 latitude: -6.301281,
                 longitude: 106.735149,
@@ -60,7 +61,11 @@ export default class ListScreen extends Component {
     render() {
 
         const Tabs = this.state.tabs;
-        const kota = this.props.navigation.getParam('kota');
+        const kota = "Masukan Nama Kota";
+
+        if(this.props.navigation.getParam('inputValue')) {
+            kota = this.props.navigation.getParam('inputValue')
+        }
 
         if(Tabs === 1) {
             return (
