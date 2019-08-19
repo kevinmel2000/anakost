@@ -107,7 +107,7 @@ export default class ListScreen extends Component {
             )
         } else {
             return (
-                <View style={{flex: 1, paddingBottom: '16%'}}>
+                <View style={{flex: 1}}>
                     {/* Search Bar */}
                     <View style={styles.searchBar}>
                         <TextInput autoFocus placeholder={kota} style={styles.searchBarInput} />
@@ -139,7 +139,7 @@ export default class ListScreen extends Component {
 
                     {/* tab list kos */}
                     <View style={styles.container}>
-                        <ScrollView>
+                        <ScrollView style={{paddingBottom: '30%'}}>
                             <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')} >
                                 <Image style={styles.cardImage} source={{uri:'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'}}/>
                                 <Text style={styles.cardTextPay}>$900 / Month</Text>
@@ -163,6 +163,15 @@ export default class ListScreen extends Component {
                             </TouchableOpacity>
                         </ScrollView>
                     </View>
+                        <View style={{position: "absolute", bottom: '6%', left: '35%', flexDirection: 'row'}}>
+                            <TouchableOpacity onPress={() =>alert('under maintenance')} style={{backgroundColor:'red', padding: 8}}>
+                                <Text style={{color:'white'}}>Filter</Text>
+                            </TouchableOpacity>
+                            <Text style={{backgroundColor: 'red', padding: 8,color:'white'}}> | </Text>
+                            <TouchableOpacity onPress={() =>alert('under maintenance')} style={{backgroundColor:'red', padding: 8}}>
+                                <Text style={{color:'white'}}>Sort</Text>
+                            </TouchableOpacity>
+                        </View>
                 </View>
             )
         }
@@ -197,7 +206,8 @@ const styles = StyleSheet.create({
     container: {
         paddingTop:15,
         paddingBottom: 25,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        position: 'relative'
     },
     card: {
         marginHorizontal: 20,
