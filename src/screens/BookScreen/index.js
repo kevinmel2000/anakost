@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     },
     header : {
         justifyContent:'center',
-        height: 50,
+        height: 60,
         backgroundColor: '#cf0e04'
     },
     textHeader : {
@@ -202,7 +202,8 @@ const styles = StyleSheet.create({
         position: 'absolute', 
         left: 5, 
         top: '6%',
-        padding: 8,
+        // padding: 10,
+        margin: 15,
         // backgroundColor: '#ddd',
     },
     main : {

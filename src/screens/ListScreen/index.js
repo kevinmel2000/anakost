@@ -140,6 +140,7 @@ export default class ListScreen extends Component {
         } else {
             return (
                 <View style={{flex: 1,}}>
+
                     {/* Search Bar */}
                     <View style={styles.searchBar}>
                         <TextInput autoFocus placeholder={kota} style={styles.searchBarInput} />
@@ -170,7 +171,8 @@ export default class ListScreen extends Component {
                     </View>
 
                     {/* tab list kos */}
-                    <View style={styles.container}>
+                    <View style={styles.container}> 
+                    
                         <ScrollView style={{ paddingBottom: '30%' }}>
 
                             <FlatList
@@ -188,9 +190,17 @@ export default class ListScreen extends Component {
                                     )
                                 }}
                             />
-
                         </ScrollView>
                     </View>
+                        <View style={{position: "absolute", bottom: '6%', left: '35%', flexDirection: 'row'}}>
+                            <TouchableOpacity onPress={() =>alert('under maintenance')} style={{backgroundColor:'red', padding: 8}}>
+                                <Text style={{color:'white'}}>Filter</Text>
+                            </TouchableOpacity>
+                            <Text style={{backgroundColor: 'red', padding: 8,color:'white'}}> | </Text>
+                            <TouchableOpacity onPress={() =>alert('under maintenance')} style={{backgroundColor:'red', padding: 8}}>
+                                <Text style={{color:'white'}}>Sort</Text>
+                            </TouchableOpacity>
+                        </View>
                 </View>
             )
         }
@@ -225,7 +235,8 @@ const styles = StyleSheet.create({
     container: {
         paddingTop:15,
         paddingBottom: 25,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        position: 'relative'
     },
     card: {
         marginHorizontal: 20,
