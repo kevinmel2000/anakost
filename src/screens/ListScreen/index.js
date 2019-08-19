@@ -49,7 +49,7 @@ export default class ListScreen extends Component {
                     {/* Search Bar */}
                     <View style={styles.searchBar}>
                         <TextInput autoFocus placeholder={kota} style={styles.searchBarInput} />
-                        <Icon name='arrow-left' style={styles.searchBarIcon} color='#cf0e04' size={20} onPress={() => this.props.navigation.goBack() } />
+                        <Icon name='arrow-left' style={styles.searchBarIcon} color='#cf0e04' size={20} onPress={() => this.props.navigation.navigate('Home') } />
                     </View>
                     {/* Tab Menu */}
                     <View style={styles.tabMenu}>
@@ -86,7 +86,7 @@ export default class ListScreen extends Component {
                     {/* Search Bar */}
                     <View style={styles.searchBar}>
                         <TextInput autoFocus placeholder={kota} style={styles.searchBarInput} />
-                        <Icon name='arrow-left' style={styles.searchBarIcon} color='#cf0e04' size={20} onPress={() => this.props.navigation.goBack() } />
+                        <Icon name='arrow-left' style={styles.searchBarIcon} color='#cf0e04' size={20} onPress={() => this.props.navigation.navigate('Home') } />
                     </View>
                     {/* Tab Menu */}
                     <View style={styles.tabMenu}>

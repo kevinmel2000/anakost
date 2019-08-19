@@ -103,15 +103,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#cf0e04',
         paddingBottom: 6
     },
+    textHeader : {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: "#fff"
+    },
     btnBack : {
         position: 'absolute', 
-        left: 15, 
-        top: '25%'
-    },
-    textHeader : {
-        fontSize: 26,
-        color : '#ddd',
-        fontWeight: 'bold',
+        left: 5, 
+        top: '6%',
+        padding: 8,
+        // backgroundColor: '#ddd',
     },
     IklanForm : {
         marginHorizontal: 15,
@@ -149,10 +152,13 @@ const styles = StyleSheet.create({
     btnGambar : {
         borderRadius : 8,
         padding: 8,
+        width: '50%',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor : '#ddd',
     },
     textGambar : {
-        color : '#fff',
+        color : '#000',
         fontWeight: 'bold'
     }
 })

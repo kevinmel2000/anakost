@@ -11,6 +11,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import IklanScreen from './src/screens/AdScreen';
 import ListScreen from './src/screens/ListScreen';
 import DetailScreen from './src/screens/DetailScreen';
+import BookScreen from './src/screens/BookScreen';
 import BookListScreen from './src/screens/BookListScreen';
 import AccountScreen from './src/screens/AccountScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
@@ -55,6 +56,19 @@ const StackAccount = createStackNavigator({
   headerMode: 'none'
 })
 
+const StackBook = createStackNavigator({
+  BookList : {
+    screen : BookListScreen
+  },
+  Book : {
+    screen : BookScreen
+  },
+},
+{
+  initialRouteName : 'Book',
+  headerMode: 'none'
+})
+
 const BottomNavigator = createMaterialBottomTabNavigator({
   Home : {
     screen : StackHome,
@@ -70,6 +84,7 @@ const BottomNavigator = createMaterialBottomTabNavigator({
   List : {
     screen : StackList,
     navigationOptions : {
+      tabBarVisible: false,
       tabBarIcon : ({ tintColor }) => (
         <View>
           <Icon name='list-alt' size={20} color={tintColor} />
@@ -78,8 +93,9 @@ const BottomNavigator = createMaterialBottomTabNavigator({
     }
   },
   BookList: {
-    screen: BookListScreen,
+    screen: StackBook,
     navigationOptions:{  
+      tabBarVisible: false,
       tabBarLabel:'Book List',  
       tabBarIcon: ({ tintColor }) => (  
           <View>  

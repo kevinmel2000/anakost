@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, TouchableHighlight, ScrollView} from 'react-native';
+import {View, Text, Image, TouchableHighlight, ScrollView, StyleSheet} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -8,25 +8,15 @@ export default class DetailScreen extends React.Component {
     render() {
         return (
             // Container
-            <View style={{
-                backgroundColor: '#fff',
-                flex: 1
-            }}>
+            <View style={styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {/* Image */}
-                    <View style={{
-                        backgroundColor: '#38383b',
-                        height: 200
-                    }}>
-                        <Image source={require('../../assets/dummy/kost-satu.jpg')} style={{flex: 1, width: undefined, height: undefined, resizeMode: 'cover'}} />
+                    <View style={styles.headerImage}>
+                        <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.Image} />
                     </View>
 
                     {/* Menu Options */}
-                    <View style={{
-                        backgroundColor: '#1d1f1d',
-                        height: 60,
-                        flexDirection: 'row',
-                    }}>
+                    <View style={styles.Menu}>
                         <TouchableHighlight style={{ flex: 1, alignItems: 'center', justifyContent: 'center',}}>
                             <View style={{
                                 padding: 5, 
@@ -370,7 +360,7 @@ export default class DetailScreen extends React.Component {
                         </TouchableHighlight>
 
                         {/* Booking Buuton */}
-                        <TouchableHighlight style={{
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Book')} style={{
                             backgroundColor: '#fc8b19',
                             borderRadius: 8,
                             borderColor: '#fff',
@@ -392,3 +382,25 @@ export default class DetailScreen extends React.Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container : {
+        backgroundColor: '#fff',
+        flex: 1
+    },
+    headerImage : {
+        backgroundColor: '#38383b',
+        height: 200
+    },
+    Image : {
+        flex: 1, 
+        width: undefined, 
+        height: undefined, 
+        resizeMode: 'cover'
+    },
+    Menu : {
+        backgroundColor: '#1d1f1d',
+        height: 60,
+        flexDirection: 'row',
+    }
+})
