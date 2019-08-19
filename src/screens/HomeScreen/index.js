@@ -6,13 +6,6 @@ import Header from '../../components/HeaderBar'
 import PromoImage from '../../components/PromoImage'
 import PopularCity from '../../components/PopularCity'
 
-// import HeaderBar from '../../components/HeaderBar';
-// import PromoImage from '../../components/PromoImage';
-// import PopularCity from '../../components/PopularCity';
-// import AdScreen from '../AdScreen';
-// import { createStackNavigator, createAppContainer } from 'react-navigation';
-// import DetailScreen from '../DetailScreen';
-
 export default class HomeScreen extends Component {
 
     constructor(){
@@ -71,7 +64,7 @@ export default class HomeScreen extends Component {
                             <Text style={styles.searchBarTitle}>Hai,</Text>
                             <Text style={styles.searchBarTitle}>Butuh Kost Untuk {this.state.menuTab}?</Text>
                             <View style={styles.cardTextInput}>
-                                <TextInput onFocus={() => this.props.navigation.navigate('List')} placeholder="Masukan alamat atau nama tempat" style={styles.searchBarTextInput} />
+                                <TextInput onFocus={() => this.props.navigation.navigate('List', {kota: 'Masukan Nama Kota'})} placeholder="Masukan alamat atau nama tempat" style={styles.searchBarTextInput} />
                                 <Icon name='search' style={styles.searchBarIcon} color='#cf0e04' size={20} />
                             </View>
                         </View>
@@ -103,11 +96,11 @@ export default class HomeScreen extends Component {
                             <View style={styles.PopularCityContent}>
                                 <ScrollView horizontal showsHorizontalScrollIndicator={false} >
                                     <PopularCity kotaImg={require('../../assets/image/kota-jakarta.jpg')} href={() => this.props.navigation.navigate('List', {kota: 'Jakarta'})} title="Jakarta" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-bandung.jpg')}  href={() => this.props.navigation.navigate('List')} title="Bandung" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-surabaya.jpg')}  href={() => this.props.navigation.navigate('List')} title="Surabaya" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-majalengka.jpg')}  href={() => this.props.navigation.navigate('List')} title="Majalengka" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-denpasar.png')}  href={() => this.props.navigation.navigate('List')} title="Denpasar" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-yogyakarta.jpg')}  href={() => this.props.navigation.navigate('List')} title="Yogyakarta" />
+                                    <PopularCity kotaImg={require('../../assets/image/kota-bandung.jpg')}  href={() => this.props.navigation.navigate('List', {kota: 'Bandung'})} title="Bandung" />
+                                    <PopularCity kotaImg={require('../../assets/image/kota-surabaya.jpg')}  href={() => this.props.navigation.navigate('List', {kota: 'Surabaya'})} title="Surabaya" />
+                                    <PopularCity kotaImg={require('../../assets/image/kota-majalengka.jpg')}  href={() => this.props.navigation.navigate('List', {kota: 'Majalengka'})} title="Majalengka" />
+                                    <PopularCity kotaImg={require('../../assets/image/kota-denpasar.png')}  href={() => this.props.navigation.navigate('List', {kota: 'Denpasar'})} title="Denpasar" />
+                                    <PopularCity kotaImg={require('../../assets/image/kota-yogyakarta.jpg')}  href={() => this.props.navigation.navigate('List', {kota: 'Yogyakarta'})} title="Yogyakarta" />
                                 </ScrollView>
                             </View>
                         </View>
