@@ -2,8 +2,26 @@ import React from 'react';
 import {View, Text, Image, TouchableHighlight, ScrollView, StyleSheet, Share} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import MapView from 'react-native-maps';
 
 export default class DetailScreen extends React.Component { 
+
+    constructor() {
+        super()
+        this.state = {
+            menu : (
+                <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.Image} />
+            ),
+            region:{
+                latitude: -6.301281,
+                longitude: 106.735149,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421
+            },
+            colorFoto : '#fc8b19',
+            colorPeta : '#02ba17',
+        }
+    }
 
     /*
      * Fungsi Share
@@ -30,7 +48,33 @@ export default class DetailScreen extends React.Component {
         }
     };
 
+    _handleTabMenuPeta = () => {
+        this.setState({menu : (
+            <MapView style={{flex: 1}} initialRegion={this.state.region} onRegionChange={this.onRegionChange}/>
+        ),
+        colorPeta : '#fc8b19', colorFoto : '#02ba17'})
+    }
+
+    _handleTabMenuFoto = () => {
+        this.setState({menu : (
+            <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.Image} />
+        ),
+        colorFoto : '#fc8b19', colorPeta : '#02ba17'})
+    }
+
     render() {
+
+        // const TabMenu = this.state.menu
+
+        // if(TabMenu == 2) {
+        //     const DataHeader = <MapView style={{flex: 1}} initialRegion={this.state.region} onRegionChange={this.onRegionChange}/>
+        // } else {
+        //     const DataHeader = <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.Image} />
+        // }
+
+        const colorFoto = this.state.colorFoto
+        const colorPeta = this.state.colorPeta
+
         return (
             // Container
             <View style={styles.container}>
@@ -38,7 +82,7 @@ export default class DetailScreen extends React.Component {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {/* Image */}
                     <View style={styles.headerImage}>
-                        <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.Image} />
+                        {this.state.menu}
                         {/* Back & Share Button */}
                         <View style={{
                             width: '100%',
@@ -60,25 +104,25 @@ export default class DetailScreen extends React.Component {
 
                     {/* Menu Options */}
                     <View style={styles.Menu}>
-                        <TouchableHighlight style={{ flex: 1, alignItems: 'center', justifyContent: 'center',}}>
+                        <TouchableHighlight onPress={this._handleTabMenuFoto} style={{ flex: 1, alignItems: 'center', justifyContent: 'center',}}>
                             <View style={{
                                 padding: 5, 
                                 flexDirection: 'row', 
                                 marginRight: 5
                             }}>
-                                <View style={{backgroundColor: '#ddd', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 150/4, borderColor: '#fc8b19', borderWidth: .4}}>
-                                    <Icon name='image' size={15} color='#fc8b19' />
+                                <View style={{backgroundColor: '#ddd', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 150/4, borderColor: {colorFoto}, borderWidth: .4}}>
+                                    <Icon name='image' size={15} color={colorFoto} />
                                 </View>
-                                <Text style={{color:'#fc8b19', fontSize: 14, fontWeight: '600', marginHorizontal: 12, paddingVertical: 6}}>Foto</Text>
+                                <Text style={{color: colorFoto, fontSize: 14, fontWeight: '600', marginHorizontal: 12, paddingVertical: 6}}>Foto</Text>
                             </View>
                         </TouchableHighlight>
 
-                        <TouchableHighlight style={{ flex: 1, alignItems: 'center', justifyContent: 'center',}}>
+                        <TouchableHighlight onPress={this._handleTabMenuPeta} style={{ flex: 1, alignItems: 'center', justifyContent: 'center',}}>
                             <View style={{padding: 5, flexDirection: 'row', marginRight: 5}}>
-                                <View style={{backgroundColor: '#ddd', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 150/4, borderColor: '#fff', borderWidth: .4}}>
-                                    <Icon name='map-marker-alt' size={15} color='#000' />
+                                <View style={{backgroundColor: '#ddd', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 150/4, borderColor: {colorPeta}, borderWidth: .4}}>
+                                    <Icon name='map-marker-alt' size={15} color={colorPeta} />
                                 </View>
-                                <Text style={{color:'#fff', fontSize: 14, fontWeight: '400', marginHorizontal: 12, paddingVertical: 6}}>Peta</Text>
+                                <Text style={{color:colorPeta, fontSize: 14, fontWeight: '400', marginHorizontal: 12, paddingVertical: 6}}>Peta</Text>
                             </View>
                         </TouchableHighlight>
 
