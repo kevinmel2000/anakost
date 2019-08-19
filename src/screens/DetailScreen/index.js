@@ -1,18 +1,61 @@
 import React from 'react';
-import {View, Text, Image, TouchableHighlight, ScrollView, StyleSheet} from 'react-native';
+import {View, Text, Image, TouchableHighlight, ScrollView, StyleSheet, Share} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default class DetailScreen extends React.Component { 
 
+    /*
+     * Fungsi Share
+     * Menggunakan async
+     */
+    onShare = async () => {
+        try {
+          const result = await Share.share({
+            message:
+              'Kost AnaRooms Nyaman Tidur Mimpi Indah',
+          });
+    
+          if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+              // shared with activity type of result.activityType
+            } else {
+              // shared
+            }
+          } else if (result.action === Share.dismissedAction) {
+            // dismissed
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+    };
+
     render() {
         return (
             // Container
             <View style={styles.container}>
+
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {/* Image */}
                     <View style={styles.headerImage}>
                         <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.Image} />
+                        {/* Back & Share Button */}
+                        <View style={{
+                            width: '100%',
+                            flexDirection: 'row',
+                            position: 'absolute',
+                            top: 10,
+                            paddingHorizontal: 10,
+                            justifyContent: 'space-between',
+                        }}>
+                            <TouchableHighlight onPress={() => this.props.navigation.goBack()}>
+                                <Icon name='arrow-left' size={20} color='#fff' />
+                            </TouchableHighlight>
+
+                            <TouchableHighlight onPress={this.onShare}>
+                                <Icon name='share-square' size={20} color='#fff' />
+                            </TouchableHighlight>
+                        </View>
                     </View>
 
                     {/* Menu Options */}
@@ -273,7 +316,7 @@ export default class DetailScreen extends React.Component {
                     <View style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        marginHorizontal: 8,
+                        marginHorizontal: 17,
                         backgroundColor: '#ddd',
                         borderRadius: 8,
                         justifyContent:'space-between',
@@ -306,6 +349,20 @@ export default class DetailScreen extends React.Component {
                         borderBottomWidth: 0.7,
                     }}>
                         <Text style={{color: '#000', fontSize: 18, fontWeight: 'bold'}}>Kost Menarik Lainnya</Text>
+                        <View style={{flexDirection: 'row',height: 150, marginVertical: 10}}>
+                            <View style={{flex: 1,width: '45%',marginRight:6, borderWidth: 0.6, borderColor: '#039116'}}>
+                                <Text style={{textAlign: 'center', paddingVertical: 8}}>Tersedia 1 Kamar</Text>
+                                <Image source={require('../../assets/image/kost-satu.jpg')} style={{
+                                    flex: 1, width: undefined, height: undefined, resizeMode: 'cover'
+                                }} />
+                            </View>
+                            <View style={{flex: 1,width: '45%',marginLeft:6, borderWidth: 0.6, borderColor: '#039116'}}>
+                                <Text style={{textAlign: 'center', paddingVertical: 8}}>Tersedia 3 Kamar</Text>
+                                <Image source={require('../../assets/image/kost-satu.jpg')} style={{
+                                    flex: 1, width: undefined, height: undefined, resizeMode: 'cover'
+                                }} />
+                            </View>
+                        </View>
                     </View>
                 </ScrollView>
             

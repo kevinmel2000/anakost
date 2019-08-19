@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {View, Text, TouchableHighlight, TextInput, Image, ScrollView, TouchableOpacity, StyleSheet} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import MapView from 'react-native-maps';
 
 export default class ListScreen extends Component {
 
@@ -15,6 +16,20 @@ export default class ListScreen extends Component {
             bgTabs2 : '#fff',
             colorTabs1 : '#000',
             colorTabs2 : '#fff',
+            region:{
+                latitude: -6.301281,
+                longitude: 106.735149,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421
+            },
+            markers: {
+                latlng: {
+                latitude: -6.301281,
+                longitude: 106.735149,
+                },
+                title: "Bootcamp Dumbways",
+                description: "Batch 11 Best Quality"
+            }
         }
     }
 
@@ -38,6 +53,10 @@ export default class ListScreen extends Component {
         }
     }
 
+    onRegionChange = region => {
+        this.setState({ region });
+    }
+
     render() {
 
         const Tabs = this.state.tabs;
@@ -45,7 +64,7 @@ export default class ListScreen extends Component {
 
         if(Tabs === 1) {
             return (
-                <View>
+                <View style={{flex: 1}}>
                     {/* Search Bar */}
                     <View style={styles.searchBar}>
                         <TextInput autoFocus placeholder={kota} style={styles.searchBarInput} />
@@ -75,9 +94,10 @@ export default class ListScreen extends Component {
                         </TouchableHighlight>
                     </View>
 
-                    <View>
-                        <Text>Tab 1</Text>
-                    </View>
+                    <MapView style={{flex: 1}}
+                        initialRegion={this.state.region}
+                        onRegionChange={this.onRegionChange}
+                    />
                 </View>
             )
         } else {

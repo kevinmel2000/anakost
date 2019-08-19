@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableHighlight, Image} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
-// import CalendarPicker from 'react-native-calendar-picker';reac
+import CalendarPicker from 'react-native-calendar-picker';
+import CheckBox from 'react-native-check-box';
 
 export default class BookScreen extends Component {
 
@@ -10,6 +11,7 @@ export default class BookScreen extends Component {
         super(props);
         this.state = {
           selectedStartDate: null,
+          isChecked: false,
         };
         this.onDateChange = this.onDateChange.bind(this);
     }
@@ -31,6 +33,12 @@ export default class BookScreen extends Component {
         });
     }
 
+    _handleDateButton = () => {
+        return <CalendarPicker
+                    onDateChange={this.onDateChange}
+                />
+    }
+
     render() {
 
         const { selectedStartDate } = this.state;
@@ -39,7 +47,7 @@ export default class BookScreen extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <TouchableHighlight style={styles.btnBack} onPress={() => this.props.navigation.navigate('Home')}>
+                    <TouchableHighlight style={styles.btnBack} onPress={() => this.props.navigation.goBack()}>
                         <Icon name='arrow-alt-circle-left' color='#ddd' size={25} />
                     </TouchableHighlight>
                     <Text style={styles.textHeader}>Booking Kost</Text>
@@ -53,11 +61,9 @@ export default class BookScreen extends Component {
                                 <Text style={styles.textDate}>
                                     { startDate } 
                                 </Text>
-                                <Icon name='calendar-alt' size={15} color='#cf0e04' onPress={() => alert('Ok')} />
+                                <Icon name='calendar-alt' size={15} color='#cf0e04' onPress={this._handleDateButton} />
                             </View>
-                            {/* <CalendarPicker
-                                onDateChange={this.onDateChange}
-                            /> */}
+                            {/*  */}
                         </View>
                         {/* Durasi Sewa */}
                         <View style={styles.Date}>
@@ -88,7 +94,7 @@ export default class BookScreen extends Component {
                     {/* Detail Kost */}
                     <View style={styles.KostDetail}>
                         <View style={styles.Image}>
-                            <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.ImageData} />
+                            <Image source={require('../../assets/image/book-kost-satu.jpg')} style={styles.ImageData} />
                         </View>
                         <View style={styles.Kost}>
                             <Text style={styles.KostTitle}>Kost AnaRooms Nyaman Tidur Mimpi Indah</Text>
@@ -125,6 +131,23 @@ export default class BookScreen extends Component {
                         <Text style={styles.MorePriceTitle}>Biaya Lain</Text>
                         <Text>-</Text>
                     </View>
+                    {/* FAQ */}
+                    <View style={styles.FAQ}>
+                        <CheckBox
+                            style={styles.FAQCheckbox}
+                            onClick={()=>{
+                            this.setState({
+                                isChecked:!this.state.isChecked
+                            })
+                            }}
+                            isChecked={this.state.isChecked}
+                        />
+                        <Text style={styles.FAQText}>Saya menyetujui syarat dan memastikan data diatas benar</Text>
+                    </View>
+                    {/* Button Booking */}
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate('BookList')} style={styles.btnBook}>
+                        <Text style={{color: '#fff'}}>Booking</Text>
+                    </TouchableHighlight>
                 </View>
             </View>
         )
@@ -191,6 +214,7 @@ const styles = StyleSheet.create({
     Image : {
         width : '25%',
         height: 80,
+        marginRight: 8,
     },
     ImageData : {
         flex: 1,
@@ -238,6 +262,23 @@ const styles = StyleSheet.create({
         color: '#000',
         fontWeight: 'bold',
         marginBottom : 8,
+    },
+    FAQ : {
+        flexDirection: 'row',
+    },
+    FAQCheckbox: {
+        width: '10%',
+        paddingRight: 10,
+    },
+    FAQText : {
+        width: '90%',
+    },
+    btnBook : {
+        backgroundColor: '#02ba17',
+        marginVertical: 10,
+        padding: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 })
 

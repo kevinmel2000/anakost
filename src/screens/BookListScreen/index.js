@@ -20,7 +20,7 @@ export default class BookListScreen extends Component {
                         fontWeight: '400'
                     }}>Booking List</Text>
 
-                    <TouchableHighlight onPress={() => this.props.navigation.goBack()} style={{
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate('Home')} style={{
                         position: 'absolute',
                         left: 12,
                         top: 15

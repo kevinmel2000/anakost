@@ -4,7 +4,7 @@ import {View, ScrollView, TouchableHighlight, Text, TextInput, StyleSheet} from 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import CreateForm from '../../components/CreateAdForm';
-// import MapView, {Marker} from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 
 export default class IklanScreen extends React.Component {
 
@@ -62,17 +62,10 @@ export default class IklanScreen extends React.Component {
                             <Icon name='search' size={20} style={styles.iconSearch} />
 
                             <View style={{height: 200, marginTop: 6}}>
-                                {/* <MapView style={{flex: 1}}
+                                <MapView style={{flex: 1}}
                                     initialRegion={this.state.region}
                                     onRegionChange={this.onRegionChange}
-                                >
-                                    <Marker draggable
-                                        coordinate={this.state.markers.latlng}
-                                        title={this.state.markers.title}
-                                        description={this.state.markers.description}
-                                        onDragEnd={(e) => this.setState({markers: e.nativeEvent.coordinate})}
-                                    />
-                                </MapView> */}
+                                />
                             </View>
                         </View>
                         <View style={{paddingVertical: 8}}>
