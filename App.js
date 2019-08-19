@@ -65,7 +65,7 @@ const StackBook = createStackNavigator({
   },
 },
 {
-  initialRouteName : 'Book',
+  initialRouteName : 'BookList',
   headerMode: 'none'
 })
 
