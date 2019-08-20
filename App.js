@@ -11,8 +11,9 @@ import HomeScreen from './src/screens/HomeScreen';
 import IklanScreen from './src/screens/AdScreen';
 import ListScreen from './src/screens/ListScreen';
 import DetailScreen from './src/screens/DetailScreen';
-import BookScreen from './src/screens/BookScreen';
-import BookListScreen from './src/screens/BookListScreen';
+
+import Booking from './src/screens/Booking/Booking';
+import BookingList from './src/screens/Booking/List';
 
 import Account from './src/screens/Authorization/Account';
 import Register from './src/screens/Authorization/Register';
@@ -59,14 +60,13 @@ const StackAccount = createStackNavigator({
 
 const StackBook = createStackNavigator({
   BookList : {
-    screen : BookListScreen
+    screen : BookingList
   },
   Book : {
-    screen : BookScreen
+    screen : Booking
   },
 },
 {
-  initialRouteName : 'BookList',
   headerMode: 'none'
 })
 

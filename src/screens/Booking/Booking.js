@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, TouchableHighlight, Image, Modal} from 'react-native';
+import {View, StyleSheet, Text, TouchableHighlight, Image, Picker} from 'react-native';
 
 // Use
 // Icon From Font Awesome 5
 // Calender Picker
 // Checkbox
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import CalendarPicker from 'react-native-calendar-picker';
+import DateTimePicker from "react-native-modal-datetime-picker";
 import CheckBox from 'react-native-check-box';
 
 export default class Booking extends Component {
@@ -16,31 +16,45 @@ export default class Booking extends Component {
         this.state = {
           selectedStartDate: null,
           isChecked: false,
-          modalVisible: false,
+          isDateTimePickerVisible: false,
+          duration: null
         };
-        this.onDateChange = this.onDateChange.bind(this);
     }
 
+    // Membuat Tanggal Otomatis
     componentDidMount() {
-        var date = new Date().getDate(); //Current Date
-        var month = new Date().getMonth() + 1; //Current Month
-        var year = new Date().getFullYear(); //Current Year
+        var date = new Date()
+        var month = date.getMonth() + 1
+
+        const fulldate = date.getDate() + "/" + month + "/" + date.getFullYear()
+          
         this.setState({
-          //Setting the value of the date time
-          selectedStartDate:
-            date + '/' + month + '/' + year,
-        });
+            selectedStartDate : fulldate
+        })
     }
 
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
-    }
+    // Show Date Picker Modal
+    showDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: true });
+    };
 
-    onDateChange(date) {
+    // Hide Date Picker Modal
+    hideDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: false });
+    };
+
+    // On Press Input Date Picker
+    handleDatePicked = date => {
+        
+        var month = date.getMonth() + 1
+
+        const fulldate = date.getDate() + "/" + month + "/" + date.getFullYear()
+
         this.setState({
-            selectedStartDate: date,
-        });
-    }
+            selectedStartDate : fulldate
+        })
+        this.hideDateTimePicker();
+    };
 
     render() {
 
@@ -49,37 +63,24 @@ export default class Booking extends Component {
 
         return (
             <View style={styles.container}>
-                <Modal
-                    animationType="slide"
-                    transparent={false}
-                    visible={this.state.modalVisible}
-                    onRequestClose={() => alert('Please click Button')}
-                    width={80}>
-                    <View>
-                        <View>
-                            <CalendarPicker
-                                onDateChange={this.onDateChange}
-                            />
+                {/* Date Time Picker */}
+                <DateTimePicker
+                    isVisible={this.state.isDateTimePickerVisible}
+                    onConfirm={this.handleDatePicked}
+                    onCancel={this.hideDateTimePicker}
+                />
 
-                            <TouchableHighlight style={{alignItems: 'center',backgroundColor: '#02ba17', padding: 8}}
-                                onPress={() => {
-                                this.setModalVisible(!this.state.modalVisible);
-                                }}>
-                                <Text>Selanjutnya</Text>
-                            </TouchableHighlight>
-                        </View>
-                    </View>
-                </Modal>
+                {/* Header */}
                 <View style={styles.header}>
                     <TouchableHighlight style={styles.btnBack} onPress={() => this.props.navigation.goBack()}>
                         <Icon name='arrow-alt-circle-left' color='#ddd' size={25} />
                     </TouchableHighlight>
-                    <Text style={styles.textHeader}>Booking Kost</Text>
+                    <Text style={styles.textHeader}>Pesan Kost</Text>
                 </View>
                 <View style={styles.main}>
                     <View style={styles.SelectDateTime}>
                         {/* Tanggal Masuk */}
-                        <TouchableHighlight onPress={() => this.setModalVisible(true)}>
+                        <TouchableHighlight onPress={this.showDateTimePicker}>
                             <View style={styles.Date}>
                                 <Text style={styles.DateTitle}>Tanggal Masuk</Text>
                                 <View style={styles.DateInput}>
@@ -96,9 +97,18 @@ export default class Booking extends Component {
                             <Text style={styles.DateTitle}>Durasi Sewa</Text>
                             <View style={styles.DateInput}>
                                 <Text style={styles.textDate}>
-                                    { startDate } 
+
                                 </Text>
-                                <Icon name='chevron-down' size={15} color='#000' onPress={() => alert('Ok')} />
+                                {/* Select with Picker */}
+                                {/* <Picker
+                                    selectedValue={this.state.duration}
+                                    style={{height: 50, width: 100}}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({duration: itemValue})
+                                }>
+                                <Picker.Item label="Java" value="java" />
+                                <Picker.Item label="JavaScript" value="js" />
+                                </Picker> */}
                             </View>
                         </View>
                         {/* Tanggal Keluar */}
@@ -106,7 +116,7 @@ export default class Booking extends Component {
                             <Text style={styles.DateTitle}>Tanggal Keluar</Text>
                             <View style={styles.DateInput}>
                                 <Text style={styles.textDate}>
-                                    { startDate } 
+                                     
                                 </Text>
                             </View>
                             {/* <CalendarPicker
@@ -169,7 +179,7 @@ export default class Booking extends Component {
                     </View>
                     {/* Button Booking */}
                     <TouchableHighlight onPress={() => this.props.navigation.navigate('BookList')} style={styles.btnBook}>
-                        <Text style={{color: '#fff'}}>Booking</Text>
+                        <Text style={styles.BtnText}>Pesan Sekarang</Text>
                     </TouchableHighlight>
                 </View>
             </View>
@@ -211,7 +221,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingVertical: 12,
-        borderBottomColor: '#0dd',
+        borderBottomColor: '#ddd',
         borderBottomWidth: 0.6
     },
     Date : {
@@ -233,7 +243,7 @@ const styles = StyleSheet.create({
     KostDetail : {
         flexDirection: 'row',
         paddingVertical: 12,
-        borderBottomColor: '#0dd',
+        borderBottomColor: '#ddd',
         borderBottomWidth: 0.6,
     },
     Image : {
@@ -267,7 +277,7 @@ const styles = StyleSheet.create({
     },
     Ringkasan : {
         paddingVertical : 17,
-        borderBottomColor: '#0dd',
+        borderBottomColor: '#ddd',
         borderBottomWidth: 0.6,
     },
     SpaceBetween : {
@@ -299,11 +309,16 @@ const styles = StyleSheet.create({
         width: '90%',
     },
     btnBook : {
-        backgroundColor: '#02ba17',
+        backgroundColor: '#cf0e04',
         marginVertical: 10,
         padding: 8,
         alignItems: 'center',
         justifyContent: 'center',
     },
+    BtnText : {
+        color: '#fff',
+        textTransform: 'uppercase',
+        fontWeight: '700'
+    }
 })
 
