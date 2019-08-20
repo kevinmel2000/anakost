@@ -8,9 +8,11 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
 import HomeScreen from './src/screens/HomeScreen';
-import IklanScreen from './src/screens/AdScreen';
-import ListScreen from './src/screens/ListScreen';
-import DetailScreen from './src/screens/DetailScreen';
+import Ads from './src/screens/Kost/Ads';
+import List from './src/screens/Kost/List';
+import Detail from './src/screens/Kost/Detail';
+import Filter from './src/screens/Kost/Filter';
+
 import BookScreen from './src/screens/BookScreen';
 import BookListScreen from './src/screens/BookListScreen';
 
@@ -23,7 +25,7 @@ const StackHome = createStackNavigator({
     screen : HomeScreen
   },
   Iklan : {
-    screen : IklanScreen
+    screen : Ads
   }
 },
 {
@@ -32,10 +34,13 @@ const StackHome = createStackNavigator({
 
 const StackList = createStackNavigator({
   List : {
-    screen : ListScreen
+    screen : List
   },
   Detail : {
-    screen : DetailScreen
+    screen : Detail
+  },
+  Filter:{
+    screen: Filter
   }
 },
 {
