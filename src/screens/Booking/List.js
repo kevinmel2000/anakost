@@ -4,7 +4,7 @@ import {View, Text, TouchableHighlight, Image, StyleSheet} from 'react-native';
 // Use Icon From Font Awesome 5
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default class BookListScreen extends Component {
+export default class List extends Component {
 
     render() {
         return (
@@ -12,7 +12,7 @@ export default class BookListScreen extends Component {
             <View style={{flex: 1}}>
                 {/* Header */}
                 <View style={styles.Header}>
-                    <Text style={styles.HeaderTitle}>Booking List</Text>
+                    <Text style={styles.HeaderTitle}>Daftar Pemesanan</Text>
 
                     <TouchableHighlight onPress={() => this.props.navigation.navigate('Home')} style={styles.BackIcon}>
                         <Icon name='arrow-alt-circle-left' color='#ddd' size={30} />
