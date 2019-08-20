@@ -7,14 +7,15 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
-import HomeScreen from './src/screens/HomeScreen';
+
+import Home from './src/screens/Home/Home';
 import Ads from './src/screens/Kost/Ads';
 import List from './src/screens/Kost/List';
 import Detail from './src/screens/Kost/Detail';
 import Filter from './src/screens/Kost/Filter';
 
-import BookScreen from './src/screens/BookScreen';
-import BookListScreen from './src/screens/BookListScreen';
+import Booking from './src/screens/Booking/Booking';
+import BookingList from './src/screens/Booking/List';
 
 import Account from './src/screens/Authorization/Account';
 import Register from './src/screens/Authorization/Register';
@@ -22,7 +23,7 @@ import Login from './src/screens/Authorization/Login';
 
 const StackHome = createStackNavigator({
   Home : {
-    screen : HomeScreen
+    screen : Home
   },
   Iklan : {
     screen : Ads
@@ -62,16 +63,15 @@ const StackAccount = createStackNavigator({
   headerMode: 'none'
 })
 
-const StackBook = createStackNavigator({
+const StackBooking = createStackNavigator({
   BookList : {
-    screen : BookListScreen
+    screen : BookingList
   },
   Book : {
-    screen : BookScreen
+    screen : Booking
   },
 },
 {
-  initialRouteName : 'BookList',
   headerMode: 'none'
 })
 
@@ -99,7 +99,7 @@ const BottomNavigator = createMaterialBottomTabNavigator({
     }
   },
   BookList: {
-    screen: StackBook,
+    screen: StackBooking,
     navigationOptions:{  
       tabBarVisible: false,
       tabBarLabel:'Book List',  
