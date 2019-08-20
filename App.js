@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
-import HomeScreen from './src/screens/HomeScreen';
+import Home from './src/screens/Home/Home';
 import IklanScreen from './src/screens/AdScreen';
 import ListScreen from './src/screens/ListScreen';
 import DetailScreen from './src/screens/DetailScreen';
@@ -21,7 +21,7 @@ import Login from './src/screens/Authorization/Login';
 
 const StackHome = createStackNavigator({
   Home : {
-    screen : HomeScreen
+    screen : Home
   },
   Iklan : {
     screen : IklanScreen
@@ -58,7 +58,7 @@ const StackAccount = createStackNavigator({
   headerMode: 'none'
 })
 
-const StackBook = createStackNavigator({
+const StackBooking = createStackNavigator({
   BookList : {
     screen : BookingList
   },
@@ -94,7 +94,7 @@ const BottomNavigator = createMaterialBottomTabNavigator({
     }
   },
   BookList: {
-    screen: StackBook,
+    screen: StackBooking,
     navigationOptions:{  
       tabBarVisible: false,
       tabBarLabel:'Book List',  
