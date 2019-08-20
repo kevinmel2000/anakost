@@ -13,9 +13,10 @@ import ListScreen from './src/screens/ListScreen';
 import DetailScreen from './src/screens/DetailScreen';
 import BookScreen from './src/screens/BookScreen';
 import BookListScreen from './src/screens/BookListScreen';
-import AccountScreen from './src/screens/AccountScreen';
-import RegisterScreen from './src/screens/RegisterScreen';
-import LoginScreen from './src/screens/LoginScreen';
+
+import Account from './src/screens/Authorization/Account';
+import Register from './src/screens/Authorization/Register';
+import Login from './src/screens/Authorization/Login';
 
 const StackHome = createStackNavigator({
   Home : {
@@ -43,13 +44,13 @@ const StackList = createStackNavigator({
 
 const StackAccount = createStackNavigator({
   Account : {
-    screen : AccountScreen
+    screen : Account
   },
   Register : {
-    screen : RegisterScreen
+    screen : Register
   },
   Login : {
-    screen : LoginScreen
+    screen : Login
   }
 },
 {
@@ -124,68 +125,3 @@ const BottomNavigator = createMaterialBottomTabNavigator({
 })
 
 export default createAppContainer(BottomNavigator);
-
-
-
-
-
-// import React from 'react';
-// import {View} from 'react-native';
-// import {createAppContainer} from "react-navigation";
-// import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
-// import Icon from 'react-native-vector-icons/FontAwesome5';
-
-// import HomeScreen from './src/screens/HomeScreen';
-// import ListScreen from './src/screens/ListScreen';
-// import AccountScreen from "./src/screens/AccountScreen";
-// import BookListScreen from './src/screens/BookListScreen';
-
-// const BottomNavigator = createMaterialBottomTabNavigator({
-//   Home: {
-//     screen: HomeScreen,
-//     navigationOptions:{  
-//       tabBarLabel:'Home',  
-//       tabBarIcon: ({ tintColor }) => (  
-//           <View>  
-//               <Icon style={[{color: tintColor}]} size={20} name={'home'}/>  
-//           </View>),  
-//     }
-//   },
-//   List: {
-//     screen: ListScreen,
-//     navigationOptions:{  
-//       tabBarLabel:'Whishlist',  
-//       tabBarIcon: ({ tintColor }) => (  
-//           <View>  
-//               <Icon style={[{color: tintColor}]} size={20} name={'list-alt'}/>  
-//           </View>),  
-//     }
-//   },
-//   BookList: {
-//     screen: BookListScreen,
-//     navigationOptions:{  
-//       tabBarLabel:'Book List',  
-//       tabBarIcon: ({ tintColor }) => (  
-//           <View>  
-//               <Icon style={[{color: tintColor}]} size={20} name={'clipboard-list'}/>  
-//           </View>),  
-//     }  
-//   },
-//   Account: {
-//     screen: AccountScreen,
-//     navigationOptions:{  
-//       tabBarLabel:'Account',  
-//       tabBarIcon: ({ tintColor }) => (  
-//           <View>  
-//               <Icon style={[{color: tintColor}]} size={20} name={'user-tie'}/>  
-//           </View>),  
-//     }  
-//   }
-// },
-// {
-//   barStyle: {
-//     backgroundColor: '#cf0e04'
-//   }
-// });
-
-// export default createAppContainer(BottomNavigator);

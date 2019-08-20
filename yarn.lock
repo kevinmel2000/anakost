@@ -5124,15 +5124,6 @@ react-native-calendar-picker@^6.0.1:
     prop-types "^15.6.0"
     uuid "3.2.1"
 
-react-native-calendars@^1.208.0:
-  version "1.208.0"
-  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.208.0.tgz#95620db200d45207d9b6097b975e76eb82294cf2"
-  integrity sha512-NJVS9BHAZ9yEXiL4efhJjNw1pEAOnoaKzxKtAZKX3gIyylkA7+8u4TML/hp7zDoOTJOOzeCt/b6fOwbtDGwVtg==
-  dependencies:
-    lodash "^4.0.0"
-    prop-types "^15.5.10"
-    xdate "^0.8.0"
-
 react-native-check-box@^2.1.7:
   version "2.1.7"
   resolved "https://registry.yarnpkg.com/react-native-check-box/-/react-native-check-box-2.1.7.tgz#f349d3505a13c15d19949ec4cec40c7adc4f3626"
@@ -6594,11 +6585,6 @@ xcode@^2.0.0:
   dependencies:
     simple-plist "^1.0.0"
     uuid "^3.3.2"
-
-xdate@^0.8.0:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/xdate/-/xdate-0.8.2.tgz#d7b033c00485d02695baf0044f4eacda3fc961a3"
-  integrity sha1-17AzwASF0CaVuvAET06s2j/JYaM=
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
