@@ -18,6 +18,7 @@ import Booking from './src/screens/Booking/Booking';
 import BookingList from './src/screens/Booking/List';
 
 import Account from './src/screens/Authorization/Account';
+import Profile from './src/screens/Authorization/Profile';
 import Register from './src/screens/Authorization/Register';
 import Login from './src/screens/Authorization/Login';
 
@@ -51,6 +52,9 @@ const StackList = createStackNavigator({
 const StackAccount = createStackNavigator({
   Account : {
     screen : Account
+  },
+  Profile : {
+    screen : Profile
   },
   Register : {
     screen : Register

@@ -4,8 +4,51 @@ import {View, Text, TouchableHighlight, TextInput, StyleSheet} from 'react-nativ
 
 // Use Icon From Font Awesome 5
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import axios from 'axios';
 
 export default class Register extends Component {
+
+    constructor() {
+        super()
+        this.state = {
+            inputValueName: '',
+            inputValueEmail: '',
+            inputValuePhone: '',
+            inputValuePassword: ''
+        }
+    }
+
+    _handleRegister() {
+
+        let name = this.state.inputValueName
+        let email = this.state.inputValueEmail
+        let phone = this.state.inputValuePhone
+        let password = this.state.inputValuePassword
+
+        if(name == '' || email == '' || phone == '' || password == '') {
+
+            alert('Registrasi Gagal, Data tidak lengkap')
+
+        } else {
+
+            axios.post('http://192.168.137.1:8000/api/v2/register', {
+                fullName: name,
+                email: email,
+                phone: phone,
+                password: password,
+            })
+            .then(res => {
+                alert('Login Success')
+                this.props.navigation.navigate('Login')
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        }
+
+        
+    }
 
     render() {
 
@@ -19,23 +62,22 @@ export default class Register extends Component {
                 
                 {/* Form Input */}
                 <View style={styles.RegisterForm}>
-                    <TextInput placeholder="Full Name" style={styles.textInput} />
+                    <TextInput placeholder="Full Name" style={styles.textInput} onChangeText={(inputValueName) => this.setState({inputValueName})} />
 
-                    <TextInput placeholder="Email Address" style={styles.textInput} />
+                    <TextInput placeholder="Email Address" style={styles.textInput} onChangeText={(inputValueEmail) => this.setState({inputValueEmail})} keyboardType='email-address' autoCapitalize='none' />
 
-                    <TextInput placeholder="Username" style={styles.textInput} />
+                    <TextInput placeholder="No Telpon (089xxx)" style={styles.textInput} onChangeText={(inputValuePhone) => this.setState({inputValuePhone})} keyboardType='numeric' />
 
-                    <TextInput placeholder="No Telpon" style={styles.textInput} />
+                    <TextInput placeholder="Password" secureTextEntry style={styles.textInput} onChangeText={(inputValuePassword) => this.setState({inputValuePassword})} />
 
-                    <TextInput placeholder="Password" secureTextEntry style={styles.textInput} />
-
-                    <TouchableHighlight onPress={() => this.props.navigation.navigate('Login')} style={styles.btnRegister}>
+                    <TouchableHighlight onPress={this._handleRegister.bind(this)} style={styles.btnRegister}>
                         <Text style={styles.textButton}>Register</Text>
                     </TouchableHighlight>
                 </View>
 
                 {/* Link Login */}
                 <View style={styles.linkLogin}>
+
                     <TouchableHighlight onPress={() => this.props.navigation.navigate('Login')}>
                         <Text style={{color: '#00910a'}}>Login Account</Text>
                     </TouchableHighlight>

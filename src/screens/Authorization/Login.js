@@ -3,9 +3,56 @@ import React, {Component} from 'react';
 import {View, Text, TextInput, TouchableHighlight, StyleSheet} from 'react-native';
 
 // Use Icon From Font Awesome 5
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
+
+// const deviceStorage = {
+  
+//     async saveItem(key, value) {
+//       try {
+//         await AsyncStorage.setItem(key, value);
+//       } catch (error) {
+//         console.log('AsyncStorage Error: ' + error.message);
+//       }
+//     }
+    
+// };
 
 export default class Login extends Component {
+
+    constructor() {
+        super() 
+        this.state = {
+            inputValueEmail : null,
+            inputValuePassword : null
+        }
+    }
+
+    // saveUserToken = async (key, value) => {
+    //     try {
+    //       await AsyncStorage.setItem(key, value);
+    //     } catch (error) {
+    //       console.log('AsyncStorage Error: ' + error.message);
+    //     }
+    // }
+
+    handleLogin = async() => {
+
+        await axios.post('http://192.168.137.1:8000/api/v2/login', {
+            email : this.state.inputValueEmail,
+            password : this.state.inputValuePassword
+        })
+        .then((res) => {
+            alert('Login Success')
+            AsyncStorage.setItem('userToken', res.data.token)
+            this.props.navigation.navigate('Account')
+        })
+        .catch(error => {
+            alert(error)
+        })
+    }
+
     render() {
         return (
             // Main Content
@@ -17,11 +64,15 @@ export default class Login extends Component {
                 
                 {/* Form Input */}
                 <View style={styles.LoginForm}>
-                    <TextInput placeholder="Username" style={styles.TextInput} />
+                    <TextInput placeholder="Email Address" style={styles.TextInput} onChangeText={(inputValueEmail) => this.setState({inputValueEmail})} />
 
-                    <TextInput placeholder="Password" secureTextEntry style={styles.TextInput} />
+                    <Text>{this.state.inputValueEmail}</Text>
 
-                    <TouchableHighlight onPress={() => this.props.navigation.navigate('Account', { status : 1})} style={styles.btnLogin}>
+                    <TextInput placeholder="Password" secureTextEntry style={styles.TextInput} onChangeText={(inputValuePassword) => this.setState({inputValuePassword})} />
+
+                    <Text>{this.state.inputValuePassword}</Text>
+
+                    <TouchableHighlight onPress={this.handleLogin} style={styles.btnLogin}>
                         <Text style={styles.textButton}>Login</Text>
                     </TouchableHighlight>
                 </View>
