@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, ScrollView, TouchableHighlight} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 import Header from '../../components/HeaderBar'
 import PromoImage from '../../components/PromoImage'
 import PopularCity from '../../components/PopularCity'
@@ -16,6 +18,13 @@ export default class Home extends Component {
             activeCewek : { color : '#000'},
         }
     }
+
+    // Fetch the token from storage then navigate to our appropriate place
+    _bootstrapAsync = async () => {
+        const userToken = await AsyncStorage.getItem('userToken');
+
+        this.props.navigation.navigate(userToken ? 'Iklan' : 'Login');
+    };
 
     _handleMenuTab = (props) => {
         this.setState({
@@ -64,7 +73,7 @@ export default class Home extends Component {
                             <Text style={styles.searchBarTitle}>Hai,</Text>
                             <Text style={styles.searchBarTitle}>Butuh Kost Untuk {this.state.menuTab}?</Text>
                             <View style={styles.cardTextInput}>
-                                <TextInput onFocus={() => this.props.navigation.navigate('List', {inputValue: 'Masukan Nama Kota'})} placeholder="Masukan alamat atau nama tempat" style={styles.searchBarTextInput} />
+                                <TextInput onFocus={() => this.props.navigation.navigate('List')} placeholder="Masukan alamat atau nama tempat" style={styles.searchBarTextInput} />
                                 <Icon name='search' style={styles.searchBarIcon} color='#cf0e04' size={20} />
                             </View>
                         </View>
@@ -84,7 +93,7 @@ export default class Home extends Component {
                         {/* Pasang Iklan */}
                         <View style={styles.Ad}>
                             <Text style={styles.AdTitle}>Tertarik Mengiklankan kosmu ?</Text>
-                            <TouchableHighlight onPress={() => this.props.navigation.navigate('Iklan', {status: 1})} style={styles.AdButton}>
+                            <TouchableHighlight onPress={() => this._bootstrapAsync()} style={styles.AdButton}>
                                 <Text style={styles.AdTextButton}>Pasang Iklan</Text>
                             </TouchableHighlight>
                         </View>
@@ -95,12 +104,12 @@ export default class Home extends Component {
                             {/* Kota Popular */}
                             <View style={styles.PopularCityContent}>
                                 <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-                                    <PopularCity kotaImg={require('../../assets/image/kota-jakarta.jpg')} href={() => this.props.navigation.navigate('List', {inputValue: 'Jakarta'})} title="Jakarta" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-bandung.jpg')}  href={() => this.props.navigation.navigate('List', {inputValue: 'Bandung'})} title="Bandung" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-surabaya.jpg')}  href={() => this.props.navigation.navigate('List', {inputValue: 'Surabaya'})} title="Surabaya" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-majalengka.jpg')}  href={() => this.props.navigation.navigate('List', {inputValue: 'Majalengka'})} title="Majalengka" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-denpasar.png')}  href={() => this.props.navigation.navigate('List', {inputValue: 'Denpasar'})} title="Denpasar" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-yogyakarta.jpg')}  href={() => this.props.navigation.navigate('List', {inputValue: 'Yogyakarta'})} title="Yogyakarta" />
+                                    <PopularCity kotaImg={require('../../assets/image/kota-jakarta.jpg')} href={() => this.props.navigation.navigate('List')} title="Jakarta" />
+                                    <PopularCity kotaImg={require('../../assets/image/kota-bandung.jpg')}  href={() => this.props.navigation.navigate('List')} title="Bandung" />
+                                    <PopularCity kotaImg={require('../../assets/image/kota-surabaya.jpg')}  href={() => this.props.navigation.navigate('List')} title="Surabaya" />
+                                    <PopularCity kotaImg={require('../../assets/image/kota-majalengka.jpg')}  href={() => this.props.navigation.navigate('List')} title="Majalengka" />
+                                    <PopularCity kotaImg={require('../../assets/image/kota-denpasar.png')}  href={() => this.props.navigation.navigate('List')} title="Denpasar" />
+                                    <PopularCity kotaImg={require('../../assets/image/kota-yogyakarta.jpg')}  href={() => this.props.navigation.navigate('List')} title="Yogyakarta" />
                                 </ScrollView>
                             </View>
                         </View>

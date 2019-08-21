@@ -4,6 +4,7 @@ import {View, Text, TouchableHighlight, TextInput, Image, ScrollView, TouchableO
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MapView from 'react-native-maps';
+import axios from 'axios'
 
 
 const Kost = [
@@ -93,18 +94,13 @@ export default class List extends Component {
     render() {
 
         const Tabs = this.state.tabs;
-        const kota = "Masukan Nama Kota";
-
-        if(this.props.navigation.getParam('inputValue')) {
-            kota = this.props.navigation.getParam('inputValue')
-        }
 
         if(Tabs === 1) {
             return (
                 <View style={{flex: 1}}>
                     {/* Search Bar */}
                     <View style={styles.searchBar}>
-                        <TextInput autoFocus placeholder={kota} style={styles.searchBarInput} />
+                        <TextInput autoFocus style={styles.searchBarInput} />
                         <Icon name='arrow-left' style={styles.searchBarIcon} color='#cf0e04' size={20} onPress={() => this.props.navigation.navigate('Home') } />
                     </View>
 
@@ -144,7 +140,7 @@ export default class List extends Component {
 
                     {/* Search Bar */}
                     <View style={styles.searchBar}>
-                        <TextInput autoFocus placeholder={kota} style={styles.searchBarInput} />
+                        <TextInput autoFocus style={styles.searchBarInput} />
                         <Icon name='arrow-left' style={styles.searchBarIcon} color='#cf0e04' size={20} onPress={() => this.props.navigation.navigate('Home') } />
                     </View>
                     {/* Tab Menu */}

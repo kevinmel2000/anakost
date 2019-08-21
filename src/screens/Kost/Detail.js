@@ -3,6 +3,7 @@ import {View, Text, Image, TouchableHighlight, ScrollView, StyleSheet, Share} fr
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MapView from 'react-native-maps';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Detail extends React.Component { 
 
@@ -61,6 +62,13 @@ export default class Detail extends React.Component {
         ),
         colorFoto : 'red', colorPeta : 'white'})
     }
+
+    // Fetch the token from storage then navigate to our appropriate place
+    _handleBooking = async () => {
+        const userToken = await AsyncStorage.getItem('userToken');
+
+        this.props.navigation.navigate(userToken ? 'Booking' : 'Login');
+    };
 
     render() {
 
@@ -328,7 +336,7 @@ export default class Detail extends React.Component {
                         </TouchableHighlight>
 
                         {/* Booking Button */}
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Book')} style={styles.btnBooking}>
+                        <TouchableHighlight onPress={() => this._handleBooking()} style={styles.btnBooking}>
                             <Text style={styles.btnBookingText}>
                                 Booking
                             </Text>

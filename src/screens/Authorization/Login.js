@@ -66,11 +66,7 @@ export default class Login extends Component {
                 <View style={styles.LoginForm}>
                     <TextInput placeholder="Email Address" style={styles.TextInput} onChangeText={(inputValueEmail) => this.setState({inputValueEmail})} />
 
-                    <Text>{this.state.inputValueEmail}</Text>
-
                     <TextInput placeholder="Password" secureTextEntry style={styles.TextInput} onChangeText={(inputValuePassword) => this.setState({inputValuePassword})} />
-
-                    <Text>{this.state.inputValuePassword}</Text>
 
                     <TouchableHighlight onPress={this.handleLogin} style={styles.btnLogin}>
                         <Text style={styles.textButton}>Login</Text>
