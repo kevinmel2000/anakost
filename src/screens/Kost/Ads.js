@@ -3,7 +3,7 @@ import React from 'react';
 import {View, ScrollView, TouchableHighlight, Text, TextInput, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import CreateForm from '../../components/CreateAdForm';
+import CustomTextInput from '../../components/Form/CustomTextInput';
 import MapView, {Marker} from 'react-native-maps';
 
 export default class Ads extends React.Component {
@@ -11,6 +11,13 @@ export default class Ads extends React.Component {
     constructor() {
         super()
         this.state = {
+            name: null,
+            type: null,
+            price: null,
+            is_order : 1,
+            province: null,
+            city: null,
+            kec : null,
             region:{
                 latitude: -6.301281,
                 longitude: 106.735149,
@@ -19,11 +26,9 @@ export default class Ads extends React.Component {
             },
             markers: {
                 latlng: {
-                latitude: -6.301281,
-                longitude: 106.735149,
-                },
-                title: "Bootcamp Dumbways",
-                description: "Batch 11 Best Quality"
+                    latitude: -6.301281,
+                    longitude: 106.735149,
+                }
             }
         }
     }
@@ -48,12 +53,28 @@ export default class Ads extends React.Component {
                 {/* adsform */}
                 <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollFormAds}>
                     <View style={styles.IklanForm}>
-                        <CreateForm title="Nama Kost *" placeholder="Masukan Nama Kost di sini" />
-                        <CreateForm title="Pemilik Kost *" placeholder="Masukan Nama Pemilik Kost di sini" />
-                        <CreateForm title="Nomor Handphone Pemilik Kost *" placeholder="Masukan No HP (08964xxx) di sini" />
-                        <CreateForm title="Provinsi *" placeholder="Masukan Nama Provinsi" />
-                        <CreateForm title="Kota *" placeholder="Masukan Nama Kota" />
-                        <CreateForm title="Kecamatan *" placeholder="Masukan Nama Kecamatan" />
+                        <CustomTextInput  
+                            handleChangeText={(name) => this.setState({name})} 
+                            title="Nama Kost *" placeholder="Masukan Nama Kost di sini" />
+                        <Text>{this.state.name}</Text>
+                        <CustomTextInput  
+                            handleChangeText={(type) => this.setState({type})} 
+                            title="Jenis Kost *" placeholder="Masukan Jenis Kost Cowok / Cewek di sini" />
+                        <Text>{this.state.type}</Text>
+                        <CustomTextInput  
+                            changeKeyboard="numeric"
+                            handleChangeText={(price) => this.setState({price})} 
+                            title="Harga Kost Perbulan *" placeholder="Masukan Harga Kost di sini" />
+                        <Text>{this.state.price}</Text>
+                        <CustomTextInput  
+                            handleChangeText={(province) => this.setState({province})} 
+                            title="Provinsi *" placeholder="Masukan Nama Provinsi" />
+                        <CustomTextInput  
+                            handleChangeText={(city) => this.setState({city})} 
+                            title="Kota *" placeholder="Masukan Nama Kota" />
+                        <CustomTextInput  
+                            handleChangeText={(kec) => this.setState({kec})} 
+                            title="Kecamatan *" placeholder="Masukan Nama Kecamatan" />
                         <View style={{position: 'relative'}}>
                             <Text style={styles.textformAdsMap}>
                                 Search alamat/area kost anda di Peta, Kemudian pindahkan pin di peta ke lokasi tepat kost anda

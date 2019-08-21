@@ -26,7 +26,7 @@ app.group("/api/v2", (router) => {
 
     // Route Kost
     router.get('/kost', KostController.index)
-    router.get('/kost/:id', authenticated, KostController.show)
+    router.get('/kost/:id', KostController.show)
     router.post('/kost', authenticated, KostController.store)
 
     // Route User

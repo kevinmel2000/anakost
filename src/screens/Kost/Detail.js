@@ -4,6 +4,7 @@ import {View, Text, Image, TouchableHighlight, ScrollView, StyleSheet, Share} fr
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MapView from 'react-native-maps';
 import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 
 export default class Detail extends React.Component { 
 
@@ -19,9 +20,38 @@ export default class Detail extends React.Component {
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421
             },
+            name : null,
+            type : null,
+            price : null,
+            city : null,
+            updatedAt : null,
             colorFoto : 'red',
             colorPeta : 'white',
         }
+    }
+
+    componentDidMount = async() => {
+
+        const kostId = this.props.navigation.getParam('kostId');
+
+        await axios.get('http://192.168.137.1:8000/api/v2/kost/' + kostId).then((res) => {
+            const data = res.data[0]
+            this.setState({
+                menu : (
+                    <Image source={{uri: data.image}} style={styles.Image} />
+                ),
+                type: data.type,
+                city: data.city,
+                name : data.name,
+                price : data.price,
+                updatedAt: data.updatedAt,
+                region : {
+                    latitude : data.latitude,
+                    longitude: data.longitude,
+                }
+            })
+            
+        })
     }
 
     /*
@@ -32,7 +62,7 @@ export default class Detail extends React.Component {
         try {
           const result = await Share.share({
             message:
-              'Kost AnaRooms Nyaman Tidur Mimpi Indah',
+              this.state.name,
           });
     
           if (result.action === Share.sharedAction) {
@@ -67,7 +97,7 @@ export default class Detail extends React.Component {
     _handleBooking = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
 
-        this.props.navigation.navigate(userToken ? 'Booking' : 'Login');
+        this.props.navigation.navigate(userToken ? 'Booking' : 'Account');
     };
 
     render() {
@@ -128,11 +158,11 @@ export default class Detail extends React.Component {
                     {/* Category & Stock */}
                     <View style={styles.categoryWrap}>
                         <Text style={styles.textCategory}>
-                            Putri
+                            {this.state.type}
                         </Text>
 
                         <Text style={styles.textStock}>
-                            Tinggal 1 Kamar
+                            {this.state.city}
                         </Text>
                     </View>
 
@@ -140,14 +170,14 @@ export default class Detail extends React.Component {
                     <View style={styles.titleWrap}>
                         {/* Title */}
                         <Text style={styles.titleText}>
-                            Kost AnaRooms Nyaman Tidur Mimpi Indah
+                            {this.state.name}
                         </Text>
 
                         {/* Date Updated */}
                         <Text style={{
                             paddingVertical: 6
                         }}>
-                            Pembaharuan 12 Agustus 2019 Pukul 14.00
+                            Pembaharuan {this.state.updatedAt} Pukul 14.00
                         </Text>
                     </View>
 
@@ -319,7 +349,7 @@ export default class Detail extends React.Component {
                     {/* Price by month */}
                     <View style={styles.priceWrap}>
                         <Text style={styles.priceText}>
-                            Rp. 1.750.000/bulan
+                            Rp. {this.state.price}/bulan
                         </Text>
                         <TouchableHighlight>
                             <Text style={{color: 'red'}}>Lihat semua harga <Icon name='arrow-alt-circle-down' size={10} /></Text>

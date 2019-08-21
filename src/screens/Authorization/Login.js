@@ -44,13 +44,20 @@ export default class Login extends Component {
             password : this.state.inputValuePassword
         })
         .then((res) => {
-            alert('Login Success')
-            AsyncStorage.setItem('userToken', res.data.token)
-            this.props.navigation.navigate('Account')
+            const userToken = res.data.token
+            if(userToken) {
+                alert('Login Success')
+                AsyncStorage.setItem('userToken', userToken)
+                this.props.navigation.navigate('Account')
+            } else {
+                alert('Gagal Masuk, Username / password salah')
+                
+            }
         })
         .catch(error => {
             alert(error)
         })
+        
     }
 
     render() {

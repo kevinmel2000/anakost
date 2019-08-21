@@ -7,35 +7,35 @@ import MapView from 'react-native-maps';
 import axios from 'axios'
 
 
-const Kost = [
-    {
-        id : 1,
-        name : 'Kost Surga Kaum Pria',
-        address : 'Jalan Selamat dunia akhirat lewat sholat',
-        stock : 'Tersedia 1 Kamar',
-        longitude: 120,
-        latitude: 120,
-        cover : 'https://cdn2.tstatic.net/makassar/foto/bank/images/dekat-unm-parangtambung-d.jpg'
-    },
-    {
-        id : 2,
-        name : 'Kost Murah Anak Sekolah',
-        address : 'Ingat Akhirat Dunia Sesaat',
-        stock : 'Tersedia 19 Kamar',
-        longitude: 120,
-        latitude: 120,
-        cover : 'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'
-    },
-    {
-        id : 3,
-        name : 'Kost Mahal Pejabat Korup',
-        address : 'Jalan Sesat akhirat melarat tanpa sholat',
-        stock : 'Tersedia 8 Kamar',
-        longitude: 120,
-        latitude: 120,
-        cover : 'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'
-    }
-]
+// const Kost = [
+//     {
+//         id : 1,
+//         name : 'Kost Surga Kaum Pria',
+//         address : 'Jalan Selamat dunia akhirat lewat sholat',
+//         stock : 'Tersedia 1 Kamar',
+//         longitude: 120,
+//         latitude: 120,
+//         cover : 'https://cdn2.tstatic.net/makassar/foto/bank/images/dekat-unm-parangtambung-d.jpg'
+//     },
+//     {
+//         id : 2,
+//         name : 'Kost Murah Anak Sekolah',
+//         address : 'Ingat Akhirat Dunia Sesaat',
+//         stock : 'Tersedia 19 Kamar',
+//         longitude: 120,
+//         latitude: 120,
+//         cover : 'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'
+//     },
+//     {
+//         id : 3,
+//         name : 'Kost Mahal Pejabat Korup',
+//         address : 'Jalan Sesat akhirat melarat tanpa sholat',
+//         stock : 'Tersedia 8 Kamar',
+//         longitude: 120,
+//         latitude: 120,
+//         cover : 'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'
+//     }
+// ]
 
 export default class List extends Component {
 
@@ -49,7 +49,7 @@ export default class List extends Component {
             colorTabs1 : '#000',
             colorTabs2 : '#fff',
             kota : 'Masukan Nama Kota',
-            DataKost : Kost,
+            DataKost : null,
             region:{
                 latitude: -6.301281,
                 longitude: 106.735149,
@@ -65,6 +65,18 @@ export default class List extends Component {
                 description: "Batch 11 Best Quality"
             }
         }
+    }
+
+    componentDidMount() {
+
+        axios.get('http://192.168.137.1:8000/api/v2/kost').then((res) => {
+            this.setState({
+                DataKost : res.data
+            })
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     }
 
     handleButton = (props) => {
@@ -177,12 +189,12 @@ export default class List extends Component {
                                 data = {this.state.DataKost}
                                 renderItem = {({item}) => {
                                     return (
-                                        <TouchableOpacity key={item.id} style={styles.card} onPress={() => this.props.navigation.navigate('Detail')} >
-                                            <Image style={styles.cardImage} source={{uri:item.cover}}/>
+                                        <TouchableOpacity key={item.id} style={styles.card} onPress={() => this.props.navigation.navigate('Detail', {kostId : item.id})} >
+                                            <Image style={styles.cardImage} source={{uri:item.image}}/>
                                             <Text style={styles.cardTextPay}>{item.name}</Text>
-                                            <Text style={styles.cardTextAddress}>{item.address}</Text>
-                                                <Text style={styles.cardTextBook}>Bisa Booking</Text>
-                                            <Text style={styles.cardTextNote}>{item.stock}</Text>
+                                            <Text style={styles.cardTextAddress}>{item.province}, {item.city}</Text>
+                                            <Text style={styles.cardTextNote}>{item.type}</Text>
+                                            <Text style={styles.cardTextBook}>Bisa Booking</Text>
                                         </TouchableOpacity>
                                     );
                                 }}
@@ -265,14 +277,16 @@ const styles = StyleSheet.create({
     },
     cardTextAddress: {
         fontSize: 14,
+        paddingHorizontal: 5
     },
     cardTextNote: {
         fontSize: 10,
+        paddingHorizontal: 5,
         color: '#9936e2'
     },
     cardTextBook: {
         backgroundColor: 'red',
-        borderRadius: 25,
+        borderRadius: 150/25,
         width: 105,
         color: '#FFFFFF',
         padding: 10,

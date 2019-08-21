@@ -8,11 +8,7 @@ export default class Profile extends React.Component {
 
     constructor(){
         super()
-        AsyncStorage.getItem('userToken', (error, result) => {
-            if (!result) {
-                this.props.navigation.navigate('Account')
-            }
-        });
+        this._boostrapAsync();
     }
 
     // componentDidMount() {
@@ -23,11 +19,19 @@ export default class Profile extends React.Component {
     //     });
     // }
 
+    _boostrapAsync = async () => {
+        await AsyncStorage.getItem('userToken', (error, result) => {
+            if (!result) {
+                this.props.navigation.navigate('Account')
+            }
+        });
+    }
+
     _handleLogout = async() => {
 
         await AsyncStorage.clear()
         alert('Logout Success')
-        this.props.navigation.navigate('Login')
+        this.props.navigation.navigate('PublicStack')
     }
 
     render() {
