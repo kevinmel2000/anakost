@@ -69,7 +69,7 @@ export default class List extends Component {
 
     componentDidMount() {
 
-        axios.get('http://192.168.137.1:8000/api/v2/kost').then((res) => {
+        axios.get('https://anakost-app.herokuapp.com/api/v2/list').then((res) => {
             this.setState({
                 DataKost : res.data
             })

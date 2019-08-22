@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, ActivityIndicator, StyleSheet} from 'react-native';
+import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -22,6 +22,7 @@ export default class CheckUser extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text style={styles.title}>Anakost App</Text>
                 <ActivityIndicator />
             </View>
         )
@@ -34,4 +35,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    title : {
+        marginVertical: 15,
+        textAlign: 'center',
+    }
 });

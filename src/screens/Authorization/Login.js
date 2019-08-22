@@ -39,7 +39,7 @@ export default class Login extends Component {
 
     handleLogin = async() => {
 
-        await axios.post('http://192.168.137.1:8000/api/v2/login', {
+        await axios.post('https://anakost-app.herokuapp.com/api/v2/login', {
             email : this.state.inputValueEmail,
             password : this.state.inputValuePassword
         })

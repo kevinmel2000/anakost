@@ -23,7 +23,7 @@ export default class Home extends Component {
     _bootstrapAsync = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
 
-        this.props.navigation.navigate(userToken ? 'Iklan' : 'Login');
+        this.props.navigation.navigate(userToken ? 'Iklan' : 'Account');
     };
 
     _handleMenuTab = (props) => {

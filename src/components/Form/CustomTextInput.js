@@ -7,7 +7,7 @@ export default class CustomTextInput extends React.Component {
         const data = this.props
 
         return (
-            <View style={styles.container}>
+            <View>
                 <Text style={styles.textTitle}>
                     {this.props.title}
                 </Text>
@@ -23,20 +23,21 @@ export default class CustomTextInput extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container : {
-        paddingVertical: 8
-    },
     textTitle : {
         fontSize: 16, 
         fontWeight: 'bold',
         marginBottom: 6
     },
     TextInput : {
+        fontSize: 16,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderWidth: 0.5,
+        borderColor: '#cf0e04',
+        borderRadius: 8,
+        color: 'black',
+        paddingRight: 30,
         marginVertical: 8,
-        borderColor: '#a3a3a3', 
-        borderWidth: 1, 
-        borderRadius: 100/25, 
-        paddingHorizontal: '5%'
     }
 })
 
