@@ -9,11 +9,9 @@ export default class Profile extends React.Component {
     constructor(){
         super()
         this.state = {
-            userAccount : {
-                name : "",
-                email : "",
-                phone : ""
-            }
+            name : null,
+            email : null,
+            phone : null
         }
         this._boostrapAsync();
     }
@@ -26,23 +24,24 @@ export default class Profile extends React.Component {
     //     });
     // }
 
-    componentDidMount() {
-        AsyncStorage.getItem('userAccount', (error, result) => {
-            const userAccount = JSON.parse(result)
-
-            this.setState({
-                userAccount
-            })
-        })
-        
-    }
-
     _boostrapAsync = async () => {
         await AsyncStorage.getItem('userToken', (error, result) => {
             if (!result) {
                 this.props.navigation.navigate('Account')
             }
         });
+
+        await AsyncStorage.getItem('userAccount', (error, result) => {
+            const userAccount = JSON.parse(result)
+
+            this.setState({
+                name : userAccount.fullName,
+                email : userAccount.email,
+                phone : userAccount.phone
+            })
+
+            console.log(userAccount)
+        })
     }
 
     _handleLogout = async() => {
@@ -60,7 +59,7 @@ export default class Profile extends React.Component {
                         <TouchableHighlight style={styles.AccountHeaderIcon}>
                         <Icon name='grin-beam' size={40} color='#fff' />
                     </TouchableHighlight>
-                    <Text style={styles.AccountHeaderText}>Risman Abdilah</Text>
+                    <Text style={styles.AccountHeaderText}>{this.state.name}</Text>
                 </View>
                 
                 {/* User Menu */}

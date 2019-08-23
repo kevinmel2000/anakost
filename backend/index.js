@@ -28,9 +28,12 @@ app.group("/api/v2", (router) => {
     router.get('/kost', KostController.index)
     router.get('/kost/:id', KostController.show)
     router.post('/kost', authenticated, KostController.store)
+    router.delete('/kost/:id',authenticated, KostController.delete)
 
     // Route User
     router.post('/register', UserController.store)
+    router.get('/users', UserController.index)
+    router.get('/user/:id', UserController.show)
 })
 
 app.listen(port, () => console.log('Listening on port : ' + port))

@@ -194,6 +194,7 @@ export default class List extends Component {
                                             <Text style={styles.cardTextPay}>{item.name}</Text>
                                             <Text style={styles.cardTextAddress}>{item.province}, {item.city}</Text>
                                             <Text style={styles.cardTextNote}>{item.type}</Text>
+                                            <Text style={styles.cardTextOwner}>Pemilik Kost : {item.createdBy.fullName}</Text>
                                             <Text style={styles.cardTextBook}>Bisa Booking</Text>
                                         </TouchableOpacity>
                                     );
@@ -293,6 +294,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 10
+    },
+    cardTextOwner: {
+        marginVertical: 8,
+        fontSize: 10,
+        color: '#000',
+        fontWeight: '500'
     },
     sortWrap: {
         position: "absolute",
