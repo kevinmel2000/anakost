@@ -34,7 +34,7 @@ export default class Detail extends React.Component {
 
         const kostId = this.props.navigation.getParam('kostId');
 
-        await axios.get('https://anakost-app.herokuapp.com/api/v2/kost' + kostId).then((res) => {
+        await axios.get('http://192.168.137.1:8000/api/v2/kost/' + kostId).then((res) => {
             const data = res.data[0]
             this.setState({
                 menu : (
@@ -48,6 +48,8 @@ export default class Detail extends React.Component {
                 region : {
                     latitude : data.latitude,
                     longitude: data.longitude,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421
                 }
             })
             

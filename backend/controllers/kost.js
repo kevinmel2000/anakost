@@ -5,9 +5,9 @@ const User = models.user
 exports.index = (req, res) => {
     
     Kost.findAll({
-        where : {
-            is_order : 1
-        },
+        order : [
+            ['id', 'DESC']
+        ],
         include: [{
             model: User,
             as: "createdBy"

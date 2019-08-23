@@ -31,7 +31,7 @@ export default class Register extends Component {
 
         } else {
 
-            axios.post('https://anakost-app.herokuapp.com/api/v2/register', {
+            axios.post('http:192.168.137.1:8000/api/v2/register', {
                 fullName: name,
                 email: email,
                 phone: phone,

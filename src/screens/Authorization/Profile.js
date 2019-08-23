@@ -8,6 +8,13 @@ export default class Profile extends React.Component {
 
     constructor(){
         super()
+        this.state = {
+            userAccount : {
+                name : "",
+                email : "",
+                phone : ""
+            }
+        }
         this._boostrapAsync();
     }
 
@@ -18,6 +25,17 @@ export default class Profile extends React.Component {
     //         }
     //     });
     // }
+
+    componentDidMount() {
+        AsyncStorage.getItem('userAccount', (error, result) => {
+            const userAccount = JSON.parse(result)
+
+            this.setState({
+                userAccount
+            })
+        })
+        
+    }
 
     _boostrapAsync = async () => {
         await AsyncStorage.getItem('userToken', (error, result) => {

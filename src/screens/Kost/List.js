@@ -69,7 +69,7 @@ export default class List extends Component {
 
     componentDidMount() {
 
-        axios.get('https://anakost-app.herokuapp.com/api/v2/list').then((res) => {
+        axios.get('http://192.168.137.1:8000/api/v2/kost').then((res) => {
             this.setState({
                 DataKost : res.data
             })
@@ -182,7 +182,7 @@ export default class List extends Component {
                     {/* tab list kos */}
                     <View style={styles.container}> 
                     
-                        <ScrollView style={{ paddingBottom: '30%' }}>
+                        <ScrollView showsVerticalScrollIndicator={false} style={{ paddingBottom: '30%' }}>
 
                             <FlatList
                                 keyExtractor= {(item) => item.id.toString()}

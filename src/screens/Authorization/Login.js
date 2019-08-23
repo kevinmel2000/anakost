@@ -39,15 +39,25 @@ export default class Login extends Component {
 
     handleLogin = async() => {
 
-        await axios.post('https://anakost-app.herokuapp.com/api/v2/login', {
+        await axios.post('http://192.168.137.1:8000/api/v2/login', {
             email : this.state.inputValueEmail,
             password : this.state.inputValuePassword
         })
         .then((res) => {
+            // Get Data 
+            const userAccount = {
+                fullName : res.data.user.fullName,
+                email : res.data.user.email,
+                phone : res.data.user.phone
+            }
             const userToken = res.data.token
+            // Check Token
             if(userToken) {
                 alert('Login Success')
+                // Save to Local Storage
                 AsyncStorage.setItem('userToken', userToken)
+                AsyncStorage.setItem('userAccount', JSON.stringify(userAccount))
+
                 this.props.navigation.navigate('Account')
             } else {
                 alert('Gagal Masuk, Username / password salah')
