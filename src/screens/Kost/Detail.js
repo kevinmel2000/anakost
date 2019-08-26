@@ -34,7 +34,7 @@ export default class Detail extends React.Component {
 
         const kostId = this.props.navigation.getParam('kostId');
 
-        await axios.get('http://192.168.137.1:8000/api/v2/kost/' + kostId).then((res) => {
+        await axios.get('https://anakost-api.herokuapp.com/api/v2/kost/' + kostId).then((res) => {
             const data = res.data[0]
             this.setState({
                 menu : (

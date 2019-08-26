@@ -7,18 +7,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 
-// const deviceStorage = {
-  
-//     async saveItem(key, value) {
-//       try {
-//         await AsyncStorage.setItem(key, value);
-//       } catch (error) {
-//         console.log('AsyncStorage Error: ' + error.message);
-//       }
-//     }
-    
-// };
-
 export default class Login extends Component {
 
     constructor() {
@@ -29,26 +17,19 @@ export default class Login extends Component {
         }
     }
 
-    // saveUserToken = async (key, value) => {
-    //     try {
-    //       await AsyncStorage.setItem(key, value);
-    //     } catch (error) {
-    //       console.log('AsyncStorage Error: ' + error.message);
-    //     }
-    // }
-
+    // Handle Login Button
     handleLogin = async() => {
 
-        await axios.post('http://192.168.137.1:8000/api/v2/login', {
+        await axios.post('https://anakost-api.herokuapp.com/api/v2/login', {
             email : this.state.inputValueEmail,
             password : this.state.inputValuePassword
         })
         .then((res) => {
             // Get Data 
             const userAccount = {
-                fullName : res.data.user.fullName,
-                email : res.data.user.email,
-                phone : res.data.user.phone
+                fullName : res.data.data.fullName,
+                email : res.data.data.email,
+                phone : res.data.data.phone
             }
             const userToken = res.data.token
             // Check Token

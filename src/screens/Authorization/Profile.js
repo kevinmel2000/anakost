@@ -16,14 +16,6 @@ export default class Profile extends React.Component {
         this._boostrapAsync();
     }
 
-    // componentDidMount() {
-    //     AsyncStorage.getItem('userToken', (error, result) => {
-    //         if (!result) {
-    //             this.props.navigation.navigate('Account')
-    //         }
-    //     });
-    // }
-
     _boostrapAsync = async () => {
         await AsyncStorage.getItem('userToken', (error, result) => {
             if (!result) {

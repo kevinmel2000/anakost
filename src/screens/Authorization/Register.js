@@ -31,14 +31,14 @@ export default class Register extends Component {
 
         } else {
 
-            axios.post('http:192.168.137.1:8000/api/v2/register', {
+            axios.post('https://anakost-api.herokuapp.com/api/v2/register', {
                 fullName: name,
                 email: email,
                 phone: phone,
                 password: password,
             })
             .then(res => {
-                alert('Login Success')
+                alert('Berhasil Daftar!')
                 this.props.navigation.navigate('Login')
             })
             .catch(function (error) {
