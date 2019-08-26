@@ -18,7 +18,7 @@ export default class Ads extends React.Component {
             name: null,
             price: null,
             typeValue: null,
-            is_order: 1,
+            description: null,
             dataProvince: [],
             dataCity: [],
             dataKec: [],
@@ -133,22 +133,20 @@ export default class Ads extends React.Component {
 
     // Handle Save or Add Button
     _saveDataKost = async() => {
-        const dataItem = {
-            name : this.state.name,
-            type : this.state.typeValue,
-            description : null,
-            price : parseInt(this.state.price),
-            is_order : this.state.is_order,
-            province : this.state.valueAdress.province,
-            city : this.state.valueAdress.city,
-            kec : this.state.valueAdress.kec,
-            latitude : this.state.region.latitude,
-            longitude : this.state.region.longitude,
-            room_length: null,
-            room_width: null,
-            image: 'https://cdn2.tstatic.net/makassar/foto/bank/images/dekat-unm-parangtambung-d.jpg',
-            created_by : 1
-        }
+        // const dataItem = {
+        //     name : this.state.name,
+        //     type : this.state.typeValue,
+        //     description : this.state.description,
+        //     price : parseInt(this.state.price),
+        //     province : this.state.valueAdress.province,
+        //     city : this.state.valueAdress.city,
+        //     kec : this.state.valueAdress.kec,
+        //     latitude : this.state.region.latitude,
+        //     longitude : this.state.region.longitude,
+        //     room_length: null,
+        //     room_width: null,
+        //     image: 'https://cdn2.tstatic.net/makassar/foto/bank/images/dekat-unm-parangtambung-d.jpg'
+        // }
 
         const token = await AsyncStorage.getItem("userToken");
 
@@ -158,10 +156,10 @@ export default class Ads extends React.Component {
             }
         };
 
-        Axios.post('http://192.168.137.1:8000/api/v2/kost', {
+        Axios.post('https://anakost-api.herokuapp.com/api/v2/kost', {
             name : this.state.name,
             type : this.state.typeValue,
-            description : null,
+            description : this.state.description,
             price : parseInt(this.state.price),
             province : this.state.valueAdress.province,
             city : this.state.valueAdress.city,
@@ -170,8 +168,7 @@ export default class Ads extends React.Component {
             longitude : this.state.region.longitude,
             room_length: null,
             room_width: null,
-            image: 'https://cdn2.tstatic.net/makassar/foto/bank/images/dekat-unm-parangtambung-d.jpg',
-            created_by : 1
+            image: 'https://cdn2.tstatic.net/makassar/foto/bank/images/dekat-unm-parangtambung-d.jpg'
         }, config)
         .then(res => {
             alert('Berhasil Tambah Iklan')
@@ -181,27 +178,6 @@ export default class Ads extends React.Component {
             console.log(error);
         });
 
-        // const res = await Axios.post("http://192.168.137.1:8000/api/v2/kost", 
-        // {
-        //     name : this.state.name,
-        //     type : this.state.typeValue,
-        //     description : null,
-        //     price : parseInt(this.state.price),
-        //     province : this.state.valueAdress.province,
-        //     city : this.state.valueAdress.city,
-        //     kec : this.state.valueAdress.kec,
-        //     latitude : this.state.region.latitude,
-        //     longitude : this.state.region.longitude,
-        //     room_length: null,
-        //     room_width: null,
-        //     image: 'https://cdn2.tstatic.net/makassar/foto/bank/images/dekat-unm-parangtambung-d.jpg',
-        //     created_by : 1
-        // }, config)
-
-        // if(res) {
-        //     alert('Success')
-        //     goBack()
-        // }
     }
 
     onRegionChange = region => {
@@ -229,22 +205,28 @@ export default class Ads extends React.Component {
                 {/* adsform */}
                 <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollFormAds}>
                     <View style={styles.IklanForm}>
+
                         <CustomTextInput
                             handleChangeText={(name) => this.setState({name})}
                             title="Nama Kost *" placeholder="Masukan Nama Kost di sini" />
-                        {/* <Text>{this.state.name}</Text> */}
+                        
                         <CustomSelect
                             title="Jenis Kost *"
                             items={type}
                             label="Pilih Jenis Kost"
                             handleChangeValue={(typeValue) => this.setState({typeValue})}
                         />
-                        {/* <Text>{this.state.typeValue}</Text> */}
+
+                        <CustomTextInput
+                            multiline={true}
+                            handleChangeText={(description) => this.setState({description})}
+                            title="Deskripsi *" placeholder="Masukan Deskripsi Kost di sini" />
+                        
                         <CustomTextInput
                             changeKeyboard="numeric"
                             handleChangeText={(price) => this.setState({ price })}
                             title="Harga Kost Perbulan *" placeholder="Masukan Harga Kost di sini" />
-                        {/* <Text>{this.state.price}</Text> */}
+                        
                         <CustomSelect
                             title="Provinsi *"
                             items={this.state.dataProvince}
@@ -294,6 +276,17 @@ export default class Ads extends React.Component {
                                 title="Longitude"
                                 value={this.state.region.longitude.toString()}
                             />
+                        </View>
+                        <View style={styles.mapNumber}>
+                            <CustomTextInput
+                                changeKeyboard="numeric"
+                                handleChangeText={(room_length) => this.setState({ room_length })}
+                                title="Panjang Kost *" placeholder="Masukan Panjang" />
+
+                            <CustomTextInput
+                                changeKeyboard="numeric"
+                                handleChangeText={(room_width) => this.setState({ room_width })}
+                                title="Lebar Kost *" placeholder="Masukan Lebar" />
                         </View>
                         <View style={{ paddingVertical: 8 }}>
                             <Text style={styles.uploadKostImg}>Gambar Kost *</Text>

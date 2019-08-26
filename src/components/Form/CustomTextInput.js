@@ -7,15 +7,16 @@ export default class CustomTextInput extends React.Component {
         const data = this.props
 
         return (
-            <View>
+            <View style={styles.container}>
                 <Text style={styles.textTitle}>
-                    {this.props.title}
+                    {data.title}
                 </Text>
                 <TextInput 
-                    placeholder={this.props.placeholder} 
+                    placeholder={data.placeholder} 
                     style={styles.TextInput} 
                     keyboardType={data.changeKeyboard ? data.changeKeyboard : 'default'}
                     onChangeText={data.handleChangeText}
+                    multiline={data.multiline ? data.multiline : false}
                 />
             </View>
         )
@@ -23,13 +24,17 @@ export default class CustomTextInput extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    container : {
+        flex: 1,
+        marginHorizontal: 4,
+    },
     textTitle : {
         fontSize: 16, 
         fontWeight: 'bold',
         marginBottom: 6
     },
     TextInput : {
-        fontSize: 16,
+        fontSize: 14,
         paddingHorizontal: 10,
         paddingVertical: 8,
         borderWidth: 0.5,

@@ -7,7 +7,7 @@ class CustomSelect extends React.Component{
     render() {
 
         return (
-            <View>
+            <View style={styles.container}> 
                 <Text style={styles.title}>{this.props.title}</Text>
                 <RNPickerSelect
                     onValueChange={this.props.handleChangeValue}
@@ -25,6 +25,10 @@ class CustomSelect extends React.Component{
 export default CustomSelect;
 
 const styles = StyleSheet.create({
+    container : {
+        flex: 1,
+        marginHorizontal: 4,
+    },
     title : {
         fontSize: 16, 
         fontWeight: 'bold',
@@ -34,7 +38,7 @@ const styles = StyleSheet.create({
 
 const customSelectStyle = StyleSheet.create({
     inputIOS: {
-        fontSize: 16,
+        fontSize: 14,
         paddingVertical: 12,
         paddingHorizontal: 10,
         borderWidth: 1,
@@ -45,7 +49,7 @@ const customSelectStyle = StyleSheet.create({
         marginVertical: 8, // to ensure the text is never behind the icon
       },
       inputAndroid: {
-        fontSize: 16,
+        fontSize: 14,
         paddingHorizontal: 10,
         paddingVertical: 8,
         borderWidth: 0.5,

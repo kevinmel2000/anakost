@@ -6,7 +6,7 @@ class CustomLocation extends React.Component{
     render() {
 
         return (
-            <View>
+            <View style={styles.container}>
                 <Text style={styles.title}>{this.props.title}</Text>
                 <TextInput
                     editable={false}
@@ -22,17 +22,23 @@ class CustomLocation extends React.Component{
 export default CustomLocation;
 
 const styles = StyleSheet.create({
+    container : {
+        flex: 1,
+        marginHorizontal: 4,
+    },
     title : {
-        marginVertical: 8, 
         fontSize: 16, 
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginVertical: 6
     },
     TextInput : { 
-        borderWidth: 1, 
-        borderColor: '#cf0e04', 
-        borderRadius: 8, 
-        marginVertical: 6, 
-        color: '#000', 
-        paddingHorizontal: 6 
+        fontSize: 14,
+        paddingHorizontal: 4,
+        paddingLeft: 10,
+        borderWidth: 0.5,
+        borderColor: '#cf0e04',
+        borderRadius: 8,
+        color: 'black',
+        marginVertical: 8,
     }
 })
