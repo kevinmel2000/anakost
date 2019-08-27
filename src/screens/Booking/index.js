@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, TouchableHighlight, Image, Picker} from 'react-native';
+import {View, StyleSheet, Text, TouchableHighlight, Image} from 'react-native';
 
-// Use
-// Icon From Font Awesome 5
-// Calender Picker
-// Checkbox
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import CheckBox from 'react-native-check-box';
@@ -99,16 +95,6 @@ export default class Booking extends Component {
                                 <Text style={styles.textDate}>
 
                                 </Text>
-                                {/* Select with Picker */}
-                                {/* <Picker
-                                    selectedValue={this.state.duration}
-                                    style={{height: 50, width: 100}}
-                                    onValueChange={(itemValue, itemIndex) =>
-                                        this.setState({duration: itemValue})
-                                }>
-                                <Picker.Item label="Java" value="java" />
-                                <Picker.Item label="JavaScript" value="js" />
-                                </Picker> */}
                             </View>
                         </View>
                         {/* Tanggal Keluar */}
@@ -119,15 +105,12 @@ export default class Booking extends Component {
                                      
                                 </Text>
                             </View>
-                            {/* <CalendarPicker
-                                onDateChange={this.onDateChange}
-                            /> */}
                         </View>
                     </View>
                     {/* Detail Kost */}
                     <View style={styles.KostDetail}>
                         <View style={styles.Image}>
-                            <Image source={require('../../assets/image/book-kost-satu.jpg')} style={styles.ImageData} />
+                            <Image source={require('../../assets/images/book-kost-satu.jpg')} style={styles.ImageData} />
                         </View>
                         <View style={styles.Kost}>
                             <Text style={styles.KostTitle}>Kost AnaRooms Nyaman Tidur Mimpi Indah</Text>

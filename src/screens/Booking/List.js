@@ -23,7 +23,7 @@ export default class List extends Component {
                 <View style={styles.Main}>
                     {/* Image Left */}
                     <View style={styles.image}>
-                        <Image source={require('../../assets/dummy/book-kost-satu.jpg')} style={styles.imageData} />
+                        <Image source={require('../../assets/images/book-kost-satu.jpg')} style={styles.imageData} />
                     </View>
                     {/* Content */}
                     <View style={styles.content}>
@@ -31,8 +31,8 @@ export default class List extends Component {
 
                         <View style={{flexDirection: 'row'}}>
                             <View style={{paddingRight: 8, marginTop: 4}}>
-                                <Text>Booking</Text>
-                                <Text>12 Agu 2019</Text>
+                                <Text>Tanggal Pesan</Text>
+                                <Text>12 Agustus 2019</Text>
                             </View>
                             <View style={{paddingRight: 8, marginTop: 4}}>
                                 <Text>Durasi Sewa</Text>

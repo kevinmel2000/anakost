@@ -4,8 +4,9 @@ import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import { createAppContainer } from "react-navigation";
-import Home from "../screens/Home/Home";
-import Login from "../screens/Authorization/Login";
+
+import Home from "../screens/Home";
+import Login from "../screens/Authentication/Login";
 
 const BottomNavigator = createMaterialBottomTabNavigator({
     Home : {

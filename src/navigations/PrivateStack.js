@@ -1,17 +1,17 @@
 import { createStackNavigator } from 'react-navigation';
 
 import PrivateNav from './PrivateNav';
-import Ads from '../screens/Kost/Ads'
-import Booking from '../screens/Booking/Booking';
+import Advertisement from '../screens/Dorm/Advertisement'
+import Booking from '../screens/Booking';
 import BookingList from '../screens/Booking/List';
-import List from '../screens/Kost/List';
-import Detail from '../screens/Kost/Detail';
-import Filter from '../screens/Kost/Filter';
-import Profile from '../screens/Authorization/Profile';
+import List from '../screens/Dorm/List';
+import Detail from '../screens/Dorm/Detail';
+import Filter from '../screens/Dorm/Filter';
+import Profile from '../screens/User/Profile';
 
 const PrivateStack = createStackNavigator({
     PrivateNav : PrivateNav,
-    Iklan : Ads,
+    Iklan : Advertisement,
     Booking : Booking,
     BookingList: BookingList,
     List : List,
@@ -23,4 +23,4 @@ const PrivateStack = createStackNavigator({
     headerMode: 'none'
 })
 
-export default PrivateStack
+export default PrivateStack;

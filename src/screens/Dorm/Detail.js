@@ -12,7 +12,7 @@ export default class Detail extends React.Component {
         super()
         this.state = {
             menu : (
-                <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.Image} />
+                <Image source={require('../../assets/images/kost-satu.jpg')} style={styles.Image} />
             ),
             region:{
                 latitude: -6.301281,
@@ -90,7 +90,7 @@ export default class Detail extends React.Component {
 
     _handleTabMenuFoto = () => {
         this.setState({menu : (
-            <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.Image} />
+            <Image source={require('../../assets/images/kost-satu.jpg')} style={styles.Image} />
         ),
         colorFoto : 'red', colorPeta : 'white'})
     }
@@ -99,18 +99,10 @@ export default class Detail extends React.Component {
     _handleBooking = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
 
-        this.props.navigation.navigate(userToken ? 'Booking' : 'Account');
+        this.props.navigation.navigate(userToken ? 'Booking' : 'Blocked');
     };
 
     render() {
-
-        // const TabMenu = this.state.menu
-
-        // if(TabMenu == 2) {
-        //     const DataHeader = <MapView style={{flex: 1}} initialRegion={this.state.region} onRegionChange={this.onRegionChange}/>
-        // } else {
-        //     const DataHeader = <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.Image} />
-        // }
 
         const colorFoto = this.state.colorFoto
         const colorPeta = this.state.colorPeta
@@ -220,81 +212,6 @@ export default class Detail extends React.Component {
 
                     </View>
 
-                    {/* Rating */}
-                    <View style={styles.ratingWrap}>
-                        {/* Left */}
-                        <View style={styles.leftWrap}>
-                            {/* Kebersihan */}
-                            <Text>
-                                Kebersihan
-                            </Text>
-                            <View style={styles.ratingIcon}>
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                            </View>
-
-                            {/* Keamanan */}
-                            <Text>
-                                Keamanan
-                            </Text>
-                            <View style={styles.ratingIcon}>
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                            </View>
-
-                            {/* Fasilitas Kamar */}
-                            <Text>
-                                Fasilitas Kamar
-                            </Text>
-                            <View style={styles.ratingIcon}>
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                            </View>
-                        </View>
-
-                        {/* Right */}
-                        <View style={styles.rightWrap}>
-                            {/* Kenyamanan */}
-                            <Text>
-                                Kenyamanan
-                            </Text>
-                            <View style={styles.ratingIcon}>
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                            </View>
-
-                            {/* Harga */}
-                            <Text>
-                                Harga
-                            </Text>
-                            <View style={styles.ratingIcon}>
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                            </View>
-
-                            {/* Fasilitas Umum */}
-                            <Text>
-                                Fasilitas Umum
-                            </Text>
-                            <View style={styles.ratingIcon}>
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                                <Icon name='star' />
-                            </View>
-                        </View>
-                    </View>
-
                     {/* Verifikasi */}
                     <View style={styles.verifikasiWrap}>
                         <Text style={styles.verifikasiText}>Verifikasi</Text>
@@ -335,11 +252,11 @@ export default class Detail extends React.Component {
                         <View style={styles.recomendedListWarpIn}>
                             <View style={styles.recomandedListWrapIn1}>
                                 <Text style={styles.recommendedListTextIn1}>Tersedia 1 Kamar</Text>
-                                <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.recommendedListImg} />
+                                <Image source={require('../../assets/images/kost-satu.jpg')} style={styles.recommendedListImg} />
                             </View>
                             <View style={styles.recomandedListWrapIn1}>
                                 <Text style={styles.recommendedListTextIn1}>Tersedia 3 Kamar</Text>
-                                <Image source={require('../../assets/image/kost-satu.jpg')} style={styles.recommendedListImg} />
+                                <Image source={require('../../assets/images/kost-satu.jpg')} style={styles.recommendedListImg} />
                             </View>
                         </View>
                     </View>
@@ -370,7 +287,7 @@ export default class Detail extends React.Component {
                         {/* Booking Button */}
                         <TouchableHighlight onPress={() => this._handleBooking()} style={styles.btnBooking}>
                             <Text style={styles.btnBookingText}>
-                                Booking
+                                Pesan
                             </Text>
                         </TouchableHighlight>
                     </View>

@@ -5,10 +5,10 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import { createAppContainer } from "react-navigation";
 
-import Home from "../screens/Home/Home";
-import List from "../screens/Kost/List";
+import Home from "../screens/Home";
+import List from "../screens/Dorm/List";
 import BookList from "../screens/Booking/List";
-import Profile from "../screens/Authorization/Profile";
+import Profile from "../screens/User/Profile";
 
 const BottomNavigator = createMaterialBottomTabNavigator({
     Home : {
@@ -58,10 +58,10 @@ const BottomNavigator = createMaterialBottomTabNavigator({
     }
 },
 {
-initialRouteName: 'Home',
-barStyle: {
-    backgroundColor: '#cf0e04'
-}
+    initialRouteName: 'Home',
+    barStyle: {
+        backgroundColor: '#cf0e04'
+    }
 })
 
 export default createAppContainer(BottomNavigator);

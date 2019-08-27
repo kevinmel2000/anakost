@@ -6,37 +6,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import MapView from 'react-native-maps';
 import axios from 'axios'
 
-
-// const Kost = [
-//     {
-//         id : 1,
-//         name : 'Kost Surga Kaum Pria',
-//         address : 'Jalan Selamat dunia akhirat lewat sholat',
-//         stock : 'Tersedia 1 Kamar',
-//         longitude: 120,
-//         latitude: 120,
-//         cover : 'https://cdn2.tstatic.net/makassar/foto/bank/images/dekat-unm-parangtambung-d.jpg'
-//     },
-//     {
-//         id : 2,
-//         name : 'Kost Murah Anak Sekolah',
-//         address : 'Ingat Akhirat Dunia Sesaat',
-//         stock : 'Tersedia 19 Kamar',
-//         longitude: 120,
-//         latitude: 120,
-//         cover : 'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'
-//     },
-//     {
-//         id : 3,
-//         name : 'Kost Mahal Pejabat Korup',
-//         address : 'Jalan Sesat akhirat melarat tanpa sholat',
-//         stock : 'Tersedia 8 Kamar',
-//         longitude: 120,
-//         latitude: 120,
-//         cover : 'http://blog.unnes.ac.id/sfatimah77/wp-content/uploads/sites/275/2015/11/Tips-Mencari-Tempat-Kos-di-Jogja.jpg'
-//     }
-// ]
-
 export default class List extends Component {
 
     constructor() {
@@ -62,7 +31,7 @@ export default class List extends Component {
                 longitude: 106.735149,
                 },
                 title: "Bootcamp Dumbways",
-                description: "Batch 11 Best Quality"
+                description: "Mantapu Djiwa"
             }
         }
     }
@@ -195,7 +164,7 @@ export default class List extends Component {
                                             <Text style={styles.cardTextAddress}>{item.province}, {item.city}</Text>
                                             <Text style={styles.cardTextNote}>{item.type}</Text>
                                             <Text style={styles.cardTextOwner}>Pemilik Kost : {item.createdBy.fullName}</Text>
-                                            <Text style={styles.cardTextBook}>Bisa Booking</Text>
+                                            <Text style={styles.cardTextBook}>Bisa Pesan</Text>
                                         </TouchableOpacity>
                                     );
                                 }}
@@ -210,7 +179,7 @@ export default class List extends Component {
                             </TouchableOpacity>
                             <Text style={styles.dashFilter}> | </Text>
                             <TouchableOpacity onPress={() =>alert('under maintenance')} style={styles.btnSort}>
-                                <Text style={{color:'white'}}>Sort</Text>
+                                <Text style={{color:'white'}}>Urutkan</Text>
                             </TouchableOpacity>
                         </View>
                 </View>

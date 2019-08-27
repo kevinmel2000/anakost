@@ -1,4 +1,7 @@
-
+/*
+ * React Native Reguster Apps
+ * 
+ */
 import React, {Component} from 'react';
 import {View, Text, TouchableHighlight, TextInput, StyleSheet} from 'react-native';
 
@@ -27,7 +30,7 @@ export default class Register extends Component {
 
         if(name == '' || email == '' || phone == '' || password == '') {
 
-            alert('Registrasi Gagal, Data tidak lengkap')
+            alert('Registrasi Gagal, Data tidak lengkap!')
 
         } else {
 
@@ -62,16 +65,16 @@ export default class Register extends Component {
                 
                 {/* Form Input */}
                 <View style={styles.RegisterForm}>
-                    <TextInput placeholder="Full Name" style={styles.textInput} onChangeText={(inputValueName) => this.setState({inputValueName})} />
+                    <TextInput placeholder="Nama Lengkap" style={styles.textInput} onChangeText={(inputValueName) => this.setState({inputValueName})} />
 
-                    <TextInput placeholder="Email Address" style={styles.textInput} onChangeText={(inputValueEmail) => this.setState({inputValueEmail})} keyboardType='email-address' autoCapitalize='none' />
+                    <TextInput placeholder="Alamat Email" style={styles.textInput} onChangeText={(inputValueEmail) => this.setState({inputValueEmail})} keyboardType='email-address' autoCapitalize='none' />
 
                     <TextInput placeholder="No Telpon (089xxx)" style={styles.textInput} onChangeText={(inputValuePhone) => this.setState({inputValuePhone})} keyboardType='numeric' />
 
-                    <TextInput placeholder="Password" secureTextEntry style={styles.textInput} onChangeText={(inputValuePassword) => this.setState({inputValuePassword})} />
+                    <TextInput placeholder="Kata Sandi" secureTextEntry style={styles.textInput} onChangeText={(inputValuePassword) => this.setState({inputValuePassword})} />
 
                     <TouchableHighlight onPress={this._handleRegister.bind(this)} style={styles.btnRegister}>
-                        <Text style={styles.textButton}>Register</Text>
+                        <Text style={styles.textButton}>Daftar</Text>
                     </TouchableHighlight>
                 </View>
 
@@ -79,7 +82,7 @@ export default class Register extends Component {
                 <View style={styles.linkLogin}>
 
                     <TouchableHighlight onPress={() => this.props.navigation.navigate('Login')}>
-                        <Text style={{color: '#00910a'}}>Login Account</Text>
+                        <Text style={{color: '#00910a'}}>Sudah punya akun? Masuk disini</Text>
                     </TouchableHighlight>
                 </View>
             </View>

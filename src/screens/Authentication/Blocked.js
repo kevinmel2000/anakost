@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
 
@@ -6,7 +5,7 @@ import {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export default class Account extends React.Component {
+export default class Blocked extends React.Component {
 
     componentDidMount() {
         AsyncStorage.getItem('userToken', (error, result) => {
@@ -18,28 +17,23 @@ export default class Account extends React.Component {
 
     render() {
 
-        // GET Parameters from Login
-        // If you have logged in, you do not have to re-login
-        // Enter Parameters to the status variable
-        // const status = this.props.navigation.getParam('status', 0);
-
         return (
             <View style={styles.container}>
 
             <TouchableHighlight style={styles.bgIcon}>
-                <Icon name='sad-cry' size={60} color='#ededed' />
+                <Icon name='angry' size={60} color='#ededed' />
             </TouchableHighlight>
 
                 <Text style={styles.TextTitle}>
-                    Sorry, You must Login or Register New Account.
+                    Maaf! Akses Terbatas. Silahkan Masuk atau Daftar
                 </Text>
 
                 <TouchableHighlight onPress={() => this.props.navigation.navigate('Register')} style={styles.btnRegister}>
-                    <Text style={styles.textBtn}>Register User Account</Text>
+                    <Text style={styles.textBtn}>Daftar Akun</Text>
                 </TouchableHighlight>
 
                 <TouchableHighlight onPress={() => this.props.navigation.navigate('Login')} style={styles.btnLogin}>
-                    <Text style={styles.textBtn}>Login Account</Text>
+                    <Text style={styles.textBtn}>Masuk</Text>
                 </TouchableHighlight>
             </View>
         )

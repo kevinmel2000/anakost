@@ -3,13 +3,13 @@ import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-export default class HeaderBar extends React.Component {
+export default class Header extends React.Component {
     render() {
         return (
             <View style={styles.textHeader}>
-                <Text style={styles.textHeaderStyle}>AnaKost</Text>
+                <Text style={styles.textHeaderStyle}>{this.props.title}</Text>
                 <TouchableHighlight style={styles.iconHeaderChat}>
-                    <Icon name='angellist' size={30} color='#fff' />
+                    <Icon name={this.props.icon} size={30} color='#fff' />
                 </TouchableHighlight>
             </View>
         )

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
 export default class Filter extends Component {
     render(){
@@ -7,7 +7,7 @@ export default class Filter extends Component {
             <View style={styles.container}>
                 <View>
                     <Text style={styles.filterText}>
-                        Tipe Kost (Gender)
+                        Filter Page
                     </Text>
                 </View>
             </View>

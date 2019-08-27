@@ -1,8 +1,11 @@
-
+/*
+ * React Native Login Apps
+ * 
+ */
 import React, {Component} from 'react';
 import {View, Text, TextInput, TouchableHighlight, StyleSheet} from 'react-native';
 
-// Use Icon From Font Awesome 5
+// Use Icon, Axios, AsyncStorage
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -25,21 +28,22 @@ export default class Login extends Component {
             password : this.state.inputValuePassword
         })
         .then((res) => {
-            // Get Data 
-            const userAccount = {
-                fullName : res.data.data.fullName,
-                email : res.data.data.email,
-                phone : res.data.data.phone
-            }
+            
             const userToken = res.data.token
             // Check Token
             if(userToken) {
+                // Get Data 
+                const userAccount = {
+                    fullName : res.data.data.fullName,
+                    email : res.data.data.email,
+                    phone : res.data.data.phone
+                }
                 alert('Login Success')
                 // Save to Local Storage
                 AsyncStorage.setItem('userToken', userToken)
                 AsyncStorage.setItem('userAccount', JSON.stringify(userAccount))
 
-                this.props.navigation.navigate('Account')
+                this.props.navigation.navigate('PrivateStack')
             } else {
                 alert('Gagal Masuk, Username / password salah')
                 
@@ -62,23 +66,23 @@ export default class Login extends Component {
                 
                 {/* Form Input */}
                 <View style={styles.LoginForm}>
-                    <TextInput placeholder="Email Address" style={styles.TextInput} onChangeText={(inputValueEmail) => this.setState({inputValueEmail})} />
+                    <TextInput placeholder="Alamat Email" style={styles.TextInput} onChangeText={(inputValueEmail) => this.setState({inputValueEmail})} />
 
-                    <TextInput placeholder="Password" secureTextEntry style={styles.TextInput} onChangeText={(inputValuePassword) => this.setState({inputValuePassword})} />
+                    <TextInput placeholder="Kata Sandi" secureTextEntry style={styles.TextInput} onChangeText={(inputValuePassword) => this.setState({inputValuePassword})} />
 
                     <TouchableHighlight onPress={this.handleLogin} style={styles.btnLogin}>
-                        <Text style={styles.textButton}>Login</Text>
+                        <Text style={styles.textButton}>Masuk</Text>
                     </TouchableHighlight>
                 </View>
 
                 {/* Link Register & Forgot Password */}
                 <View style={styles.link}>
                     <TouchableHighlight onPress={() => this.props.navigation.navigate('Register')}>
-                        <Text style={{color: '#00d'}}>Create Account</Text>
+                        <Text style={{color: '#00d'}}>Buat Akun Baru</Text>
                     </TouchableHighlight>
 
                     <TouchableHighlight>
-                        <Text>Forgot Password?</Text>
+                        <Text>Lupa Password?</Text>
                     </TouchableHighlight>
                 </View>
             </View>

@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, ScrollView, TouchableHighlight} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import Header from '../../components/HeaderBar'
-import PromoImage from '../../components/PromoImage'
-import PopularCity from '../../components/PopularCity'
+import Header from '../../components/Page/Header'
+import PromoImage from '../../components/Page/PromoImage'
+import PopularCity from '../../components/Page/PopularCity'
 
 export default class Home extends Component {
 
@@ -23,7 +23,7 @@ export default class Home extends Component {
     _bootstrapAsync = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
 
-        this.props.navigation.navigate(userToken ? 'Iklan' : 'Account');
+        this.props.navigation.navigate(userToken ? 'Iklan' : 'Blocked');
     };
 
     _handleMenuTab = (props) => {
@@ -47,8 +47,11 @@ export default class Home extends Component {
         return (
             <View style={styles.container}>
                 {/* Header Component */}
-                <Header />
-                {/* Triple Menu */}
+                <Header
+                    title="AnaKost"
+                    icon='angellist'
+                />
+                {/* Type Menu */}
                 <View style={styles.navMenu}>
                     <TouchableHighlight style={styles.menuItem} onPress={() => this._handleMenuTab('Cowok')}>
                         <Text style={this.state.activeCowok}>
@@ -84,10 +87,10 @@ export default class Home extends Component {
                             <Text style={styles.PromoTitle}>Promo</Text>
                             {/* Banner Promo */}
                             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{flexDirection: 'row'}}>
-                                <PromoImage img={require('../../assets/image/banner-satu.jpg')} />
-                                <PromoImage img={require('../../assets/image/banner-dua.png')} />
-                                <PromoImage img={require('../../assets/image/banner-tiga.jpg')} />
-                                <PromoImage img={require('../../assets/image/banner-empat.jpg')} />
+                                <PromoImage img={require('../../assets/images/banner-satu.jpg')} />
+                                <PromoImage img={require('../../assets/images/banner-dua.png')} />
+                                <PromoImage img={require('../../assets/images/banner-tiga.jpg')} />
+                                <PromoImage img={require('../../assets/images/banner-empat.jpg')} />
                             </ScrollView>
                         </View>
                         {/* Pasang Iklan */}
@@ -104,12 +107,12 @@ export default class Home extends Component {
                             {/* Kota Popular */}
                             <View style={styles.PopularCityContent}>
                                 <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-                                    <PopularCity kotaImg={require('../../assets/image/kota-jakarta.jpg')} href={() => this.props.navigation.navigate('List')} title="Jakarta" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-bandung.jpg')}  href={() => this.props.navigation.navigate('List')} title="Bandung" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-surabaya.jpg')}  href={() => this.props.navigation.navigate('List')} title="Surabaya" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-majalengka.jpg')}  href={() => this.props.navigation.navigate('List')} title="Majalengka" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-denpasar.png')}  href={() => this.props.navigation.navigate('List')} title="Denpasar" />
-                                    <PopularCity kotaImg={require('../../assets/image/kota-yogyakarta.jpg')}  href={() => this.props.navigation.navigate('List')} title="Yogyakarta" />
+                                    <PopularCity kotaImg={require('../../assets/images/kota-jakarta.jpg')} href={() => this.props.navigation.navigate('List')} title="Jakarta" />
+                                    <PopularCity kotaImg={require('../../assets/images/kota-bandung.jpg')}  href={() => this.props.navigation.navigate('List')} title="Bandung" />
+                                    <PopularCity kotaImg={require('../../assets/images/kota-surabaya.jpg')}  href={() => this.props.navigation.navigate('List')} title="Surabaya" />
+                                    <PopularCity kotaImg={require('../../assets/images/kota-majalengka.jpg')}  href={() => this.props.navigation.navigate('List')} title="Majalengka" />
+                                    <PopularCity kotaImg={require('../../assets/images/kota-denpasar.png')}  href={() => this.props.navigation.navigate('List')} title="Denpasar" />
+                                    <PopularCity kotaImg={require('../../assets/images/kota-yogyakarta.jpg')}  href={() => this.props.navigation.navigate('List')} title="Yogyakarta" />
                                 </ScrollView>
                             </View>
                         </View>

@@ -13,13 +13,12 @@ export default class Profile extends React.Component {
             email : null,
             phone : null
         }
-        this._boostrapAsync();
     }
 
-    _boostrapAsync = async () => {
+    async componentDidMount () {
         await AsyncStorage.getItem('userToken', (error, result) => {
             if (!result) {
-                this.props.navigation.navigate('Account')
+                this.props.navigation.navigate('Blocked')
             }
         });
 
@@ -32,7 +31,6 @@ export default class Profile extends React.Component {
                 phone : userAccount.phone
             })
 
-            console.log(userAccount)
         })
     }
 
@@ -57,15 +55,15 @@ export default class Profile extends React.Component {
                 {/* User Menu */}
                 <View style={{flex: 1,paddingHorizontal: 20}}>
                     <TouchableHighlight onPress={() => this.props.navigation.navigate('List')} style={styles.MenuSearchKost}>
-                        <Text style={styles.textMenu}>Search Kost</Text>
+                        <Text style={styles.textMenu}>Cari Kost</Text>
                     </TouchableHighlight>
 
                     <TouchableHighlight style={styles.MenuChangePassword}>
-                        <Text style={styles.textMenu}>Change Password</Text>
+                        <Text style={styles.textMenu}>Ganti Kata Sandi</Text>
                     </TouchableHighlight>
 
                     <TouchableHighlight onPress={this._handleLogout} style={styles.MenuLogout}>
-                        <Text style={styles.textMenu}>Logout</Text>
+                        <Text style={styles.textMenu}>Keluar</Text>
                     </TouchableHighlight>
                 </View>
             </View>

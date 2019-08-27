@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { View, ScrollView, TouchableHighlight, Text, TextInput, StyleSheet } from 'react-native';
+import { View, ScrollView, TouchableHighlight, Text, TextInput, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import CustomTextInput from '../../components/Form/CustomTextInput';
@@ -10,21 +9,26 @@ import Axios from 'axios';
 import CustomLocation from '../../components/Form/CustomLocation';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export default class Ads extends React.Component {
+import ImagePicker from 'react-native-image-picker';
+
+export default class Advertisement extends React.Component {
 
     constructor() {
         super()
         this.state = {
             name: null,
-            price: null,
-            typeValue: null,
+            type: null,
             description: null,
-            dataProvince: [],
-            dataCity: [],
-            dataKec: [],
-            province: null,
-            city: null,
-            kec: null,
+            price: null,
+            // Fetch All
+            province: [],
+            city: [],
+            kec: [],
+            // Fetch ID
+            provinceID: null,
+            cityID: null,
+            kecID: null,
+            // Input Value
             valueAdress : {
                 province: "",
                 city: "",
@@ -35,7 +39,10 @@ export default class Ads extends React.Component {
                 longitude: 106.735149,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421
-            }
+            },
+            room_length: null,
+            room_width: null,
+            image : null
         }
     }
 
@@ -45,37 +52,37 @@ export default class Ads extends React.Component {
             // Save to Variable
             let province = res.data.semuaprovinsi.map(data => {return {label : data.nama, value : data.id }} )
             // Save to State from variable
-            this.setState({dataProvince : province})
+            this.setState({province})
 
         })
     }
 
     // Handle Value Province
-    _changeValueProvinsi = async(province) => {
+    _changeValueProvinsi = async(provinceID) => {
         // Save to State
-        await this.setState({ province })
+        await this.setState({ provinceID })
         // If Province Selected, Run Function Fetch City
-        if(province != null ) {
-            this._getCityData(province)
+        if(provinceID != null ) {
+            this._getCityData(provinceID)
         }
     }
 
     // Handle Value City
-    _changeValueCity = async(city) => {
+    _changeValueCity = async(cityID) => {
         // Save to State
-        await this.setState({city})
+        await this.setState({cityID})
         // If City Selected, Run Function Fetch Kec
-        if( city != null) {
-            this._getKecData(city)
+        if( cityID != null) {
+            this._getKecData(cityID)
         }
     }
 
     // Handle Value City
-    _changeValueKec = async(kec) => {
+    _changeValueKec = async(kecID) => {
         // Save to State
-        await this.setState({kec})
+        await this.setState({kecID})
         // If Kec Selected, Switch Value with Name
-        if(kec) {
+        if(kecID) {
 
             let valueAdress = {
                 province: "",
@@ -84,21 +91,18 @@ export default class Ads extends React.Component {
             }
 
             // Filter & Get Name of Province
-            valueAdress.province = this.state.dataProvince.filter(
-                province =>
-                province.value === this.state.province
+            valueAdress.province = this.state.province.filter(
+                data => data.value === this.state.provinceID
             )[0].label;
 
             // Filter & Get Name of City
-            valueAdress.city = this.state.dataCity.filter(
-                city =>
-                city.value === this.state.city
+            valueAdress.city = this.state.city.filter(
+                data => data.value === this.state.cityID
             )[0].label;
 
             // Filter & Get Name of Kec
-            valueAdress.kec = this.state.dataKec.filter(
-                kec =>
-                kec.value === this.state.kec
+            valueAdress.kec = this.state.kec.filter(
+                data => data.value === this.state.kecID
             )[0].label;
 
             // Save or Set to State
@@ -108,80 +112,108 @@ export default class Ads extends React.Component {
         }
     }
 
-    _getCityData = (province) => {
+    _getCityData = (provinceID) => {
         
         // Fetching Data City From API
-        Axios.get('http://dev.farizdotid.com/api/daerahindonesia/provinsi/'+ province +'/kabupaten').then((res) => {
+        Axios.get('http://dev.farizdotid.com/api/daerahindonesia/provinsi/'+ provinceID +'/kabupaten').then((res) => {
             // Save to Variable
             let city = res.data.kabupatens.map(data => {return {label : data.nama, value : data.id }} )
             // Save to State from variable
-            this.setState({dataCity : city})
+            this.setState({city})
 
         })
     }
 
-    _getKecData = ( city ) => {
+    _getKecData = ( cityID ) => {
 
         // Fetching Data Kec From API
-        Axios.get('http://dev.farizdotid.com/api/daerahindonesia/provinsi/kabupaten/'+ city +'/kecamatan').then((res) => {
+        Axios.get('http://dev.farizdotid.com/api/daerahindonesia/provinsi/kabupaten/'+ cityID +'/kecamatan').then((res) => {
             // Save to Variable
             let kec = res.data.kecamatans.map(data => {return {label : data.nama, value: data.id}})
             // Save to State from variable
-            this.setState({dataKec : kec})
+            this.setState({ kec })
         })
-    }
-
-    // Handle Save or Add Button
-    _saveDataKost = async() => {
-        // const dataItem = {
-        //     name : this.state.name,
-        //     type : this.state.typeValue,
-        //     description : this.state.description,
-        //     price : parseInt(this.state.price),
-        //     province : this.state.valueAdress.province,
-        //     city : this.state.valueAdress.city,
-        //     kec : this.state.valueAdress.kec,
-        //     latitude : this.state.region.latitude,
-        //     longitude : this.state.region.longitude,
-        //     room_length: null,
-        //     room_width: null,
-        //     image: 'https://cdn2.tstatic.net/makassar/foto/bank/images/dekat-unm-parangtambung-d.jpg'
-        // }
-
-        const token = await AsyncStorage.getItem("userToken");
-
-        const config = {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-        };
-
-        Axios.post('https://anakost-api.herokuapp.com/api/v2/kost', {
-            name : this.state.name,
-            type : this.state.typeValue,
-            description : this.state.description,
-            price : parseInt(this.state.price),
-            province : this.state.valueAdress.province,
-            city : this.state.valueAdress.city,
-            kec : this.state.valueAdress.kec,
-            latitude : this.state.region.latitude,
-            longitude : this.state.region.longitude,
-            room_length: null,
-            room_width: null,
-            image: 'https://cdn2.tstatic.net/makassar/foto/bank/images/dekat-unm-parangtambung-d.jpg'
-        }, config)
-        .then(res => {
-            alert('Berhasil Tambah Iklan')
-            this.props.navigation.navigate('Home')
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
     }
 
     onRegionChange = region => {
         this.setState({ region });
+    }
+
+    handleUploadImage = async () => {
+
+        // alert('Upload Gambar OK')
+        const options = {
+            title: "Pilih Gambar",
+            takePhotoButtonTitle: "Kamera",
+            chooseFromLibraryButtonTitle: "Koleksi",
+            cancelButtonTitle: "Batal",
+            noData: true,
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            }
+        }
+
+        ImagePicker.showImagePicker(options, (response) => {
+            // console.log('Response = ', response);
+
+            const source = {uri : response.uri}
+
+            this.setState({
+                image: source
+            })
+        })
+
+    }
+
+    // Handle Save or Add Button
+    _saveDataKost = async() => {
+        
+        const token = await AsyncStorage.getItem("userToken");
+
+        const formData = new FormData()
+
+        formData.append('name', this.state.name)
+        formData.append('type', this.state.type)
+        formData.append('description', this.state.description)
+        formData.append('price', this.state.price)
+        formData.append('province', this.state.valueAdress.province)
+        formData.append('city', this.state.valueAdress.city)
+        formData.append('kec', this.state.valueAdress.kec)
+        formData.append('latitude', this.state.region.latitude)
+        formData.append('longitude', this.state.region.longitude)
+        formData.append('room_length', this.state.room_length)
+        formData.append('room_width', this.state.room_width)
+        formData.append('image', this.state.image)
+
+        console.log(formData)
+
+        // const config = {
+        //     method : 'POST',
+        //     url : 'https://anakost-api.herokuapp.com/api/v2/kost',
+        //     headers: {
+        //       Authorization: `Bearer ${token}`,
+        //       'Content-Type': 'multipart/form-data'
+        //     }
+        // };
+
+        // Axios.post({
+        //     method : 'POST',
+        //     url : 'https://localhost:8000/api/v2/kost',
+        //     headers: {
+        //       Authorization: `Bearer ${token}`,
+        //       'Content-Type': 'multipart/form-data'
+        //     },
+        //     data : formData
+        // })
+        // .then(res => {
+        //     alert('Berhasil Tambah Iklan')
+        //     this.props.navigation.navigate('Home')
+        // })
+        // .catch(function (error) {
+        //     console.log(error);
+        // });
+
     }
 
     render() {
@@ -214,7 +246,7 @@ export default class Ads extends React.Component {
                             title="Jenis Kost *"
                             items={type}
                             label="Pilih Jenis Kost"
-                            handleChangeValue={(typeValue) => this.setState({typeValue})}
+                            handleChangeValue={(type) => this.setState({type})}
                         />
 
                         <CustomTextInput
@@ -229,21 +261,21 @@ export default class Ads extends React.Component {
                         
                         <CustomSelect
                             title="Provinsi *"
-                            items={this.state.dataProvince}
+                            items={this.state.province}
                             label="Pilih Provinsi"
                             handleChangeValue={this._changeValueProvinsi}
                         />
                         
                         <CustomSelect
                             title="Kota *"
-                            items={this.state.dataCity}
+                            items={this.state.city}
                             label="Pilih Kota"
                             handleChangeValue={this._changeValueCity}
                         />
                         
                         <CustomSelect
                             title="Kecamatan *"
-                            items={this.state.dataKec}
+                            items={this.state.kec}
                             label="Pilih Kecamatan"
                             handleChangeValue={this._changeValueKec}
                         /> 
@@ -290,9 +322,12 @@ export default class Ads extends React.Component {
                         </View>
                         <View style={{ paddingVertical: 8 }}>
                             <Text style={styles.uploadKostImg}>Gambar Kost *</Text>
-                            <TouchableHighlight style={styles.btnGambar}>
+                            <TouchableHighlight onPress={this.handleUploadImage} style={styles.btnGambar}>
                                 <Text style={styles.textGambar}>Pilih Gambar</Text>
                             </TouchableHighlight>
+                            {
+                                this.state.image && <Image source={this.state.image} style={{flex: 1, height: 400, marginVertical: 10}} />
+                            }
                         </View>
                         <TouchableHighlight onPress={this._saveDataKost} style={styles.btnTambah}>
                             <Text style={styles.textButton}>Tambah Kost</Text>
@@ -303,6 +338,8 @@ export default class Ads extends React.Component {
         )
     }
 }
+
+  
 
 const styles = StyleSheet.create({
     container: {
