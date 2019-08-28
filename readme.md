@@ -37,6 +37,36 @@
 - redux-logger: "^3.0.6",
 - redux-promise-middleware: "^6.1.1"
 ----------
+### Langkah Instalasi
+
+**Open Terminal, Pastikan Sudah Terinstall GIT. Ketik / Salin Perintah Berikut**
+
+`git clone https://github.com/rismandev/kost.git`
+
+**Masuk Ke Directory Kost**
+
+`cd kost`
+
+**Install Library. Ketik Perintah Berikut :**
+
+Menggunakan NPM
+
+`npm install`
+
+Menggunakan Yarn
+
+`yarn`
+
+Jika Error, Silahkan Gunakan Sudo Jika Menggunakan linux / Buka Terminal Melalui Administrasi Jika Menggunakan Windows
+
+**Jalankan Emulator / Hubungkan HP dengan USB**
+
+**Buka Kembali Terminal, Lalu Ketik perintah berikut :**
+
+`react-native run-android` atau bisa juga menggunakan perintah `npm start`
+
+
 ### Tampilan Aplikasi
 
 ![Beranda](https://github.com/rismandev/kost/blob/master/src/assets/demo/Beranda.png)
+![Login](https://github.com/rismandev/kost/blob/master/src/assets/demo/Masuk.png)
