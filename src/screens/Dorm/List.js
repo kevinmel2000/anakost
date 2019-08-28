@@ -4,9 +4,12 @@ import {View, Text, TouchableHighlight, TextInput, Image, ScrollView, TouchableO
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MapView from 'react-native-maps';
-import axios from 'axios'
+import { connect } from 'react-redux'
 
-export default class List extends Component {
+import { allDorm } from '../../_actions/ListDorm'
+import Loading from '../../components/Page/Loading';
+
+class List extends Component {
 
     constructor() {
         super()
@@ -37,15 +40,11 @@ export default class List extends Component {
     }
 
     componentDidMount() {
+        this.handleLoad()
+    }
 
-        axios.get('https://anakost-api.herokuapp.com/api/v2/kost').then((res) => {
-            this.setState({
-                DataKost : res.data
-            })
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+    handleLoad = () => {
+        this.props.dispatch(allDorm())
     }
 
     handleButton = (props) => {
@@ -84,6 +83,8 @@ export default class List extends Component {
                         <TextInput autoFocus style={styles.searchBarInput} />
                         <Icon name='arrow-left' style={styles.searchBarIcon} color='#cf0e04' size={20} onPress={() => this.props.navigation.navigate('Home') } />
                     </View>
+
+                    {console.log(this.props.data.dorms)}
 
                     {/* Tab Menu */}
                     <View style={styles.tabMenu}>
@@ -150,16 +151,20 @@ export default class List extends Component {
 
                     {/* tab list kos */}
                     <View style={styles.container}> 
-                    
+
                         <ScrollView showsVerticalScrollIndicator={false} style={{ paddingBottom: '30%' }}>
+                        
+                            {
+                                this.props.data.isLoading && <Loading />
+                            }
 
                             <FlatList
                                 keyExtractor= {(item) => item.id.toString()}
-                                data = {this.state.DataKost}
+                                data = {this.props.data.dorms}
                                 renderItem = {({item}) => {
                                     return (
                                         <TouchableOpacity key={item.id} style={styles.card} onPress={() => this.props.navigation.navigate('Detail', {kostId : item.id})} >
-                                            <Image style={styles.cardImage} source={{uri:item.image}}/>
+                                            <Image style={styles.cardImage} source={{uri: 'https://anakost-api.herokuapp.com/public/images/' + item.image}}/>
                                             <Text style={styles.cardTextPay}>{item.name}</Text>
                                             <Text style={styles.cardTextAddress}>{item.province}, {item.city}</Text>
                                             <Text style={styles.cardTextNote}>{item.type}</Text>
@@ -187,6 +192,14 @@ export default class List extends Component {
         }
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        data : state.ListDorm,
+    }
+}
+
+export default connect(mapStateToProps)(List);
 
 const styles = StyleSheet.create({
     searchBar : {
@@ -223,6 +236,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         backgroundColor: '#fff',
         borderRadius: 5,
+        borderColor: '#ddd',
+        borderWidth: .5,
         marginBottom: 20,
         paddingBottom: 4,
         shadowColor: '#000',
@@ -237,38 +252,46 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 200,
         resizeMode: 'cover',
-        borderRadius: 5                
+        borderWidth: 0.5,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,  
     },
     cardTextPay : {
-        padding:5 ,
+        padding:5,
+        marginLeft: 10,
         fontSize: 16,
         fontWeight: 'bold',
         color: '#060404'
     },
     cardTextAddress: {
+        marginLeft: 10,
         fontSize: 14,
         paddingHorizontal: 5
     },
     cardTextNote: {
+        marginLeft: 10,
         fontSize: 10,
         paddingHorizontal: 5,
         color: '#9936e2'
     },
-    cardTextBook: {
-        backgroundColor: 'red',
-        borderRadius: 150/25,
-        width: 105,
-        color: '#FFFFFF',
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginVertical: 10
-    },
     cardTextOwner: {
+        marginLeft: 15,
         marginVertical: 8,
         fontSize: 10,
         color: '#000',
         fontWeight: '500'
+    },
+    cardTextBook: {
+        marginLeft: 10,
+        backgroundColor: 'red',
+        borderRadius: 150/25,
+        width: 105,
+        color: '#FFFFFF',
+        padding: 5,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 10
     },
     sortWrap: {
         position: "absolute",

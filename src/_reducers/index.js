@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import dorm from './dorm';
+import ListDorm from './ListDorm'
 
 const appReducer = combineReducers({
-    dorm : dorm
+    ListDorm : ListDorm
 });
 
 export default appReducer;

@@ -38,7 +38,7 @@ export default class Login extends Component {
                     email : res.data.data.email,
                     phone : res.data.data.phone
                 }
-                alert('Login Success')
+                alert('Berhasil Masuk. Lanjutkan Bro!')
                 // Save to Local Storage
                 AsyncStorage.setItem('userToken', userToken)
                 AsyncStorage.setItem('userAccount', JSON.stringify(userAccount))

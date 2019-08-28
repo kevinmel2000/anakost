@@ -12,6 +12,7 @@ const BottomNavigator = createMaterialBottomTabNavigator({
     Home : {
       screen : Home,
       navigationOptions : {
+        tabBarLabel: 'Beranda',
         tabBarIcon : ({ tintColor }) => (
           <View>
             <Icon name='home' size={20} color={tintColor} />
@@ -24,7 +25,7 @@ const BottomNavigator = createMaterialBottomTabNavigator({
       screen : Login,
       navigationOptions : {
         tabBarVisible: false,
-        tabBarLabel : 'Login',
+        tabBarLabel : 'Masuk',
         tabBarIcon : ({ tintColor }) => (
           <View>
             <Icon name='user-lock' size={20} color={tintColor} />

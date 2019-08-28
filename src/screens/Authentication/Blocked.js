@@ -20,9 +20,9 @@ export default class Blocked extends React.Component {
         return (
             <View style={styles.container}>
 
-            <TouchableHighlight style={styles.bgIcon}>
-                <Icon name='angry' size={60} color='#ededed' />
-            </TouchableHighlight>
+                <TouchableHighlight style={styles.bgIcon}>
+                    <Icon name='angry' size={60} color='#ededed' />
+                </TouchableHighlight>
 
                 <Text style={styles.TextTitle}>
                     Maaf! Akses Terbatas. Silahkan Masuk atau Daftar
@@ -44,6 +44,7 @@ export default class Blocked extends React.Component {
 const styles = StyleSheet.create({
     container : {
         flex: 1,
+        paddingHorizontal:15,
         justifyContent:'center',
         alignItems: 'center'
     },

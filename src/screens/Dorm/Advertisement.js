@@ -150,17 +150,21 @@ export default class Advertisement extends React.Component {
             noData: true,
             storageOptions: {
                 skipBackup: true,
-                path: 'images',
+                path: './src/assets/images',
             }
         }
 
         ImagePicker.showImagePicker(options, (response) => {
             // console.log('Response = ', response);
 
-            const source = {uri : response.uri}
+            let image = {
+                uri: response.uri,
+                type: 'image/jpeg',
+                name: response.fileName
+            }
 
             this.setState({
-                image: source
+                image
             })
         })
 
@@ -176,43 +180,36 @@ export default class Advertisement extends React.Component {
         formData.append('name', this.state.name)
         formData.append('type', this.state.type)
         formData.append('description', this.state.description)
-        formData.append('price', this.state.price)
+        formData.append('price', parseInt(this.state.price))
         formData.append('province', this.state.valueAdress.province)
         formData.append('city', this.state.valueAdress.city)
         formData.append('kec', this.state.valueAdress.kec)
         formData.append('latitude', this.state.region.latitude)
         formData.append('longitude', this.state.region.longitude)
-        formData.append('room_length', this.state.room_length)
-        formData.append('room_width', this.state.room_width)
+        formData.append('room_length', parseInt(this.state.room_length))
+        formData.append('room_width', parseInt(this.state.room_width))
         formData.append('image', this.state.image)
-
+        
         console.log(formData)
 
-        // const config = {
-        //     method : 'POST',
-        //     url : 'https://anakost-api.herokuapp.com/api/v2/kost',
-        //     headers: {
-        //       Authorization: `Bearer ${token}`,
-        //       'Content-Type': 'multipart/form-data'
-        //     }
-        // };
-
-        // Axios.post({
-        //     method : 'POST',
-        //     url : 'https://localhost:8000/api/v2/kost',
-        //     headers: {
-        //       Authorization: `Bearer ${token}`,
-        //       'Content-Type': 'multipart/form-data'
-        //     },
-        //     data : formData
-        // })
-        // .then(res => {
-        //     alert('Berhasil Tambah Iklan')
-        //     this.props.navigation.navigate('Home')
-        // })
-        // .catch(function (error) {
-        //     console.log(error);
-        // });
+        Axios.post({
+            method : 'POST',
+            url : API_URL + 'kost',
+            headers: {
+                Accept: 'application/json',
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            },
+            data : formData
+        })
+        .then(res => {
+            alert('Berhasil Tambah Iklan')
+            this.props.navigation.navigate('Home')
+        })
+        .catch(function (error) {
+            alert('Gagal broh cek lagi!')
+            console.log(error);
+        });
 
     }
 

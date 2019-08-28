@@ -12,7 +12,7 @@ export default class Detail extends React.Component {
         super()
         this.state = {
             menu : (
-                <Image source={require('../../assets/images/kost-satu.jpg')} style={styles.Image} />
+                <Image source={{uri : API_IMAGE + 'default.jpeg'}} style={styles.Image} />
             ),
             region:{
                 latitude: -6.301281,

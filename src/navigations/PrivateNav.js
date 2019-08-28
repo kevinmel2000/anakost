@@ -2,18 +2,18 @@ import React from 'react';
 import {View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
-import { createAppContainer } from "react-navigation";
+import { createAppContainer, createBottomTabNavigator } from "react-navigation";
 
 import Home from "../screens/Home";
 import List from "../screens/Dorm/List";
 import BookList from "../screens/Booking/List";
 import Profile from "../screens/User/Profile";
 
-const BottomNavigator = createMaterialBottomTabNavigator({
+const BottomNavigator = createBottomTabNavigator({
     Home : {
       screen : Home,
       navigationOptions : {
+        tabBarLabel: 'Beranda',
         tabBarIcon : ({ tintColor }) => (
           <View>
             <Icon name='home' size={20} color={tintColor} />
@@ -25,6 +25,7 @@ const BottomNavigator = createMaterialBottomTabNavigator({
     List : {
       screen : List,
       navigationOptions : {
+        tabBarLabel: 'Daftar Kost',
         tabBarVisible: false,
         tabBarIcon : ({ tintColor }) => (
           <View>
@@ -37,7 +38,7 @@ const BottomNavigator = createMaterialBottomTabNavigator({
       screen: BookList,
       navigationOptions:{  
         tabBarVisible: false,
-        tabBarLabel:'Book List',  
+        tabBarLabel:'Pesanan',  
         tabBarIcon: ({ tintColor }) => (  
             <View>  
                 <Icon style={[{color: tintColor}]} size={20} name={'clipboard-list'}/>  
@@ -48,7 +49,7 @@ const BottomNavigator = createMaterialBottomTabNavigator({
       screen : Profile,
       navigationOptions : {
         tabBarVisible: false,
-        tabBarLabel : 'Profile',
+        tabBarLabel : 'Profil',
         tabBarIcon : ({ tintColor }) => (
           <View>
             <Icon name='user-tie' size={20} color={tintColor} />
@@ -59,7 +60,14 @@ const BottomNavigator = createMaterialBottomTabNavigator({
 },
 {
     initialRouteName: 'Home',
-    barStyle: {
+    tabBarOptions: {
+      activeTintColor: '#fff',
+      inactiveTintColor: '#cfcfcf',
+      style : {
+        backgroundColor: '#cf0e04'
+      }
+    },
+    tabStyle: {
         backgroundColor: '#cf0e04'
     }
 })
