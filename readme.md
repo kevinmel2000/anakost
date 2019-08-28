@@ -39,4 +39,4 @@
 ----------
 ### Tampilan Aplikasi
 
-![Beranda](https://drive.google.com/file/d/19CuJnZBFvuyuUNWXanlkk0qn4mR3Z5d6/preview)
+![Beranda](https://github.com/rismandev/kost/blob/master/src/assets/demo/Beranda.png)
