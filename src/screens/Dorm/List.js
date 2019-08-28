@@ -84,8 +84,6 @@ class List extends Component {
                         <Icon name='arrow-left' style={styles.searchBarIcon} color='#cf0e04' size={20} onPress={() => this.props.navigation.navigate('Home') } />
                     </View>
 
-                    {console.log(this.props.data.dorms)}
-
                     {/* Tab Menu */}
                     <View style={styles.tabMenu}>
                         <TouchableHighlight onPress={() => this.handleButton(1)} style={{
@@ -153,7 +151,7 @@ class List extends Component {
                     <View style={styles.container}> 
 
                         <ScrollView showsVerticalScrollIndicator={false} style={{ paddingBottom: '30%' }}>
-                        
+
                             {
                                 this.props.data.isLoading && <Loading />
                             }
@@ -163,7 +161,29 @@ class List extends Component {
                                 data = {this.props.data.dorms}
                                 renderItem = {({item}) => {
                                     return (
-                                        <TouchableOpacity key={item.id} style={styles.card} onPress={() => this.props.navigation.navigate('Detail', {kostId : item.id})} >
+                                        <TouchableOpacity key={item.id} style={styles.card} onPress={
+                                            () => this.props.navigation.navigate('Detail', {
+                                                data : {
+                                                    id : item.id,
+                                                    name : item.name,
+                                                    type : item.type,
+                                                    description : item.description,
+                                                    price : item.price,
+                                                    province : item.province,
+                                                    city : item.city,
+                                                    kec : item.kec,
+                                                    latitude : item.latitude,
+                                                    longitude : item.longitude,
+                                                    room_length : item.room_length,
+                                                    room_width : item.room_width,
+                                                    image : item.image,
+                                                    updatedAt : item.updatedAt,
+                                                    email : item.createdBy.email,
+                                                    fullName : item.createdBy.fullName,
+                                                    phone : item.createdBy.phone
+                                                }
+                                            })
+                                        } >
                                             <Image style={styles.cardImage} source={{uri: 'https://anakost-api.herokuapp.com/public/images/' + item.image}}/>
                                             <Text style={styles.cardTextPay}>{item.name}</Text>
                                             <Text style={styles.cardTextAddress}>{item.province}, {item.city}</Text>

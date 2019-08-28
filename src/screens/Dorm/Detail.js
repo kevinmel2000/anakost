@@ -1,59 +1,63 @@
 import React from 'react';
-import {View, Text, Image, TouchableHighlight, ScrollView, StyleSheet, Share} from 'react-native';
+import { View, Text, Image, TouchableHighlight, ScrollView, StyleSheet, Share } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
 
-export default class Detail extends React.Component { 
+import { connect } from 'react-redux'
+
+class Detail extends React.Component {
 
     constructor() {
         super()
         this.state = {
-            menu : (
-                <Image source={{uri : API_IMAGE + 'default.jpeg'}} style={styles.Image} />
+            menu: (
+                <Image source={{ uri: API_IMAGE + 'default.jpeg' }} style={styles.Image} />
             ),
-            region:{
+            region: {
                 latitude: -6.301281,
                 longitude: 106.735149,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421
             },
-            name : null,
-            type : null,
-            price : null,
-            city : null,
-            updatedAt : null,
-            colorFoto : 'red',
-            colorPeta : 'white',
+            name: null,
+            type: null,
+            price: null,
+            city: null,
+            room_length: null,
+            room_width: null,
+            image: null,
+            updatedAt: null,
+            colorFoto: 'red',
+            colorPeta: 'white',
         }
     }
 
-    componentDidMount = async() => {
+    componentDidMount = () => {
 
-        const kostId = this.props.navigation.getParam('kostId');
+        const data = this.props.navigation.getParam('data')
 
-        await axios.get('https://anakost-api.herokuapp.com/api/v2/kost/' + kostId).then((res) => {
-            const data = res.data[0]
-            this.setState({
-                menu : (
-                    <Image source={{uri: data.image}} style={styles.Image} />
-                ),
-                type: data.type,
-                city: data.city,
-                name : data.name,
-                price : data.price,
-                updatedAt: data.updatedAt,
-                region : {
-                    latitude : data.latitude,
-                    longitude: data.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421
-                }
-            })
-            
+        this.setState({
+            name: data.name,
+            type: data.type,
+            price: data.price,
+            city: data.city,
+            room_length: data.room_length,
+            room_width: data.room_width,
+            image: data.image,
+            updatedAt: data.updatedAt,
+            menu: (
+                <Image source={{ uri: API_IMAGE + data.image }} style={styles.Image} />
+            ),
+            region: {
+                latitude: data.latitude,
+                longitude: data.longitude,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421
+            }
         })
+
     }
 
     /*
@@ -62,37 +66,52 @@ export default class Detail extends React.Component {
      */
     onShare = async () => {
         try {
-          const result = await Share.share({
-            message:
-              this.state.name,
-          });
-    
-          if (result.action === Share.sharedAction) {
-            if (result.activityType) {
-              // shared with activity type of result.activityType
-            } else {
-              // shared
+            const result = await Share.share({
+                message:
+                    this.state.name,
+            });
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
             }
-          } else if (result.action === Share.dismissedAction) {
-            // dismissed
-          }
         } catch (error) {
-          alert(error.message);
+            alert(error.message);
         }
     };
 
     _handleTabMenuPeta = () => {
-        this.setState({menu : (
-            <MapView style={{flex: 1}} initialRegion={this.state.region} onRegionChange={this.onRegionChange}/>
-        ),
-        colorPeta : 'red', colorFoto : 'white'})
+        this.setState({
+            menu: (
+                <MapView style={{ flex: 1 }}
+                    initialRegion={this.state.region}
+                    onRegionChangeComplete={this.onRegionChange}
+                >
+                    <Marker
+                        coordinate={this.state.region}
+                    />
+                </MapView>
+            ),
+            colorPeta: 'red', colorFoto: 'white'
+        })
+    }
+
+    onRegionChange = region => {
+        this.setState({ region });
     }
 
     _handleTabMenuFoto = () => {
-        this.setState({menu : (
-            <Image source={require('../../assets/images/kost-satu.jpg')} style={styles.Image} />
-        ),
-        colorFoto : 'red', colorPeta : 'white'})
+        this.setState({
+            menu: (
+                <Image source={{ uri: API_IMAGE + this.state.image }} style={styles.Image} />
+            ),
+            colorFoto: 'red', colorPeta: 'white'
+        })
     }
 
     // Fetch the token from storage then navigate to our appropriate place
@@ -131,24 +150,24 @@ export default class Detail extends React.Component {
                     <View style={styles.Menu}>
                         <TouchableHighlight onPress={this._handleTabMenuFoto} style={styles.pressFoto}>
                             <View style={styles.positionFoto}>
-                                <View style={{backgroundColor: '#666666', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 150/4, borderColor: {colorFoto}, borderWidth: .4}}>
+                                <View style={{ backgroundColor: '#666666', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 150 / 4, borderColor: { colorFoto }, borderWidth: .4 }}>
                                     <Icon name='image' size={15} color={colorFoto} />
                                 </View>
-                                <Text style={{color: colorFoto, fontSize: 14, fontWeight: '600', marginHorizontal: 12, paddingVertical: 6}}>Foto</Text>
+                                <Text style={{ color: colorFoto, fontSize: 14, fontWeight: '600', marginHorizontal: 12, paddingVertical: 6 }}>Foto</Text>
                             </View>
                         </TouchableHighlight>
 
                         <TouchableHighlight onPress={this._handleTabMenuPeta} style={styles.pressFoto}>
-                            <View style={{padding: 5, flexDirection: 'row', marginRight: 5}}>
-                                <View style={{backgroundColor: '#666666', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 150/4, borderColor: {colorPeta}, borderWidth: .4}}>
+                            <View style={{ padding: 5, flexDirection: 'row', marginRight: 5 }}>
+                                <View style={{ backgroundColor: '#666666', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 150 / 4, borderColor: { colorPeta }, borderWidth: .4 }}>
                                     <Icon name='map-marker-alt' size={15} color={colorPeta} />
                                 </View>
-                                <Text style={{color:colorPeta, fontSize: 14, fontWeight: '400', marginHorizontal: 12, paddingVertical: 6}}>Peta</Text>
+                                <Text style={{ color: colorPeta, fontSize: 14, fontWeight: '400', marginHorizontal: 12, paddingVertical: 6 }}>Peta</Text>
                             </View>
                         </TouchableHighlight>
 
                     </View>
-                    
+
                     {/* Category & Stock */}
                     <View style={styles.categoryWrap}>
                         <Text style={styles.textCategory}>
@@ -177,11 +196,11 @@ export default class Detail extends React.Component {
 
                     {/* Notes */}
                     <View style={styles.notesWrap}>
-                        <Text style={{ marginRight: 12} }>
+                        <Text style={{ marginRight: 12 }}>
                             <Icon name='circle' color='#000' /> Tidak termasuk listrik
                         </Text>
 
-                        <Text style={{ marginRight: 12} }>
+                        <Text style={{ marginRight: 12 }}>
                             <Icon name='circle' color='#000' /> Tidak ada min. bayar
                         </Text>
                     </View>
@@ -196,17 +215,17 @@ export default class Detail extends React.Component {
 
                             <View style={styles.textRoom}>
                                 <Icon name='expand-arrows-alt' size={30} />
-                                <Text style={{ marginHorizontal: 8}}>5x3 meter</Text>
+                                <Text style={{ marginHorizontal: 8 }}> {this.state.room_length} x {this.state.room_width} meter</Text>
                             </View>
                         </View>
-                        
+
                         {/* Fasilitas */}
                         <View style={styles.facilityWrap}>
-                            <Text style={{color: '#1c1c1c', fontWeight: 'bold'}}>
+                            <Text style={{ color: '#1c1c1c', fontWeight: 'bold' }}>
                                 Fasilitas kost dan kamar
                             </Text>
                             <TouchableHighlight>
-                                <Text style={{color: '#cf0e04'}}>Lihat Semua</Text>
+                                <Text style={{ color: '#cf0e04' }}>Lihat Semua</Text>
                             </TouchableHighlight>
                         </View>
 
@@ -218,7 +237,7 @@ export default class Detail extends React.Component {
 
                         {/* Verifikasi 1 */}
                         <View style={styles.verifikasi1Wrap}>
-                            
+
                             <View style={styles.verifikasiIconA}>
                                 <Icon name='hourglass' size={8} color='#fff' />
                             </View>
@@ -226,11 +245,11 @@ export default class Detail extends React.Component {
                         </View>
                         {/* Verifikasi 2 */}
                         <View style={styles.verifikasi1Wrap}>
-                            
+
                             <View style={styles.verifikasiIconB}>
                                 <Icon name='check' size={8} color='#fff' />
                             </View>
-                            <Text style={{color: 'red'}}>Telepon sudah terverifikasi</Text>
+                            <Text style={{ color: 'red' }}>Telepon sudah terverifikasi</Text>
                         </View>
                     </View>
 
@@ -242,7 +261,7 @@ export default class Detail extends React.Component {
 
                         {/* Button Report */}
                         <TouchableHighlight style={styles.btnReport}>
-                            <Text style={{color: 'red',}}>Laporkan</Text>
+                            <Text style={{ color: 'red', }}>Laporkan</Text>
                         </TouchableHighlight>
                     </View>
 
@@ -261,7 +280,7 @@ export default class Detail extends React.Component {
                         </View>
                     </View>
                 </ScrollView>
-            
+
                 {/* Bottom Card */}
                 <View style={styles.btnCard}>
 
@@ -271,7 +290,7 @@ export default class Detail extends React.Component {
                             Rp. {this.state.price}/bulan
                         </Text>
                         <TouchableHighlight>
-                            <Text style={{color: 'red'}}>Lihat semua harga <Icon name='arrow-alt-circle-down' size={10} /></Text>
+                            <Text style={{ color: 'red' }}>Lihat semua harga <Icon name='arrow-alt-circle-down' size={10} /></Text>
                         </TouchableHighlight>
                     </View>
 
@@ -292,28 +311,36 @@ export default class Detail extends React.Component {
                         </TouchableHighlight>
                     </View>
                 </View>
-            
+
             </View>
         )
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        DetailDorm: state.DetailDorm,
+    }
+}
+
+export default connect(mapStateToProps)(Detail)
+
 const styles = StyleSheet.create({
-    container : {
+    container: {
         backgroundColor: '#fff',
         flex: 1
     },
-    headerImage : {
+    headerImage: {
         backgroundColor: '#38383b',
         height: 200
     },
-    Image : {
-        flex: 1, 
-        width: undefined, 
-        height: undefined, 
+    Image: {
+        flex: 1,
+        width: undefined,
+        height: undefined,
         resizeMode: 'cover'
     },
-    Menu : {
+    Menu: {
         backgroundColor: '#4d4d4d',
         height: 60,
         flexDirection: 'row',
@@ -327,13 +354,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     pressFoto: {
-        flex: 1, 
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },
     positionFoto: {
-        padding: 5, 
-        flexDirection: 'row', 
+        padding: 5,
+        flexDirection: 'row',
         marginRight: 5
     },
     categoryWrap: {
@@ -384,13 +411,13 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     textRoom: {
-        marginVertical: 10, 
+        marginVertical: 10,
         flexDirection: 'row',
         alignItems: 'center'
     },
     facilityWrap: {
         flexDirection: 'row',
-        justifyContent:'space-between',
+        justifyContent: 'space-between',
         marginVertical: 4
     },
     ratingWrap: {
@@ -429,7 +456,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 5,
         width: 18,
-        alignItems: 'center', 
+        alignItems: 'center',
         marginRight: 4
     },
     verifikasiIconB: {
@@ -437,7 +464,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 5,
         width: 18,
-        alignItems: 'center', 
+        alignItems: 'center',
         marginRight: 4
     },
     cardReport: {
@@ -446,7 +473,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 17,
         backgroundColor: '#ddd',
         borderRadius: 8,
-        justifyContent:'space-between',
+        justifyContent: 'space-between',
         height: 50,
         paddingHorizontal: 12,
         paddingVertical: 8,
@@ -480,9 +507,9 @@ const styles = StyleSheet.create({
     recomandedListWrapIn1: {
         flex: 1,
         width: '45%',
-        marginRight:6, 
-        borderWidth: 0.6, 
-        borderColor: 'red', 
+        marginRight: 6,
+        borderWidth: 0.6,
+        borderColor: 'red',
         backgroundColor: 'red'
     },
     recommendedListTextIn1: {
@@ -491,9 +518,9 @@ const styles = StyleSheet.create({
         paddingVertical: 8
     },
     recommendedListImg: {
-        flex: 1, 
-        width: undefined, 
-        height: undefined, 
+        flex: 1,
+        width: undefined,
+        height: undefined,
         resizeMode: 'cover'
     },
     btnCard: {
@@ -511,8 +538,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 8
     },
-    priceText: {fontSize: 16, 
-        fontWeight: '500', 
+    priceText: {
+        fontSize: 16,
+        fontWeight: '500',
         color: '#2b2b2b'
     },
     btnBookingWrap: {
@@ -532,10 +560,10 @@ const styles = StyleSheet.create({
         padding: 10,
         justifyContent: 'center',
     },
-    btnCallText: { 
-        color: 'red', 
-        fontSize: 10, 
-        textAlign:'center'
+    btnCallText: {
+        color: 'red',
+        fontSize: 10,
+        textAlign: 'center'
     },
     btnBooking: {
         backgroundColor: 'red',
@@ -548,11 +576,11 @@ const styles = StyleSheet.create({
         padding: 10,
         justifyContent: 'center',
     },
-    btnBookingText: { 
-        color: '#fff', 
-        fontSize: 10, 
+    btnBookingText: {
+        color: '#fff',
+        fontSize: 10,
         textAlign: 'center'
     },
-    
+
 
 })
