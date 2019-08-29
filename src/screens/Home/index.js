@@ -84,7 +84,7 @@ export default class Home extends Component {
                         {/* Promo Component */}
                         <View style={styles.Promo}>
                             {/* Title */}
-                            <Text style={styles.PromoTitle}>Promo</Text>
+                            <Text style={styles.PromoTitle}>Promosi</Text>
                             {/* Banner Promo */}
                             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{flexDirection: 'row'}}>
                                 <PromoImage img={require('../../assets/images/banner-satu.jpg')} />

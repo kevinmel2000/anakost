@@ -291,6 +291,10 @@ class Advertisement extends Component {
                 */}
 
                 {
+                    this.props.Dorm.isLoading && <Loading />
+                }
+
+                {
                     this.props.Dorm.isDone ? this.props.navigation.navigate('Home') : false
                 }
 
@@ -298,10 +302,6 @@ class Advertisement extends Component {
                 <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollFormAds}>
 
                     <View style={styles.IklanForm}>
-
-                        {
-                            this.props.Dorm.isLoading ? <Loading /> : false
-                        }
 
                         {/* Input Name */}
                         <CustomTextInput
