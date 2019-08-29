@@ -116,6 +116,11 @@ class List extends Component {
                 </View>
             )
         } else {
+
+            if(this.props.data.isLoading) {
+                return <Loading />
+            }
+
             return (
                 <View style={{flex: 1,}}>
 
@@ -152,10 +157,6 @@ class List extends Component {
                     <View style={styles.container}> 
 
                         <ScrollView showsVerticalScrollIndicator={false} style={{ paddingBottom: '30%' }}>
-
-                            {
-                                this.props.data.isLoading && <Loading />
-                            }
 
                             <FlatList
                                 keyExtractor= {(item) => item.id.toString()}

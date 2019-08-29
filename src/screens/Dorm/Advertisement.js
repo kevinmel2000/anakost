@@ -270,8 +270,17 @@ class Advertisement extends Component {
     
 
     render() {
+
+        if(this.props.Dorm.isLoading) {
+            return(
+                <Loading />
+            )
+        }
+
         return (
+
             <View style={styles.container}> 
+
                 {/* 
                     Start Header Component
                 */}
@@ -288,11 +297,7 @@ class Advertisement extends Component {
                 */}
 
                 {
-                    this.props.Dorm.isLoading && <Loading />
-                }
-
-                {
-                    this.props.Dorm.isDone && this.props.navigation.navigate('PrivateStack')
+                    this.props.Dorm.isDone && this.props.navigation.navigate('Home')
                 }
 
                 {/* Content */}
