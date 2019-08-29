@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 
 import { allDorm } from '../../_actions/ListDorm'
 import Loading from '../../components/Page/Loading';
+import Global_URI from '../../environment/Global_URI';
 
 class List extends Component {
 
@@ -184,7 +185,7 @@ class List extends Component {
                                                 }
                                             })
                                         } >
-                                            <Image style={styles.cardImage} source={{uri: 'https://anakost-api.herokuapp.com/public/images/' + item.image}}/>
+                                            <Image style={styles.cardImage} source={{uri: Global_URI.image + item.image}}/>
                                             <Text style={styles.cardTextPay}>{item.name}</Text>
                                             <Text style={styles.cardTextAddress}>{item.province}, {item.city}</Text>
                                             <Text style={styles.cardTextNote}>{item.type}</Text>

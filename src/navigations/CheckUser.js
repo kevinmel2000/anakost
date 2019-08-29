@@ -32,8 +32,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     bgIcon : {
-        width: 100,
-        height:100,
         borderRadius: 150/2,
         backgroundColor: '#cf0e04',
         borderColor: '#bfbfbf',
@@ -41,6 +39,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 12,
+        padding: 30
     },
     title : {
         fontSize: 28,

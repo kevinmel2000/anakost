@@ -17,15 +17,13 @@ export default class Home extends Component {
             activeCowok : { color : '#cf0e04'},
             activeCewek : { color : '#000'},
         }
-        global.API_URL = 'https://anakost-api.herokuapp.com/api/v2/';
-        global.API_IMAGE = 'https://anakost-api.herokuapp.com/public/images/';
     }
 
     // Fetch the token from storage then navigate to our appropriate place
     _bootstrapAsync = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
 
-        this.props.navigation.navigate(userToken ? 'Iklan' : 'Blocked');
+        this.props.navigation.navigate(userToken ? 'Advertisement' : 'Blocked');
     };
 
     _handleMenuTab = (props) => {

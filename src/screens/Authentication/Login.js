@@ -66,7 +66,12 @@ export default class Login extends Component {
                 
                 {/* Form Input */}
                 <View style={styles.LoginForm}>
-                    <TextInput placeholder="Alamat Email" style={styles.TextInput} onChangeText={(inputValueEmail) => this.setState({inputValueEmail})} />
+                    <TextInput 
+                        keyboardType="email-address"
+                        placeholder="Alamat Email" 
+                        style={styles.TextInput} 
+                        onChangeText={(inputValueEmail) => this.setState({inputValueEmail})} 
+                    />
 
                     <TextInput placeholder="Kata Sandi" secureTextEntry style={styles.TextInput} onChangeText={(inputValuePassword) => this.setState({inputValuePassword})} />
 

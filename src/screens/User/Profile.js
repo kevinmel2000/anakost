@@ -3,6 +3,7 @@ import {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-community/async-storage';
+import Menu from '../../components/Page/Menu';
 
 export default class Profile extends React.Component {
 
@@ -37,7 +38,7 @@ export default class Profile extends React.Component {
     _handleLogout = async() => {
 
         await AsyncStorage.clear()
-        alert('Logout Success')
+        alert('Berhasil Logout')
         this.props.navigation.navigate('PublicStack')
     }
 
@@ -46,25 +47,36 @@ export default class Profile extends React.Component {
             <View style={{flex: 1}}>
                 {/* Icon & Full Name */}
                 <View style={styles.AccountHeader}>
-                        <TouchableHighlight style={styles.AccountHeaderIcon}>
-                        <Icon name='grin-beam' size={40} color='#fff' />
+                    <TouchableHighlight style={styles.AccountHeaderIcon}>
+                        <Icon name='grin-beam' size={40} color='#cf0e04' />
+                    </TouchableHighlight>
+                    <TouchableHighlight onPress={this._handleLogout} style={styles.AccountLogout}>
+                        <Icon name='sign-out-alt' size={30} color='#0d0d0d' />
                     </TouchableHighlight>
                     <Text style={styles.AccountHeaderText}>{this.state.name}</Text>
                 </View>
                 
                 {/* User Menu */}
-                <View style={{flex: 1,paddingHorizontal: 20}}>
-                    <TouchableHighlight onPress={() => this.props.navigation.navigate('List')} style={styles.MenuSearchKost}>
-                        <Text style={styles.textMenu}>Cari Kost</Text>
-                    </TouchableHighlight>
+                <View style={styles.MainMenu}>
 
-                    <TouchableHighlight style={styles.MenuChangePassword}>
-                        <Text style={styles.textMenu}>Ganti Kata Sandi</Text>
-                    </TouchableHighlight>
+                    <Menu 
+                        actionOne={() => this.props.navigation.navigate('Home')}
+                        iconOne='home'
+                        textOne="Beranda"
+                        actionSecond={() => this.props.navigation.navigate('List')}
+                        iconSecond='list-alt'
+                        textSecond="Data Kost"
+                    />
 
-                    <TouchableHighlight onPress={this._handleLogout} style={styles.MenuLogout}>
-                        <Text style={styles.textMenu}>Keluar</Text>
-                    </TouchableHighlight>
+                    <Menu 
+                        actionOne={() => this.props.navigation.navigate('BookingList')}
+                        iconOne='clipboard-list'
+                        textOne="Pesanan"
+                        actionSecond={() => this.props.navigation.navigate('Advertisement')}
+                        iconSecond='ad'
+                        textSecond="Tambah Iklan"
+                    />
+
                 </View>
             </View>
         )
@@ -73,7 +85,7 @@ export default class Profile extends React.Component {
 
 const styles = StyleSheet.create({
     AccountHeader : {
-        backgroundColor: '#212020',
+        backgroundColor: '#cccccc',
         alignItems: 'center',
         width: '100%',
         flexDirection: 'row',
@@ -82,11 +94,10 @@ const styles = StyleSheet.create({
     AccountHeaderIcon : {
         paddingHorizontal: 5,
         paddingVertical: 6,
-        backgroundColor: '#cf0e04',
         marginVertical: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: '#d4cfcf',
+        borderColor: '#cf0e04',
         borderWidth: 1.5,
         borderRadius: 8,
     },
@@ -98,43 +109,18 @@ const styles = StyleSheet.create({
         textShadowColor: '#cf0e04',
         textShadowRadius: 3
     },
-
-    MenuSearchKost : {
-        paddingHorizontal: 5,
-        paddingVertical: 6,
-        backgroundColor: '#cf0e04',
-        marginVertical: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: '#d4cfcf',
-        borderWidth: 1.5,
-        borderRadius: 100/15,
+    AccountLogout : {
+        position: 'absolute',
+        borderRadius: 5,
+        right: 10,
+        top: '25%',
+        backgroundColor: '#ffffff',
+        paddingHorizontal: 8,
+        paddingVertical: 6
+    },  
+    MainMenu : {
+        flex: 1,
+        paddingHorizontal: 20,
+        paddingVertical: 15,
     },
-    MenuChangePassword : {
-        paddingHorizontal: 5,
-        paddingVertical: 6,
-        backgroundColor: '#cf0e04',
-        marginVertical: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: '#d4cfcf',
-        borderWidth: 1.5,
-        borderRadius: 100/15,
-    },
-    MenuLogout : {
-        paddingHorizontal: 5,
-        paddingVertical: 6,
-        backgroundColor: '#640dba',
-        marginVertical: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: '#d4cfcf',
-        borderWidth: 1.5,
-        borderRadius: 100/15,
-    },
-    textMenu : {
-        color: '#fff', 
-        fontWeight: 'bold', 
-        fontSize: 18
-    }
 })

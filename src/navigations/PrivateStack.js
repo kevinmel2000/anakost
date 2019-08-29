@@ -11,7 +11,7 @@ import Profile from '../screens/User/Profile';
 
 const PrivateStack = createStackNavigator({
     PrivateNav : PrivateNav,
-    Iklan : Advertisement,
+    Advertisement : Advertisement,
     Booking : Booking,
     BookingList: BookingList,
     List : List,

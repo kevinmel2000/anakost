@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, Image, TouchableHighlight, ScrollView, StyleSheet, Share } from 'react-native';
+import { View, Text, Image, TouchableHighlight, ScrollView, StyleSheet, Share, Linking } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MapView, { Marker } from 'react-native-maps';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { connect } from 'react-redux'
+import Options from '../../components/Facility/Options';
+import Global_URI from '../../environment/Global_URI';
 
 class Detail extends React.Component {
 
@@ -13,7 +15,7 @@ class Detail extends React.Component {
         super()
         this.state = {
             menu: (
-                <Image source={{ uri: API_IMAGE + 'default.jpeg' }} style={styles.Image} />
+                <Image source={{ uri: Global_URI.image + 'default.jpeg' }} style={styles.Image} />
             ),
             region: {
                 latitude: -6.301281,
@@ -23,11 +25,13 @@ class Detail extends React.Component {
             },
             name: null,
             type: null,
+            description : null,
             price: null,
             city: null,
             room_length: null,
             room_width: null,
             image: null,
+            phone : null,
             updatedAt: null,
             colorFoto: 'red',
             colorPeta: 'white',
@@ -41,14 +45,16 @@ class Detail extends React.Component {
         this.setState({
             name: data.name,
             type: data.type,
+            description : data.description,
             price: data.price,
             city: data.city,
             room_length: data.room_length,
             room_width: data.room_width,
             image: data.image,
+            phone : data.phone,
             updatedAt: data.updatedAt,
             menu: (
-                <Image source={{ uri: API_IMAGE + data.image }} style={styles.Image} />
+                <Image source={{ uri: Global_URI.image + data.image }} style={styles.Image} />
             ),
             region: {
                 latitude: data.latitude,
@@ -108,7 +114,7 @@ class Detail extends React.Component {
     _handleTabMenuFoto = () => {
         this.setState({
             menu: (
-                <Image source={{ uri: API_IMAGE + this.state.image }} style={styles.Image} />
+                <Image source={{ uri: Global_URI.image + this.state.image }} style={styles.Image} />
             ),
             colorFoto: 'red', colorPeta: 'white'
         })
@@ -122,6 +128,18 @@ class Detail extends React.Component {
     };
 
     render() {
+
+        var updatedAt = new Date(this.state.updatedAt);
+
+        var date = updatedAt.getDate();
+        var month = updatedAt.getMonth(); //Be careful! January is 0 not 1
+        var year = updatedAt.getFullYear();
+        var hour = updatedAt.getHours();
+        var minutes = updatedAt.getMinutes(); 
+
+        var newUpdatedDate = date + "-" +(month + 1) + "-" + year;
+
+        var newTime = hour + ":" + minutes;
 
         const colorFoto = this.state.colorFoto
         const colorPeta = this.state.colorPeta
@@ -190,23 +208,23 @@ class Detail extends React.Component {
                         <Text style={{
                             paddingVertical: 6
                         }}>
-                            Pembaharuan {this.state.updatedAt} Pukul 14.00
+                            Terakhir diperbarui {newUpdatedDate} Pukul {newTime}
                         </Text>
                     </View>
 
-                    {/* Notes */}
-                    <View style={styles.notesWrap}>
-                        <Text style={{ marginRight: 12 }}>
-                            <Icon name='circle' color='#000' /> Tidak termasuk listrik
-                        </Text>
+                    {/* Detail Options */}
+                    <View style={styles.detailOptions}>
 
-                        <Text style={{ marginRight: 12 }}>
-                            <Icon name='circle' color='#000' /> Tidak ada min. bayar
-                        </Text>
-                    </View>
+                        {/* Description */}
+                        <View style={{paddingVertical: 8}}>
+                            <Text style={{ color: '#1c1c1c', fontWeight: 'bold' }}>
+                                Deskripsi Kost
+                            </Text>
+                            <Text style={{ marginVertical: 6}}>
+                                {this.state.description}
+                            </Text>
+                        </View>
 
-                    {/* Luas & Fasilitas */}
-                    <View style={styles.LuasWraps}>
                         {/* Luas */}
                         <View>
                             <Text style={styles.textLuas}>
@@ -224,34 +242,31 @@ class Detail extends React.Component {
                             <Text style={{ color: '#1c1c1c', fontWeight: 'bold' }}>
                                 Fasilitas kost dan kamar
                             </Text>
-                            <TouchableHighlight>
-                                <Text style={{ color: '#cf0e04' }}>Lihat Semua</Text>
-                            </TouchableHighlight>
+                            
+                            <View style={styles.facilityOptions}>
+                                <Options 
+                                    icon="wifi"
+                                    iconColor="gray"
+                                    text="Internet"
+                                    textColor="gray"
+                                />
+                                <Options 
+                                    icon="toilet"
+                                    iconColor="red"
+                                    text="Kamar Mandi"
+                                    textColor="red"
+                                />
+                                <Options 
+                                    icon="bed"
+                                    iconColor="red"
+                                    text="Kamar Tidur"
+                                    textColor="red"
+                                />
+                            </View>
                         </View>
 
                     </View>
 
-                    {/* Verifikasi */}
-                    <View style={styles.verifikasiWrap}>
-                        <Text style={styles.verifikasiText}>Verifikasi</Text>
-
-                        {/* Verifikasi 1 */}
-                        <View style={styles.verifikasi1Wrap}>
-
-                            <View style={styles.verifikasiIconA}>
-                                <Icon name='hourglass' size={8} color='#fff' />
-                            </View>
-                            <Text>Kost belum dikunjungi</Text>
-                        </View>
-                        {/* Verifikasi 2 */}
-                        <View style={styles.verifikasi1Wrap}>
-
-                            <View style={styles.verifikasiIconB}>
-                                <Icon name='check' size={8} color='#fff' />
-                            </View>
-                            <Text style={{ color: 'red' }}>Telepon sudah terverifikasi</Text>
-                        </View>
-                    </View>
 
                     {/* Card Report */}
                     <View style={styles.cardReport}>
@@ -297,7 +312,7 @@ class Detail extends React.Component {
                     {/* Button Call & Booking */}
                     <View style={styles.btnBookingWrap}>
                         {/* Call Button */}
-                        <TouchableHighlight style={styles.btnCall}>
+                        <TouchableHighlight onPress={() => Linking.openURL(`tel:${this.state.phone}`)} style={styles.btnCall}>
                             <Text style={styles.btnCallText}>
                                 Hubungi Kost
                             </Text>
@@ -392,14 +407,8 @@ const styles = StyleSheet.create({
         color: '#000',
         width: '75%'
     },
-    notesWrap: {
-        marginHorizontal: 17,
-        paddingVertical: 14,
-        borderBottomColor: '#b0b0b0',
-        borderBottomWidth: 0.7,
-        flexDirection: 'row'
-    },
-    LuasWraps: {
+    detailOptions: {
+        marginBottom: 20,
         marginHorizontal: 17,
         paddingVertical: 10,
         borderBottomColor: '#b0b0b0',
@@ -416,57 +425,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     facilityWrap: {
+        marginVertical: 8
+    },
+    facilityOptions : {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginVertical: 4
-    },
-    ratingWrap: {
-        flexDirection: 'row',
-        paddingHorizontal: 12
-    },
-    leftWrap: {
-        marginVertical: 8,
-        marginHorizontal: 6,
-        flex: 1,
-    },
-    ratingIcon: {
-        flexDirection: 'row',
-        marginVertical: 6
-    },
-    rightWrap: {
-        marginVertical: 8,
-        marginHorizontal: 6,
-        flex: 1,
-    },
-    verifikasiWrap: {
-        paddingVertical: 8,
-        paddingHorizontal: 17
-    },
-    verifikasiText: {
-        fontSize: 18,
-        fontWeight: '800',
-        color: '#000'
-    },
-    verifikasi1Wrap: {
         marginVertical: 6,
-        flexDirection: 'row'
-    },
-    verifikasiIconA: {
-        backgroundColor: '#ddd',
-        borderRadius: 8,
-        padding: 5,
-        width: 18,
-        alignItems: 'center',
-        marginRight: 4
-    },
-    verifikasiIconB: {
-        backgroundColor: 'red',
-        borderRadius: 8,
-        padding: 5,
-        width: 18,
-        alignItems: 'center',
-        marginRight: 4
-    },
+    },   
     cardReport: {
         flexDirection: 'row',
         alignItems: 'center',

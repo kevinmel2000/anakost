@@ -1,11 +1,28 @@
 import axios from 'axios'
+import Global_URI from '../environment/Global_URI'
 
 export function allDorm() {
     return {
       type: 'ALL_DORM',
       payload: axios({
         method: 'GET',
-        url: 'https://anakost-api.herokuapp.com/api/v2/kost'
+        url: `${Global_URI.host}kost`
       })
     }
+}
+
+export function addDorm(data, token) {
+  return {
+    type : 'ADD_DORM',
+    payload : axios({
+      url: `${Global_URI.host}kost`,
+      method: 'POST',
+      data: data,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `bearer ${token}`
+      }
+    })
+  }
 }

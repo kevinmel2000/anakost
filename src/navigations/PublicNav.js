@@ -2,13 +2,12 @@ import React from 'react';
 import {View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
-import { createAppContainer } from "react-navigation";
+import { createAppContainer, createBottomTabNavigator } from "react-navigation";
 
 import Home from "../screens/Home";
 import Login from "../screens/Authentication/Login";
 
-const BottomNavigator = createMaterialBottomTabNavigator({
+const BottomNavigator = createBottomTabNavigator({
     Home : {
       screen : Home,
       navigationOptions : {
@@ -35,10 +34,17 @@ const BottomNavigator = createMaterialBottomTabNavigator({
     }
 },
 {
-initialRouteName: 'Home',
-barStyle: {
-    backgroundColor: '#cf0e04'
-}
+  initialRouteName: 'Home',
+  tabBarOptions: {
+    activeTintColor: '#fff',
+    inactiveTintColor: '#cfcfcf',
+    style : {
+      backgroundColor: '#cf0e04'
+    }
+  },
+  tabStyle: {
+      backgroundColor: '#cf0e04'
+  }
 })
 
 export default createAppContainer(BottomNavigator);

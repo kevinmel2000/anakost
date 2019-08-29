@@ -1,227 +1,280 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, ScrollView, TouchableHighlight, Text, TextInput, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
-import CustomTextInput from '../../components/Form/CustomTextInput';
 import MapView, { Marker } from 'react-native-maps';
-import CustomSelect from '../../components/Form/CustomSelect';
-import Axios from 'axios';
-import CustomLocation from '../../components/Form/CustomLocation';
-import AsyncStorage from '@react-native-community/async-storage';
-
 import ImagePicker from 'react-native-image-picker';
+import Axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage';
+import { connect } from 'react-redux'
 
-export default class Advertisement extends React.Component {
+import { addDorm } from '../../_actions/ListDorm'
+import CustomTextInput from '../../components/Form/CustomTextInput';
+import CustomSelect from '../../components/Form/CustomSelect';
+import CustomLocation from '../../components/Form/CustomLocation';
+import Loading from '../../components/Page/Loading';
+
+class Advertisement extends Component {
 
     constructor() {
-        super()
+        super() 
         this.state = {
-            name: null,
-            type: null,
-            description: null,
-            price: null,
-            // Fetch All
-            province: [],
-            city: [],
-            kec: [],
-            // Fetch ID
-            provinceID: null,
-            cityID: null,
-            kecID: null,
-            // Input Value
-            valueAdress : {
-                province: "",
-                city: "",
-                kec: ""
+            inputName : '',
+            inputType : '',
+            inputDescription : '',
+            inputRoomLength : '',
+            inputRoomWidth : '',
+            // Address
+            province : [],
+            city : [],
+            kec : [],
+
+            // Address ID
+            provinceID : '',
+            cityID : '',
+            kecID : '',
+
+            // Input Address
+            InputAddress : {
+                province : '',
+                city     : '',
+                kec      : '',
             },
+
+            // Maps Region
             region: {
                 latitude: -6.301281,
                 longitude: 106.735149,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421
             },
-            room_length: null,
-            room_width: null,
-            image : null
+
+            // Value Type
+            type : [
+                { label: 'Laki-Laki', value: 'Laki-Laki' },
+                { label: 'Perempuan', value: 'Perempuan' },
+            ],
+
+            // Image
+            imageSource : null,
+
+            // Data Item
+            dataItem : {
+                name : '',
+                type : '',
+                description : '',
+                price : '',
+                province : '',
+                city : '',
+                kec : '',
+                latitude : '',
+                longitude : '',
+                room_length : '',
+                room_width : '',
+                image : ''
+            }
         }
     }
 
-    componentDidMount () {
-        // Fetch Data Province From API
+    /*  Fetch Data Province From API
+     *  Save to Variable
+     *  Save to State from variable
+     */
+     componentDidMount () {
+
         Axios.get('http://dev.farizdotid.com/api/daerahindonesia/provinsi').then((res) => {
-            // Save to Variable
             let province = res.data.semuaprovinsi.map(data => {return {label : data.nama, value : data.id }} )
-            // Save to State from variable
+
             this.setState({province})
 
         })
     }
 
-    // Handle Value Province
+    /*  Handle Value Province
+     *  Save to State
+     *  If Province Selected, Run Function Fetch City
+     */
     _changeValueProvinsi = async(provinceID) => {
-        // Save to State
         await this.setState({ provinceID })
-        // If Province Selected, Run Function Fetch City
+        
         if(provinceID != null ) {
             this._getCityData(provinceID)
         }
     }
 
-    // Handle Value City
-    _changeValueCity = async(cityID) => {
-        // Save to State
-        await this.setState({cityID})
-        // If City Selected, Run Function Fetch Kec
-        if( cityID != null) {
-            this._getKecData(cityID)
-        }
-    }
-
-    // Handle Value City
-    _changeValueKec = async(kecID) => {
-        // Save to State
-        await this.setState({kecID})
-        // If Kec Selected, Switch Value with Name
-        if(kecID) {
-
-            let valueAdress = {
-                province: "",
-                city: "",
-                kec: ""
-            }
-
-            // Filter & Get Name of Province
-            valueAdress.province = this.state.province.filter(
-                data => data.value === this.state.provinceID
-            )[0].label;
-
-            // Filter & Get Name of City
-            valueAdress.city = this.state.city.filter(
-                data => data.value === this.state.cityID
-            )[0].label;
-
-            // Filter & Get Name of Kec
-            valueAdress.kec = this.state.kec.filter(
-                data => data.value === this.state.kecID
-            )[0].label;
-
-            // Save or Set to State
-            this.setState({
-                valueAdress
-            })
-        }
-    }
-
+    /*   Fetching Data City From API
+     *   Save to Variable
+     *    Save to State from variable
+     */
     _getCityData = (provinceID) => {
         
-        // Fetching Data City From API
         Axios.get('http://dev.farizdotid.com/api/daerahindonesia/provinsi/'+ provinceID +'/kabupaten').then((res) => {
-            // Save to Variable
             let city = res.data.kabupatens.map(data => {return {label : data.nama, value : data.id }} )
-            // Save to State from variable
             this.setState({city})
 
         })
     }
 
+    /*  Handle Value City
+     *  Save to State
+     *  If City Selected, Run Function Fetch Kec
+     */
+     _changeValueCity = async(cityID) => {
+
+        await this.setState({cityID})
+        
+        if( cityID != null) {
+            this._getKecData(cityID)
+        }
+    }
+
+    /*   Fetching Data Kec From API
+     *   Save to Variable
+     *   Save to State from variable
+     */
     _getKecData = ( cityID ) => {
 
-        // Fetching Data Kec From API
         Axios.get('http://dev.farizdotid.com/api/daerahindonesia/provinsi/kabupaten/'+ cityID +'/kecamatan').then((res) => {
-            // Save to Variable
+
             let kec = res.data.kecamatans.map(data => {return {label : data.nama, value: data.id}})
-            // Save to State from variable
+
             this.setState({ kec })
         })
     }
 
+    // Handle Value City
+    // Save to State
+    // If Kec Selected, Switch Value with Name
+    _changeValueKec = async(kecID) => {
+
+        await this.setState({kecID})
+
+    }
+
+    // Handle Change Region
     onRegionChange = region => {
         this.setState({ region });
     }
 
-    handleUploadImage = async () => {
+    /*  Handle Upload Image
+     *  Using Image Picker
+     */
+    handleUpload = async () => {
 
-        // alert('Upload Gambar OK')
         const options = {
             title: "Pilih Gambar",
             takePhotoButtonTitle: "Kamera",
             chooseFromLibraryButtonTitle: "Koleksi",
-            cancelButtonTitle: "Batal",
-            noData: true,
-            storageOptions: {
-                skipBackup: true,
-                path: './src/assets/images',
-            }
+            cancelButtonTitle: "Batal"
         }
 
         ImagePicker.showImagePicker(options, (response) => {
-            // console.log('Response = ', response);
 
-            let image = {
-                uri: response.uri,
-                type: 'image/jpeg',
-                name: response.fileName
+            if (response.didCancel) {
+                console.log('Batal Upload');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else {
+                let tmpPhoto = {
+                  uri: response.uri,
+                  type: response.type,
+                  name: response.fileName,
+                };
+                // Set State Image
+                const source = tmpPhoto;
+
+                this.setState({
+                  imageSource : source
+                });
             }
 
-            this.setState({
-                image
-            })
         })
 
     }
 
-    // Handle Save or Add Button
+    /*  Handle Save Button
+     *  Get Data From State
+     *  Insert With Axios
+     */
     _saveDataKost = async() => {
-        
-        const token = await AsyncStorage.getItem("userToken");
+        try {
+            const token = await AsyncStorage.getItem('userToken')
 
-        const formData = new FormData()
+            const {provinceID, cityID, kecID} = this.state
 
-        formData.append('name', this.state.name)
-        formData.append('type', this.state.type)
-        formData.append('description', this.state.description)
-        formData.append('price', parseInt(this.state.price))
-        formData.append('province', this.state.valueAdress.province)
-        formData.append('city', this.state.valueAdress.city)
-        formData.append('kec', this.state.valueAdress.kec)
-        formData.append('latitude', this.state.region.latitude)
-        formData.append('longitude', this.state.region.longitude)
-        formData.append('room_length', parseInt(this.state.room_length))
-        formData.append('room_width', parseInt(this.state.room_width))
-        formData.append('image', this.state.image)
-        
-        console.log(formData)
+            if(provinceID && cityID && kecID) {
+                let InputAddress = {
+                    province: "",
+                    city: "",
+                    kec: ""
+                }
+    
+                // Filter & Get Name of Province
+                InputAddress.province = this.state.province.filter(
+                    data => data.value === this.state.provinceID
+                )[0].label;
+    
+                // Filter & Get Name of City
+                InputAddress.city = this.state.city.filter(
+                    data => data.value === this.state.cityID
+                )[0].label;
+    
+                // Filter & Get Name of Kec
+                InputAddress.kec = this.state.kec.filter(
+                    data => data.value === this.state.kecID
+                )[0].label;
+    
+                // Save or Set to State
+                this.setState({
+                    InputAddress
+                })
+            }
 
-        Axios.post({
-            method : 'POST',
-            url : API_URL + 'kost',
-            headers: {
-                Accept: 'application/json',
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'
-            },
-            data : formData
-        })
-        .then(res => {
-            alert('Berhasil Tambah Iklan')
-            this.props.navigation.navigate('Home')
-        })
-        .catch(function (error) {
-            alert('Gagal broh cek lagi!')
-            console.log(error);
-        });
+            await this.setState({
+                dataItem : {
+                    name : this.state.inputName,
+                    type : this.state.inputType,
+                    description : this.state.inputDescription,
+                    price : parseInt(this.state.inputPrice),
+                    province : this.state.InputAddress.province,
+                    city : this.state.InputAddress.city,
+                    kec : this.state.InputAddress.kec,
+                    latitude : this.state.region.latitude.toString(),
+                    longitude : this.state.region.longitude.toString(),
+                    room_length : parseInt(this.state.inputRoomLength),
+                    room_width : parseInt(this.state.inputRoomWidth),
+                    image : this.state.imageSource
+                }
+            })
 
+            let data = new FormData();
+
+            data.append('name', this.state.dataItem.name);
+            data.append('type', this.state.dataItem.type);
+            data.append('description', this.state.dataItem.description);
+            data.append('price', this.state.dataItem.price);
+            data.append('province', this.state.dataItem.province);
+            data.append('city', this.state.dataItem.city);
+            data.append('kec', this.state.dataItem.kec);
+            data.append('latitude', this.state.dataItem.latitude);
+            data.append('longitude', this.state.dataItem.longitude);
+            data.append('room_length', this.state.dataItem.room_length);
+            data.append('room_width', this.state.dataItem.room_width);
+            data.append('image', this.state.dataItem.image);
+
+            this.props.dispatch(addDorm(data, token))
+
+        } catch (error) {
+            
+        }
     }
+    
 
     render() {
-
-        const type = [
-            { label: 'Laki-Laki', value: 'Laki-Laki' },
-            { label: 'Perempuan', value: 'Perempuan' },
-        ]
-
         return (
-            <View style={styles.container}>
+            <View style={styles.container}> 
+                {/* 
+                    Start Header Component
+                */}
                 <View style={styles.Header}>
                     <TouchableHighlight style={styles.btnBack} onPress={() => this.props.navigation.goBack()}>
                         <Icon name='arrow-alt-circle-left' color='#ddd' size={25} />
@@ -230,32 +283,51 @@ export default class Advertisement extends React.Component {
                         Tambah Data Iklan
                     </Text>
                 </View>
+                {/* 
+                    End Header Component
+                */}
 
-                {/* adsform */}
+                {
+                    this.props.Dorm.isLoading && <Loading />
+                }
+
+                {
+                    this.props.Dorm.isDone && this.props.navigation.navigate('PrivateStack')
+                }
+
+                {/* Content */}
                 <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollFormAds}>
+
                     <View style={styles.IklanForm}>
 
+                        {/* Input Name */}
                         <CustomTextInput
-                            handleChangeText={(name) => this.setState({name})}
-                            title="Nama Kost *" placeholder="Masukan Nama Kost di sini" />
-                        
-                        <CustomSelect
-                            title="Jenis Kost *"
-                            items={type}
-                            label="Pilih Jenis Kost"
-                            handleChangeValue={(type) => this.setState({type})}
+                            handleChangeText={(inputName) => this.setState({ inputName })}
+                            title="Nama Kost *" placeholder="Masukan Nama Kost di sini" 
                         />
 
+                        {/* Input Type */}
+                        <CustomSelect
+                            title="Jenis Kost *"
+                            items={this.state.type}
+                            label="Pilih Jenis Kost"
+                            handleChangeValue={(inputType) => this.setState({inputType})}
+                        />
+
+                        {/* Input Description */}
                         <CustomTextInput
                             multiline={true}
-                            handleChangeText={(description) => this.setState({description})}
-                            title="Deskripsi *" placeholder="Masukan Deskripsi Kost di sini" />
-                        
+                            handleChangeText={(inputDescription) => this.setState({inputDescription})}
+                            title="Deskripsi *" placeholder="Masukan Deskripsi Kost di sini" 
+                        />
+
+                        {/* Input Price */}
                         <CustomTextInput
                             changeKeyboard="numeric"
-                            handleChangeText={(price) => this.setState({ price })}
+                            handleChangeText={(inputPrice) => this.setState({ inputPrice })}
                             title="Harga Kost Perbulan *" placeholder="Masukan Harga Kost di sini" />
                         
+                        {/* Input Province */}
                         <CustomSelect
                             title="Provinsi *"
                             items={this.state.province}
@@ -263,27 +335,31 @@ export default class Advertisement extends React.Component {
                             handleChangeValue={this._changeValueProvinsi}
                         />
                         
+                        {/* Input City */}
                         <CustomSelect
                             title="Kota *"
                             items={this.state.city}
                             label="Pilih Kota"
                             handleChangeValue={this._changeValueCity}
                         />
-                        
+
+                        {/* Input Kec */}
                         <CustomSelect
                             title="Kecamatan *"
                             items={this.state.kec}
                             label="Pilih Kecamatan"
                             handleChangeValue={this._changeValueKec}
-                        /> 
+                        />
+
+                        {/* Maps */}
                         <View style={{ position: 'relative' }}>
+                            {/* Search Maps */}
                             <Text style={styles.textformAdsMap}>
                                 Search alamat/area kost anda di Peta, Kemudian pindahkan pin di peta ke lokasi tepat kost anda
                             </Text>
                             <TextInput placeholder="Cari Alamat Kost" style={styles.TextInputSearch} />
-
                             <Icon name='search' size={20} style={styles.iconSearch} />
-
+                            {/* Map View */}
                             <View style={styles.mapView}>
                                 <MapView style={{ flex: 1 }}
                                     initialRegion={this.state.region}
@@ -296,6 +372,8 @@ export default class Advertisement extends React.Component {
                             </View>
                             
                         </View>
+
+                        {/* Latitude & Longitude */}
                         <View style={styles.mapNumber}>
                             <CustomLocation 
                                 title="Latitude"
@@ -306,36 +384,52 @@ export default class Advertisement extends React.Component {
                                 value={this.state.region.longitude.toString()}
                             />
                         </View>
+                        
+                        {/* Room Length & Width */}
                         <View style={styles.mapNumber}>
                             <CustomTextInput
                                 changeKeyboard="numeric"
-                                handleChangeText={(room_length) => this.setState({ room_length })}
+                                handleChangeText={(inputRoomLength) => this.setState({ inputRoomLength })}
                                 title="Panjang Kost *" placeholder="Masukan Panjang" />
 
                             <CustomTextInput
                                 changeKeyboard="numeric"
-                                handleChangeText={(room_width) => this.setState({ room_width })}
+                                handleChangeText={(inputRoomWidth) => this.setState({ inputRoomWidth })}
                                 title="Lebar Kost *" placeholder="Masukan Lebar" />
                         </View>
+
+                        {/* Upload Image */}
                         <View style={{ paddingVertical: 8 }}>
                             <Text style={styles.uploadKostImg}>Gambar Kost *</Text>
-                            <TouchableHighlight onPress={this.handleUploadImage} style={styles.btnGambar}>
+                            <TouchableHighlight onPress={this.handleUpload} style={styles.btnGambar}>
                                 <Text style={styles.textGambar}>Pilih Gambar</Text>
                             </TouchableHighlight>
                             {
-                                this.state.image && <Image source={this.state.image} style={{flex: 1, height: 400, marginVertical: 10}} />
+                                this.state.imageSource && <View style={{flex: 1, height: 350, marginVertical: 10}}><Image source={this.state.imageSource} style={{flex:1,width: undefined, height: undefined, resizeMode: 'cover'}} /></View>
                             }
                         </View>
+
+                        {/* Button Add */}
                         <TouchableHighlight onPress={this._saveDataKost} style={styles.btnTambah}>
                             <Text style={styles.textButton}>Tambah Kost</Text>
                         </TouchableHighlight>
+
                     </View>
+
                 </ScrollView>
+                {/* End Content */}
             </View>
         )
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        Dorm: state.ListDorm
+    }
+}
+
+export default connect(mapStateToProps)(Advertisement);
   
 
 const styles = StyleSheet.create({

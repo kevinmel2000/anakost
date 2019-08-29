@@ -2,7 +2,8 @@ const initialState = {
     dorms : [],
     isLoading: false,
     isError: false,
-    isSuccess: false
+    isSuccess: false,
+    isDone: false
 }
 
 export default ListDorm = (state = initialState, action) => {
@@ -15,6 +16,28 @@ export default ListDorm = (state = initialState, action) => {
         case 'ALL_DORM_REJECTED':
             return { ...state, isLoading: false, isError: true }
 
+        // Add Dorm
+        case 'ADD_DORM_PENDING':
+            return {
+                ...state,
+                dorms: null,
+                isLoading: true,
+                isError: false,
+            }
+        case 'ADD_DORM_FULFILLED':
+            return {
+                ...state,
+                dorms: action.payload.data,
+                isLoading: false,
+                isDone: true
+            }
+        case 'ADD_DORM_REJECTED':
+            return {
+                ...state,
+                isError: true,
+                isLoading: false,
+            }
+        
         default:
         return state;
     }
