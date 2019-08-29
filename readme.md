@@ -68,5 +68,9 @@ Jika Error, Silahkan Gunakan Sudo Jika Menggunakan linux / Buka Terminal Melalui
 
 ### Tampilan Aplikasi
 
+<p>
 ![Beranda](https://github.com/rismandev/kost/blob/master/src/assets/demo/Beranda.png)
 ![Login](https://github.com/rismandev/kost/blob/master/src/assets/demo/Masuk.png)
+![Register](https://github.com/rismandev/kost/blob/master/src/assets/demo/Daftar.png)
+![List](https://github.com/rismandev/kost/blob/master/src/assets/demo/List.png)
+</p>
