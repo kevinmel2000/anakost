@@ -20,7 +20,6 @@ export default ListDorm = (state = initialState, action) => {
         case 'ADD_DORM_PENDING':
             return {
                 ...state,
-                dorms: null,
                 isLoading: true,
                 isError: false,
             }
@@ -38,6 +37,28 @@ export default ListDorm = (state = initialState, action) => {
                 isLoading: false,
             }
         
+        case 'GET_DORM_SORT_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isError: false
+            }
+
+        case 'GET_DORM_SORT-FULFILLED':
+            return {
+                ...state,
+                dorms: action.payload.data,
+                isLoading: false,
+                isDone: true
+            }
+        
+        case 'GET_DORM_SORT_REJECTED':
+            return {
+                ...state,
+                isError: true,
+                isLoading: false,
+            }
+
         default:
         return state;
     }

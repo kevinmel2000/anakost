@@ -26,3 +26,10 @@ export function addDorm(data, token) {
     })
   }
 }
+
+export function sortDorm(key, value) {
+  return {
+    type : 'GET_DORM_SORT',
+    payload : axios.get(`${Global_URI.host}kost/sort/${key}/${value}`)
+  }
+}

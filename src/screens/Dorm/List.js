@@ -4,9 +4,10 @@ import {View, Text, TouchableHighlight, TextInput, Image, ScrollView, TouchableO
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MapView from 'react-native-maps';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import ActionSheet from 'react-native-actionsheet';
 
-import { allDorm } from '../../_actions/ListDorm'
+import { allDorm, sortDorm } from '../../_actions/ListDorm'
 import Loading from '../../components/Page/Loading';
 import Global_URI from '../../environment/Global_URI';
 
@@ -72,6 +73,29 @@ class List extends Component {
         this.setState({ region });
     }
 
+    _showActionSheet = () => {
+        this.ActionSheet.show();
+    }
+
+    sortingAction = (index) => {
+        switch (index) {
+          case 0:
+            this.props.dispatch(sortDorm('price', 'asc'))
+            break;
+          case 1:
+            this.props.dispatch(sortDorm('price', 'desc'))
+            break;
+          case 2:
+            this.props.dispatch(sortDorm('type', 'desc'))
+            break;
+          case 3:
+            this.props.dispatch(sortDorm('type', 'asc'))
+            break;
+          default:
+            break;
+        }
+    }
+
     render() {
 
         const Tabs = this.state.tabs;
@@ -117,10 +141,6 @@ class List extends Component {
             )
         } else {
 
-            if(this.props.data.isLoading) {
-                return <Loading />
-            }
-
             return (
                 <View style={{flex: 1,}}>
 
@@ -157,6 +177,10 @@ class List extends Component {
                     <View style={styles.container}> 
 
                         <ScrollView showsVerticalScrollIndicator={false} style={{ paddingBottom: '30%' }}>
+
+                            {
+                                this.props.data.isLoading ? <Loading /> : false
+                            }
 
                             <FlatList
                                 keyExtractor= {(item) => item.id.toString()}
@@ -200,12 +224,21 @@ class List extends Component {
 
                     {/* Sort & Filter Kost */}
                     </View>
+                        <ActionSheet
+                            ref={o => this.ActionSheet = o}
+                            title={'Urutkan Berdasarkan'}
+                            options={['Herga Termurah', 'Harga Termahal', 'Kos Putri', 'Kos Putra', 'Batal']}
+                            cancelButtonIndex={4}
+                            onPress={(index) => {
+                                this.sortingAction(index);
+                            }}
+                        />
                         <View style={styles.sortWrap}>
-                            <TouchableOpacity onPress={() =>alert('under maintenance')} style={styles.btnFilter}>
+                            <TouchableOpacity onPress={() =>alert('Belum Berfungsi!')} style={styles.btnFilter}>
                                 <Text style={{color:'white'}}>Filter</Text>
                             </TouchableOpacity>
                             <Text style={styles.dashFilter}> | </Text>
-                            <TouchableOpacity onPress={() =>alert('under maintenance')} style={styles.btnSort}>
+                            <TouchableOpacity onPress={this._showActionSheet} style={styles.btnSort}>
                                 <Text style={{color:'white'}}>Urutkan</Text>
                             </TouchableOpacity>
                         </View>

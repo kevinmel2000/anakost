@@ -224,7 +224,7 @@ class Advertisement extends Component {
                 )[0].label;
     
                 // Save or Set to State
-                this.setState({
+                await this.setState({
                     InputAddress
                 })
             }
@@ -271,12 +271,6 @@ class Advertisement extends Component {
 
     render() {
 
-        if(this.props.Dorm.isLoading) {
-            return(
-                <Loading />
-            )
-        }
-
         return (
 
             <View style={styles.container}> 
@@ -297,13 +291,17 @@ class Advertisement extends Component {
                 */}
 
                 {
-                    this.props.Dorm.isDone && this.props.navigation.navigate('Home')
+                    this.props.Dorm.isDone ? this.props.navigation.navigate('Home') : false
                 }
 
                 {/* Content */}
                 <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollFormAds}>
 
                     <View style={styles.IklanForm}>
+
+                        {
+                            this.props.Dorm.isLoading ? <Loading /> : false
+                        }
 
                         {/* Input Name */}
                         <CustomTextInput

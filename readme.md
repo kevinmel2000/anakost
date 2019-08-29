@@ -4,7 +4,7 @@
 -----------
 ### Ayo Install Sekarang
 
-#### => [Download Aplikasi](https://link)
+#### => [Download Aplikasi](https://drive.google.com/uc?id=1pOXgfRxLYvXsR1Yl6E-vtjqGNv9ZiHvt)
 
 ----------
 
