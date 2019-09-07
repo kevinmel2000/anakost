@@ -11,6 +11,16 @@
 ## GIF Aplikasi
 ![Anakost](https://github.com/rismandev/kost/blob/master/src/assets/demo/auth.gif)
 
+### Tampilan Aplikasi
+
+<p>
+![Beranda](https://github.com/rismandev/kost/blob/master/src/assets/demo/Beranda.png)
+![Login](https://github.com/rismandev/kost/blob/master/src/assets/demo/Masuk.png)
+![Register](https://github.com/rismandev/kost/blob/master/src/assets/demo/Daftar.png)
+![List](https://github.com/rismandev/kost/blob/master/src/assets/demo/List.png)
+</p>
+
+
 ### Informasi Pembuatan Aplikasi
 #### Dibuat Menggunakan :
 1. React Native
@@ -67,12 +77,4 @@ Jika Error, Silahkan Gunakan Sudo Jika Menggunakan linux / Buka Terminal Melalui
 **Buka Kembali Terminal, Lalu Ketik perintah berikut :**
 
 `react-native run-android` atau bisa juga menggunakan perintah `npm start`
-
-
-### Tampilan Aplikasi
-
-![Beranda](https://github.com/rismandev/kost/blob/master/src/assets/demo/Beranda.png)
-![Login](https://github.com/rismandev/kost/blob/master/src/assets/demo/Masuk.png)
-![Register](https://github.com/rismandev/kost/blob/master/src/assets/demo/Daftar.png)
-![List](https://github.com/rismandev/kost/blob/master/src/assets/demo/List.png)
 
