@@ -82,5 +82,5 @@ Jika Error, Silahkan Gunakan Sudo Jika Menggunakan linux / Buka Terminal Melalui
 
 **Buka Kembali Terminal, Lalu Ketik perintah berikut :**
 
-`react-native run-android` atau bisa juga menggunakan perintah `npm start`
+`react-native run-android` 
 
