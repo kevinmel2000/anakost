@@ -8,6 +8,9 @@
 
 ----------
 
+## GIF Aplikasi
+![Anakost](https://github.com/rismandev/kost/blob/master/src/assets/demo/auth.gif)
+
 ### Informasi Pembuatan Aplikasi
 #### Dibuat Menggunakan :
 1. React Native
