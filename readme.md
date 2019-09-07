@@ -13,11 +13,11 @@
 
 ### Tampilan Aplikasi
 
-<p>
-![Beranda](https://github.com/rismandev/kost/blob/master/src/assets/demo/Beranda.png)
-![Login](https://github.com/rismandev/kost/blob/master/src/assets/demo/Masuk.png)
-![Register](https://github.com/rismandev/kost/blob/master/src/assets/demo/Daftar.png)
-![List](https://github.com/rismandev/kost/blob/master/src/assets/demo/List.png)
+<p float="left">
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Beranda.png" width="250" alt=""/>
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Masuk.png" width="250" alt=""/>
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Daftar.png" width="250" alt=""/>
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/List.png" width="250" alt=""/>
 </p>
 
 
