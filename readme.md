@@ -92,4 +92,9 @@ Jika Error, Silahkan Gunakan Sudo Jika Menggunakan linux / Buka Terminal Melalui
 ### Follow Me
 
 Website : [Click Here](http://www.risman.site)
-Whatsapp : [Click Here](tell:089647329246)
+<br>
+Whatsapp : 089647329246
+<br>
+Facebook : [Click Here](https://www.facebook.com/risman.abdilah.58)
+<br>
+Instagram : [Click Here](https://www.instagram.com/rismandev)
