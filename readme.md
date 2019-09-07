@@ -84,3 +84,7 @@ Jika Error, Silahkan Gunakan Sudo Jika Menggunakan linux / Buka Terminal Melalui
 
 `react-native run-android` 
 
+
+### Contributor
+
+<img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/me.jpg" width="50" alt=""/>
