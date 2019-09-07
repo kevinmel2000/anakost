@@ -4,7 +4,7 @@
 -----------
 ### Install Aplikasi
 
-#### => [Download Aplikasi](http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/512/Downloads-icon.png)(https://drive.google.com/uc?id=1pOXgfRxLYvXsR1Yl6E-vtjqGNv9ZiHvt)
+#### => [![Download Aplikasi](http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/512/Downloads-icon.png)](https://drive.google.com/uc?id=1pOXgfRxLYvXsR1Yl6E-vtjqGNv9ZiHvt)
 
 ## GIF Aplikasi
 <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/auth.gif" width="300" alt=""/>
