@@ -9,7 +9,7 @@
 ----------
 
 ## GIF Aplikasi
-![Anakost](https://github.com/rismandev/kost/blob/master/src/assets/demo/auth.gif)
+<img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/auth.gif" width="300" alt=""/>
 
 ### Tampilan Aplikasi
 
