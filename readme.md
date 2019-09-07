@@ -14,12 +14,18 @@
 ### Tampilan Aplikasi
 
 <p float="left">
-  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Beranda.png" width="250" alt=""/>
-  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Masuk.png" width="250" alt=""/>
-  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Daftar.png" width="250" alt=""/>
-  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/List.png" width="250" alt=""/>
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Beranda.png" width="200" alt=""/>
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Masuk.png" width="200" alt=""/>
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Daftar.png" width="200" alt=""/>
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/List.png" width="200" alt=""/>
 </p>
 
+<p float="left">
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/List_Pesan.png" width="200" alt=""/>
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Blocked.png" width="200" alt=""/>
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Maps.png" width="200" alt=""/>
+  <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/Tambah_Iklan.png" width="200" alt=""/>
+</p>
 
 ### Informasi Pembuatan Aplikasi
 #### Dibuat Menggunakan :
