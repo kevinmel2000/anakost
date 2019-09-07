@@ -2,11 +2,9 @@
 
 ### Cari Kost Mewah, Sekarang Mudah!
 -----------
-### Ayo Install Sekarang
+### Install Aplikasi
 
 #### => [Download Aplikasi](https://drive.google.com/uc?id=1pOXgfRxLYvXsR1Yl6E-vtjqGNv9ZiHvt)
-
-----------
 
 ## GIF Aplikasi
 <img src="https://github.com/rismandev/kost/blob/master/src/assets/demo/auth.gif" width="300" alt=""/>
@@ -91,9 +89,9 @@ Jika Error, Silahkan Gunakan Sudo Jika Menggunakan linux / Buka Terminal Melalui
 
 ### Follow Me
 
-Website : [Click Here](http://www.risman.site)
-<br>
 Whatsapp : 089647329246
+<br>
+Website : [Click Here](http://www.risman.site)
 <br>
 Facebook : [Click Here](https://www.facebook.com/risman.abdilah.58)
 <br>
